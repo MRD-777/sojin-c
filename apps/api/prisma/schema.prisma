@@ -1,0 +1,803 @@
+// ============================================
+// 🏗️ Construction SaaS — Complete Database Schema
+// 17 Entities + Relations + Indexes
+// ============================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  // Prisma 7: the connection URL lives in prisma.config.ts (datasource.url),
+  // not here. Adding `url` back will fail validation.
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 1. Company (الشركة) — Root Entity
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Company {
+  id                 String             @id @default(uuid()) @db.Uuid
+  name               String
+  slug               String             @unique
+  logo               String?
+  phone              String?
+  email              String
+  address            String?
+  commercialRegister String?            @map("commercial_register")
+  taxId              String?            @map("tax_id")
+  employeeCount      String?            @map("employee_count")
+  specialization     String?
+  subscriptionPlan   SubscriptionPlan   @default(TRIAL) @map("subscription_plan")
+  subscriptionStatus SubscriptionStatus @default(TRIAL) @map("subscription_status")
+  storageQuota       BigInt             @default(5368709120) @map("storage_quota") // 5GB default
+  storageUsed        BigInt             @default(0) @map("storage_used")
+  currency           String             @default("EGP")
+  timezone           String             @default("Africa/Cairo")
+  settings           Json               @default("{}")
+  createdAt          DateTime           @default(now()) @map("created_at")
+  updatedAt          DateTime           @updatedAt @map("updated_at")
+  deletedAt          DateTime?          @map("deleted_at")
+
+  // Relations
+  users          User[]
+  projects       Project[]
+  subContractors SubContractor[]
+  auditLogs      AuditLog[]
+
+  @@map("companies")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 2. User (المستخدم)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model User {
+  id                      String   @id @default(uuid()) @db.Uuid
+  companyId               String   @map("company_id") @db.Uuid
+  supabaseAuthId          String?  @unique @map("supabase_auth_id")
+  name                    String
+  email                   String
+  phone                   String?
+  role                    UserRole @default(WORKER)
+  customPermissions       Json     @default("[]") @map("custom_permissions")
+  specialty               String?
+  avatar                  String?
+  isActive                Boolean  @default(true) @map("is_active")
+  notificationPreferences Json     @default("{}") @map("notification_preferences")
+  preferredLanguage       Language @default(AR) @map("preferred_language")
+  lastLogin               DateTime? @map("last_login")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+  deletedAt               DateTime? @map("deleted_at")
+
+  // Relations
+  company             Company             @relation(fields: [companyId], references: [id])
+  clientProjects      Project[]           @relation("ProjectClient")
+  projectAssignments  ProjectAssignment[]
+  submittedUpdates    Update[]            @relation("UpdateSubmitter")
+  reviewedUpdates     Update[]            @relation("UpdateReviewer")
+  forceCancelledUpdates Update[]          @relation("UpdateForceCanceller")
+  payments            Payment[]
+  deletedPayments     Payment[]           @relation("PaymentDeleter")
+  deletedMedia        Media[]             @relation("MediaDeleter")
+  notifications       Notification[]
+  chatParticipations  ChatParticipant[]
+  chatMessages        ChatMessage[]
+  comments            Comment[]
+  auditLogs           AuditLog[]
+  createdChatRooms    ChatRoom[]          @relation("ChatRoomCreator")
+  dailyTrackers       DailyUpdateTracker[]
+  changedVersions     UpdateVersion[]
+
+  @@unique([companyId, email])
+  @@index([companyId])
+  @@index([role])
+  @@index([companyId, role])
+  @@map("users")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 3. Project (المشروع)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Project {
+  id                  String        @id @default(uuid()) @db.Uuid
+  companyId           String        @map("company_id") @db.Uuid
+  clientId            String        @map("client_id") @db.Uuid
+  name                String
+  description         String?       @db.Text
+  location            String?
+  type                ProjectType   @default(FULL_FINISHING)
+  status              ProjectStatus @default(DRAFT)
+  startDate           DateTime?     @map("start_date") @db.Date
+  expectedEndDate     DateTime?     @map("expected_end_date") @db.Date
+  actualEndDate       DateTime?     @map("actual_end_date") @db.Date
+  totalBudget         Decimal       @default(0) @map("total_budget") @db.Decimal(15, 2)
+  overallProgress     Int           @default(0) @map("overall_progress")
+  dailyUpdateDeadline String        @default("17:00") @map("daily_update_deadline") // HH:mm format
+  createdAt           DateTime      @default(now()) @map("created_at")
+  updatedAt           DateTime      @updatedAt @map("updated_at")
+  deletedAt           DateTime?     @map("deleted_at")
+
+  // Relations
+  company            Company              @relation(fields: [companyId], references: [id])
+  client             User                 @relation("ProjectClient", fields: [clientId], references: [id])
+  phases             Phase[]
+  payments           Payment[]
+  assignments        ProjectAssignment[]
+  chatRooms          ChatRoom[]
+  dailyTrackers      DailyUpdateTracker[]
+  financialSettings  ProjectFinancialSettings?
+  boqItems           BOQItem[]
+
+  @@index([companyId])
+  @@index([companyId, status])
+  @@index([clientId])
+  @@map("projects")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 4. ProjectAssignment (تعيين الموظفين)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model ProjectAssignment {
+  id                    String      @id @default(uuid()) @db.Uuid
+  projectId             String      @map("project_id") @db.Uuid
+  userId                String      @map("user_id") @db.Uuid
+  roleInProject         ProjectRole @map("role_in_project")
+  isRequiredDailyUpdate Boolean     @default(false) @map("is_required_daily_update")
+  assignedAt            DateTime    @default(now()) @map("assigned_at")
+  removedAt             DateTime?   @map("removed_at")
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([projectId, userId])
+  @@index([projectId])
+  @@index([userId])
+  @@map("project_assignments")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 5. Phase (مرحلة المشروع)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Phase {
+  id              String      @id @default(uuid()) @db.Uuid
+  projectId       String      @map("project_id") @db.Uuid
+  name            String
+  description     String?     @db.Text
+  order           Int         @default(0)
+  weight          Int         @default(1)
+  status          PhaseStatus @default(NOT_STARTED)
+  progress        Int         @default(0)
+  startDate       DateTime?   @map("start_date") @db.Date
+  expectedEndDate DateTime?   @map("expected_end_date") @db.Date
+  budget          Decimal     @default(0) @db.Decimal(15, 2)
+  actualCost      Decimal     @default(0) @map("actual_cost") @db.Decimal(15, 2)
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
+  deletedAt       DateTime?   @map("deleted_at")
+
+  // Relations
+  project          Project              @relation(fields: [projectId], references: [id])
+  updates          Update[]
+  subContractors   PhaseSubContractor[]
+
+  @@index([projectId])
+  @@index([projectId, order])
+  @@map("phases")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 6. Update (التحديث اليومي) — قلب النظام
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Update {
+  id                String       @id @default(uuid()) @db.Uuid
+  phaseId           String       @map("phase_id") @db.Uuid
+  submittedBy       String       @map("submitted_by") @db.Uuid
+  reviewedBy        String?      @map("reviewed_by") @db.Uuid
+  title             String
+  description       String?      @db.Text
+  workDone          String?      @map("work_done") @db.Text
+  workRemaining     String?      @map("work_remaining") @db.Text
+  workersCount      Int          @default(0) @map("workers_count")
+  workHours         Decimal      @default(0) @map("work_hours") @db.Decimal(5, 2)
+  materialsUsed     Json         @default("[]") @map("materials_used") // [{name, quantity, unit, cost}]
+  cost              Decimal      @default(0) @db.Decimal(15, 2)
+  progressIncrement Int          @default(0) @map("progress_increment")
+  status            UpdateStatus @default(DRAFT)
+  rejectionReason   String?      @map("rejection_reason") @db.Text
+  forceCancelReason String?      @map("force_cancel_reason") @db.Text
+  forceCancelledBy  String?      @map("force_cancelled_by") @db.Uuid
+  isLocked          Boolean      @default(false) @map("is_locked")
+  lockedAt          DateTime?    @map("locked_at")
+  submittedAt       DateTime?    @map("submitted_at")
+  reviewedAt        DateTime?    @map("reviewed_at")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
+  deletedAt         DateTime?    @map("deleted_at")
+
+  // Relations
+  phase           Phase           @relation(fields: [phaseId], references: [id])
+  submitter       User            @relation("UpdateSubmitter", fields: [submittedBy], references: [id])
+  reviewer        User?           @relation("UpdateReviewer", fields: [reviewedBy], references: [id])
+  forceCanceller  User?           @relation("UpdateForceCanceller", fields: [forceCancelledBy], references: [id])
+  media           Media[]
+  comments        Comment[]
+  versions        UpdateVersion[]
+  boqLinks        BOQItemUpdate[]
+
+  @@index([phaseId])
+  @@index([submittedBy])
+  @@index([status])
+  @@index([phaseId, status])
+  @@index([submittedBy, status])
+  @@map("updates")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 7. Media (الوسائط)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Media {
+  id               String    @id @default(uuid()) @db.Uuid
+  updateId         String    @map("update_id") @db.Uuid
+  type             MediaType
+  url              String
+  thumbnailUrl     String?   @map("thumbnail_url")
+  fileSize         Int       @map("file_size") // in bytes
+  originalFileSize Int       @map("original_file_size")
+  mimeType         String    @map("mime_type")
+  caption          String?
+  order            Int       @default(0)
+  uploadedAt       DateTime  @default(now()) @map("uploaded_at")
+  deletedAt        DateTime? @map("deleted_at")
+  deletedBy        String?   @map("deleted_by") @db.Uuid
+  deletionReason   String?   @map("deletion_reason") @db.Text
+
+  // Relations
+  update  Update @relation(fields: [updateId], references: [id])
+  deleter User?  @relation("MediaDeleter", fields: [deletedBy], references: [id])
+
+  @@index([updateId])
+  @@index([updateId, deletedAt])
+  @@map("media")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 8. Payment (المدفوعات)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Payment {
+  id             String        @id @default(uuid()) @db.Uuid
+  projectId      String        @map("project_id") @db.Uuid
+  amount         Decimal       @db.Decimal(15, 2)
+  type           PaymentType
+  method         PaymentMethod @default(CASH)
+  description    String?       @db.Text
+  date           DateTime      @db.Date
+  receiptUrl     String?       @map("receipt_url")
+  recordedBy     String        @map("recorded_by") @db.Uuid
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+  deletedAt      DateTime?     @map("deleted_at")
+  deletedBy      String?       @map("deleted_by") @db.Uuid
+  deletionReason String?       @map("deletion_reason") @db.Text
+
+  // Relations
+  project  Project @relation(fields: [projectId], references: [id])
+  recorder User    @relation(fields: [recordedBy], references: [id])
+  deleter  User?   @relation("PaymentDeleter", fields: [deletedBy], references: [id])
+
+  @@index([projectId])
+  @@index([projectId, type])
+  @@index([projectId, deletedAt])
+  @@map("payments")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 9. Notification (الإشعارات)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Notification {
+  id            String               @id @default(uuid()) @db.Uuid
+  userId        String               @map("user_id") @db.Uuid
+  type          NotificationType
+  title         String
+  body          String               @db.Text
+  referenceType String?              @map("reference_type")
+  referenceId   String?              @map("reference_id") @db.Uuid
+  priority      NotificationPriority @default(NORMAL)
+  channel       NotificationChannel  @default(IN_APP)
+  isRead        Boolean              @default(false) @map("is_read")
+  scheduledFor  DateTime?            @map("scheduled_for")
+  createdAt     DateTime             @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([userId, isRead])
+  @@index([userId, createdAt])
+  @@map("notifications")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 10. ChatRoom (غرفة الشات)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model ChatRoom {
+  id        String       @id @default(uuid()) @db.Uuid
+  projectId String       @map("project_id") @db.Uuid
+  type      ChatRoomType @default(DIRECT)
+  name      String?
+  createdBy String       @map("created_by") @db.Uuid
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  // Relations
+  project      Project           @relation(fields: [projectId], references: [id])
+  creator      User              @relation("ChatRoomCreator", fields: [createdBy], references: [id])
+  participants ChatParticipant[]
+  messages     ChatMessage[]
+
+  @@index([projectId])
+  @@map("chat_rooms")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 11. ChatParticipant (مشارك في الشات)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model ChatParticipant {
+  id         String   @id @default(uuid()) @db.Uuid
+  roomId     String   @map("room_id") @db.Uuid
+  userId     String   @map("user_id") @db.Uuid
+  joinedAt   DateTime @default(now()) @map("joined_at")
+  lastReadAt DateTime @default(now()) @map("last_read_at")
+
+  // Relations
+  room ChatRoom @relation(fields: [roomId], references: [id])
+  user User     @relation(fields: [userId], references: [id])
+
+  @@unique([roomId, userId])
+  @@index([userId])
+  @@map("chat_participants")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 12. ChatMessage (رسالة شات)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model ChatMessage {
+  id            String          @id @default(uuid()) @db.Uuid
+  roomId        String          @map("room_id") @db.Uuid
+  senderId      String          @map("sender_id") @db.Uuid
+  content       String          @db.Text
+  type          ChatMessageType @default(TEXT)
+  attachmentUrl String?         @map("attachment_url")
+  isRead        Boolean         @default(false) @map("is_read")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  deletedAt     DateTime?       @map("deleted_at")
+
+  // Relations
+  room   ChatRoom @relation(fields: [roomId], references: [id])
+  sender User     @relation(fields: [senderId], references: [id])
+
+  @@index([roomId])
+  @@index([roomId, createdAt])
+  @@map("chat_messages")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 13. Comment (التعليقات)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model Comment {
+  id        String         @id @default(uuid()) @db.Uuid
+  updateId  String         @map("update_id") @db.Uuid
+  userId    String         @map("user_id") @db.Uuid
+  content   String         @db.Text
+  type      CommentType    @default(COMMENT)
+  status    CommentStatus? @default(OPEN)
+  parentId  String?        @map("parent_id") @db.Uuid
+  createdAt DateTime       @default(now()) @map("created_at")
+  updatedAt DateTime       @updatedAt @map("updated_at")
+  deletedAt DateTime?      @map("deleted_at")
+
+  // Relations
+  update   Update    @relation(fields: [updateId], references: [id])
+  user     User      @relation(fields: [userId], references: [id])
+  parent   Comment?  @relation("CommentReplies", fields: [parentId], references: [id])
+  replies  Comment[] @relation("CommentReplies")
+
+  @@index([updateId])
+  @@index([updateId, type])
+  @@map("comments")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 14. SubContractor (مقاول باطن)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model SubContractor {
+  id            String   @id @default(uuid()) @db.Uuid
+  companyId     String   @map("company_id") @db.Uuid
+  name          String
+  specialty     String
+  phone         String
+  email         String?
+  rating        Decimal  @default(0) @db.Decimal(2, 1)
+  totalProjects Int      @default(0) @map("total_projects")
+  notes         String?  @db.Text
+  joinedAt      DateTime @default(now()) @map("joined_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+
+  // Relations
+  company Company              @relation(fields: [companyId], references: [id])
+  phases  PhaseSubContractor[]
+
+  @@index([companyId])
+  @@map("sub_contractors")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 15. PhaseSubContractor (ربط مقاول بمرحلة)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model PhaseSubContractor {
+  id              String              @id @default(uuid()) @db.Uuid
+  phaseId         String              @map("phase_id") @db.Uuid
+  subContractorId String              @map("sub_contractor_id") @db.Uuid
+  agreedCost      Decimal             @default(0) @map("agreed_cost") @db.Decimal(15, 2)
+  actualCost      Decimal             @default(0) @map("actual_cost") @db.Decimal(15, 2)
+  status          SubContractorStatus @default(ACTIVE)
+  assignedAt      DateTime            @default(now()) @map("assigned_at")
+
+  // Relations
+  phase         Phase         @relation(fields: [phaseId], references: [id])
+  subContractor SubContractor @relation(fields: [subContractorId], references: [id])
+
+  @@unique([phaseId, subContractorId])
+  @@map("phase_sub_contractors")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 16. AuditLog (سجل المراجعة) — Append-only
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model AuditLog {
+  id         String      @id @default(uuid()) @db.Uuid
+  companyId  String      @map("company_id") @db.Uuid
+  userId     String      @map("user_id") @db.Uuid
+  userRole   String      @map("user_role")
+  entityType String      @map("entity_type")
+  entityId   String      @map("entity_id") @db.Uuid
+  action     AuditAction
+  oldValues  Json?       @map("old_values")
+  newValues  Json?       @map("new_values")
+  reason     String?     @db.Text
+  ipAddress  String?     @map("ip_address")
+  userAgent  String?     @map("user_agent")
+  requestId  String?     @map("request_id")
+  createdAt  DateTime    @default(now()) @map("created_at")
+
+  // Relations
+  company Company @relation(fields: [companyId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@index([companyId])
+  @@index([companyId, entityType])
+  @@index([companyId, createdAt])
+  @@index([entityType, entityId])
+  @@index([requestId])
+  @@map("audit_logs")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 17. UpdateVersion (إصدارات التحديث)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model UpdateVersion {
+  id            String   @id @default(uuid()) @db.Uuid
+  updateId      String   @map("update_id") @db.Uuid
+  versionNumber Int      @map("version_number")
+  snapshot      Json
+  changedBy     String   @map("changed_by") @db.Uuid
+  changeReason  String?  @map("change_reason") @db.Text
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  // Relations
+  update  Update @relation(fields: [updateId], references: [id])
+  changer User   @relation(fields: [changedBy], references: [id])
+
+  // CVE-UPD-007 (Session 2026-05-30): the previous schema let two parallel
+  // edit-approved calls both read `count = N`, both write `versionNumber = N+1`,
+  // and both succeed — corrupting the version history. The unique constraint
+  // now forces one of them to fail at insert time so the Serializable retry
+  // (in updates.service.ts:editApproved) re-reads a fresh count.
+  @@unique([updateId, versionNumber])
+  @@index([updateId])
+  @@map("update_versions")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 18. DailyUpdateTracker (متتبع المواعيد)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model DailyUpdateTracker {
+  id                      String            @id @default(uuid()) @db.Uuid
+  projectId               String            @map("project_id") @db.Uuid
+  userId                  String            @map("user_id") @db.Uuid
+  date                    DateTime          @db.Date
+  deadline                String            // HH:mm format
+  status                  DailyUpdateStatus @default(PENDING)
+  submittedAt             DateTime?         @map("submitted_at")
+  delayMinutes            Int?              @map("delay_minutes")
+  notificationSentToAdmin Boolean           @default(false) @map("notification_sent_to_admin")
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([projectId, userId, date])
+  @@index([projectId, date])
+  @@index([userId, date])
+  @@map("daily_update_trackers")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 19. IdempotencyRecord (سجل الطلبات المكرّرة)
+// Atomic store for Idempotency-Key replay protection. Lives in Prisma so
+// `saveInTransaction` can persist the record in the SAME tx as the side
+// effects it guards (approve, force-cancel). Closes CVE-UPD-002: the
+// previous in-memory store's `save` ran AFTER commit — a transient
+// store failure would leave the side effects committed but the key
+// uncached, allowing the next retry to re-execute and double-apply.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model IdempotencyRecord {
+  tenantId           String   @map("tenant_id") @db.Uuid
+  key                String
+  requestFingerprint String   @map("request_fingerprint")
+  statusCode         Int      @map("status_code")
+  body               Json
+  createdAt          DateTime @default(now()) @map("created_at")
+  expiresAt          DateTime @map("expires_at")
+
+  @@id([tenantId, key])
+  @@index([expiresAt])
+  @@map("idempotency_records")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 20. ProjectFinancialSettings (الإعدادات المالية للمشروع)
+// One-to-one مع Project. تُملى مرة في بداية المشروع (SUPER_ADMIN/ACCOUNTANT).
+// كل تعديل يُسجَّل في audit_logs (entityType=project_financial_settings).
+// الأرقام كلها Decimal — النِّسب كنسبة مئوية 0-100.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model ProjectFinancialSettings {
+  id                String    @id @default(uuid()) @db.Uuid
+  projectId         String    @unique @map("project_id") @db.Uuid
+  contractValue     Decimal   @default(0) @map("contract_value") @db.Decimal(15, 2)
+  retentionPct      Decimal   @default(5) @map("retention_pct") @db.Decimal(5, 2) // نسبة مئوية 0-100
+  advanceAmount     Decimal   @default(0) @map("advance_amount") @db.Decimal(15, 2)
+  advancePct        Decimal   @default(0) @map("advance_pct") @db.Decimal(5, 2) // نسبة مئوية 0-100
+  warrantyMonths    Int       @default(0) @map("warranty_months")
+  warrantyStartDate DateTime? @map("warranty_start_date") @db.Date
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  project Project @relation(fields: [projectId], references: [id])
+
+  @@map("project_financial_settings")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 21. BOQItem (بنود جدول الكميات) — شجرة (self-relation) + soft-delete
+// كل بند ممكن يكون له تفريعات (parentId). الحذف soft فقط (منع حذف بند
+// له أبناء نشطون). completedPct يُحسب real-time من الـ Updates المرتبطة.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model BOQItem {
+  id             String    @id @default(uuid()) @db.Uuid
+  projectId      String    @map("project_id") @db.Uuid
+  parentId       String?   @map("parent_id") @db.Uuid
+  name           String
+  contractValue  Decimal   @default(0) @map("contract_value") @db.Decimal(15, 2)
+  order          Int       @default(0)
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+  deletedAt      DateTime? @map("deleted_at")
+  deletedBy      String?   @map("deleted_by") @db.Uuid
+  deletionReason String?   @map("deletion_reason") @db.Text
+
+  // Relations
+  project  Project         @relation(fields: [projectId], references: [id])
+  parent   BOQItem?        @relation("BOQTree", fields: [parentId], references: [id])
+  children BOQItem[]       @relation("BOQTree")
+  updates  BOQItemUpdate[]
+
+  @@index([projectId])
+  @@index([projectId, parentId])
+  @@index([projectId, deletedAt])
+  @@map("boq_items")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 22. BOQItemUpdate (ربط التقارير اليومية المعتمدة بالبنود)
+// join table — منع الربط المكرّر عبر @@unique. يُستخدَم لحساب نسبة
+// إنجاز كل بند من الـ Updates بحالة APPROVED المرتبطة به.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+model BOQItemUpdate {
+  id        String   @id @default(uuid()) @db.Uuid
+  boqItemId String   @map("boq_item_id") @db.Uuid
+  updateId  String   @map("update_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  boqItem BOQItem @relation(fields: [boqItemId], references: [id])
+  update  Update  @relation(fields: [updateId], references: [id])
+
+  @@unique([boqItemId, updateId])
+  @@index([boqItemId])
+  @@index([updateId])
+  @@map("boq_item_updates")
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ENUMS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+enum SubscriptionPlan {
+  BASIC
+  PRO
+  ENTERPRISE
+  TRIAL
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  TRIAL
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  PROJECT_MANAGER
+  SITE_ENGINEER
+  SUPERVISOR
+  ACCOUNTANT
+  WORKER
+  CLIENT
+}
+
+enum Language {
+  AR
+  EN
+}
+
+enum ProjectType {
+  FULL_FINISHING
+  PARTIAL_FINISHING
+  CONSTRUCTION
+}
+
+enum ProjectStatus {
+  DRAFT
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  CANCELLED
+}
+
+enum ProjectRole {
+  SITE_ENGINEER
+  SUPERVISOR
+  ACCOUNTANT
+  WORKER
+  FOREMAN
+}
+
+enum PhaseStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  ON_HOLD
+}
+
+enum UpdateStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  REJECTED
+  FORCE_CANCELLED
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+enum PaymentType {
+  CLIENT_PAYMENT
+  EXPENSE
+  SUNK_COST
+}
+
+enum PaymentMethod {
+  CASH
+  BANK_TRANSFER
+  CHECK
+  OTHER
+}
+
+enum NotificationType {
+  UPDATE_SUBMITTED
+  UPDATE_APPROVED
+  UPDATE_REJECTED
+  UPDATE_FORCE_CANCELLED
+  UPDATE_EDITED_AFTER_APPROVAL
+  DEADLINE_REMINDER
+  DEADLINE_MISSED
+  DEADLINE_LATE
+  PAYMENT_RECORDED
+  PHASE_COMPLETED
+  PHASE_CANCELLED
+  NEW_CHAT_MESSAGE
+  NEW_COMMENT
+  CHANGE_REQUEST
+  REVIEW_REQUEST
+  SLA_BREACH
+  NEW_ASSIGNMENT
+  PROGRESS_OVERRIDE
+}
+
+enum NotificationPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+enum NotificationChannel {
+  IN_APP
+  PUSH
+  EMAIL
+  SMS
+}
+
+enum ChatRoomType {
+  DIRECT
+  GROUP
+}
+
+enum ChatMessageType {
+  TEXT
+  IMAGE
+  FILE
+  VOICE
+}
+
+enum CommentType {
+  COMMENT
+  REVIEW_REQUEST
+  CHANGE_REQUEST
+}
+
+enum CommentStatus {
+  OPEN
+  ACKNOWLEDGED
+  RESOLVED
+}
+
+enum SubContractorStatus {
+  ACTIVE
+  COMPLETED
+  TERMINATED
+}
+
+enum AuditAction {
+  CREATE
+  UPDATE
+  DELETE
+  APPROVE
+  REJECT
+  FORCE_CANCEL
+  PROGRESS_OVERRIDE
+}
+
+enum DailyUpdateStatus {
+  PENDING
+  SUBMITTED_ON_TIME
+  SUBMITTED_LATE
+  MISSED
+}

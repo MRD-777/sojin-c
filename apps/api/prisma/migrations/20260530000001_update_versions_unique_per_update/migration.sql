@@ -1,0 +1,32 @@
+-- ============================================================
+-- CVE-UPD-007 — UpdateVersion versionNumber race (Session 2026-05-30)
+-- ============================================================
+--
+-- Adds a UNIQUE constraint on (update_id, version_number) for the
+-- update_versions table. Pre-fix, `editApproved` computed
+--   versionCount = await tx.updateVersion.count({ where: { updateId } })
+--   await tx.updateVersion.create({ versionNumber: versionCount + 1, ... })
+-- without isolation strong enough to prevent two parallel edits from
+-- both reading the same count and inserting the same versionNumber.
+-- The history table then contained two rows with the same (updateId,
+-- versionNumber) — readers couldn't tell which was the truth.
+--
+-- With this constraint plus `isolationLevel: 'Serializable'` on the
+-- editApproved tx, the second concurrent insert fails with a unique
+-- violation, Postgres aborts the second tx, and the client retries
+-- to read a fresh count.
+--
+-- Pre-flight check
+-- ----------------
+-- If any historical duplicates exist, this migration will fail. The
+-- audit query below counts them — run it ahead of deploy and clean
+-- up manually if non-zero:
+--
+--   SELECT update_id, version_number, COUNT(*)
+--   FROM update_versions
+--   GROUP BY update_id, version_number
+--   HAVING COUNT(*) > 1;
+-- ------------------------------------------------------------
+
+CREATE UNIQUE INDEX "update_versions_update_id_version_number_key"
+  ON "update_versions" ("update_id", "version_number");

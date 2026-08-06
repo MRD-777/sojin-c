@@ -1,0 +1,88 @@
+# ============================================
+# Dependencies
+# ============================================
+node_modules/
+.pnp
+.pnp.js
+
+# ============================================
+# Build outputs
+# ============================================
+.next/
+out/
+build/
+dist/
+.turbo/
+*.tsbuildinfo
+
+# Prisma generated client
+generated/prisma/
+**/generated/prisma/
+
+# ============================================
+# Environment / secrets  (NEVER commit)
+# ============================================
+.env
+.env.local
+.env.*.local
+.env.development
+.env.production
+.env.test
+*.pem
+*.key
+
+# ============================================
+# Claude Code — local machine state only.
+# NOTE: .claude/skills, .claude/sessions, .claude/docs and .agents/
+#       ARE tracked on purpose. Only the local settings file is excluded,
+#       because it records ad-hoc shell commands that contain real
+#       credentials (DB connection strings).
+# ============================================
+.claude/settings.local.json
+.claude/**/settings.local.json
+
+# ============================================
+# IDE / editors
+# ============================================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ============================================
+# OS
+# ============================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ============================================
+# Logs
+# ============================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ============================================
+# Tests / coverage
+# ============================================
+coverage/
+.nyc_output/
+
+# ============================================
+# Databases (local dev)
+# ============================================
+apps/api/prisma/*.db
+*.sqlite
+*.sqlite3
+
+# ============================================
+# Scratch / generated listings — not part of the project
+# ============================================
+scratch/
+src_files.txt
+src_files_utf8.txt
+tmp/
+temp/

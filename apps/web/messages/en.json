@@ -1,0 +1,1830 @@
+{
+  "Common": {
+    "title": "Construction Management System",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "actions": {
+      "_value": "Actions",
+      "advancedFilter": "Advanced Filter",
+      "addEmployee": "Add Employee",
+      "options": "Options",
+      "sendEmail": "Send Email",
+      "call": "Call",
+      "transferProject": "Transfer Project",
+      "terminate": "Terminate",
+      "showingXofY": "Showing Xof Y",
+      "prev": "Prev",
+      "next": "Next"
+    },
+    "searchPlaceholder": "Search anywhere (Press ⌘K)",
+    "nav": {
+      "dashboard": "Dashboard",
+      "projects": "Projects Hub",
+      "finance": "Financial Control",
+      "team": "Team Management",
+      "subcontractors": "Subcontractors",
+      "chat": "Messages",
+      "settings": "Settings",
+      "profile": "My Profile",
+      "overview": "Command Center",
+      "auditTrail": "Audit Trail",
+      "reports": "Reports",
+      "allProjects": "All Projects",
+      "reviewInbox": "Review Inbox",
+      "projects_reviews": "Project Reviews",
+      "slaTracker": "SLA Tracker",
+      "finOverview": "Finance Overview",
+      "reconciliation": "Reconciliation",
+      "payments": "Payments",
+      "pettyCash": "Petty Cash",
+      "invoices": "Invoices",
+      "profitability": "Profitability",
+      "allEmployees": "All Employees",
+      "permissions": "Permissions",
+      "assignments": "Assignments",
+      "performance": "Performance",
+      "orgChart": "Org Chart",
+      "attendance": "Attendance",
+      "training": "Training & Certs",
+      "leaves": "Leaves",
+      "safety": "Safety HSE",
+      "allSubcontractors": "All Subcontractors",
+      "subPayments": "Sub Payments",
+      "comparePrices": "Compare Prices",
+      "allChats": "All Chats",
+      "companyInfo": "Company Info",
+      "subscription": "Subscription",
+      "workflow": "Workflow Settings",
+      "details": "Details",
+      "noSubmenu": "No Submenu"
+    },
+    "navMock": {
+      "prj1": "Marina Tower 3",
+      "prj2": "Capital School Complex"
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    },
+    "phases": {
+      "design": "Design",
+      "permits": "Permits",
+      "excavation": "Excavation",
+      "structure": "Structure",
+      "finishing": "Finishing",
+      "handover": "Handover"
+    },
+    "toggleLanguage": "Change Language",
+    "toggleTheme": "Toggle Theme",
+    "notifications": "Notifications",
+    "dashboardPage": {
+      "welcomeSub": "Welcome back to your command center. Here is what is happening today.",
+      "activeProjects": "Active Projects",
+      "totalRevenue": "Total Revenue",
+      "totalExpenses": "Total Expenses",
+      "pendingReviews": "Pending Reviews",
+      "fromLastMonth": "from last month",
+      "recentProjects": "Recent Projects",
+      "onTrack": "On Track",
+      "delayed": "Delayed",
+      "needsAttention": "Needs Attention",
+      "attentionMsg1": "<bold>Marina Tower 3</bold> is 15% behind schedule on structural phase.",
+      "attentionMsg2": "<bold>Ahmed Ali</bold> has not submitted the daily report for 2 days.",
+      "cashFlow": "Cash Flow Overview",
+      "projectsByPhase": "Projects by Phase",
+      "recentTasks": "Pending Approvals",
+      "approveBtn": "Approve",
+      "task1": "Invoice #INV-2024 for Marina Tower",
+      "task2": "Design Changes for Nakhla Villa",
+      "task3": "Material Request: 50T Steel",
+      "workforce": "Active Workforce",
+      "table": {
+        "projectName": "Project Name",
+        "phase": "Current Phase",
+        "progress": "Progress",
+        "budgetUsed": "Budget Used",
+        "status": "Status",
+        "p1": "Marina Tower 3",
+        "p2": "Nakhla Residential Complex",
+        "p3": "Al Shifa New Hospital",
+        "p4": "P4",
+        "p5": "P5",
+        "p6": "P6",
+        "p7": "P7"
+      },
+      "audit": {
+        "title": "Audit Trail",
+        "subtitle": "Track all system modifications and sensitive operations",
+        "filterDate": "Date Range",
+        "filterUser": "User",
+        "filterAction": "Action Type",
+        "exportPdf": "Export PDF",
+        "exportExcel": "Export Excel",
+        "colDate": "Date & Time",
+        "colUser": "User & Role",
+        "colAction": "Action Type",
+        "colEntity": "Affected Entity",
+        "colChanges": "Change Details",
+        "actionCreate": "Create",
+        "actionUpdate": "Update",
+        "actionDelete": "Delete",
+        "actionApprove": "Approve",
+        "viewDiff": "View Diff",
+        "oldValue": "Old Value",
+        "newValue": "New Value",
+        "emptyValue": "Not Set",
+        "fields": {
+          "status": "Status",
+          "budget": "Budget",
+          "approvedBy": "Approved By",
+          "progress": "Progress",
+          "notes": "Notes",
+          "isActive": "Account Status",
+          "deletedAt": "Deleted At",
+          "name": "Name",
+          "role": "Role",
+          "description": "Description",
+          "entity": "Entity"
+        },
+        "mock": {
+          "user1": "Ahmed Ali",
+          "role1": "Project Manager",
+          "entity1": "Project: Marina Tower 3",
+          "user2": "Sarah Hassan",
+          "role2": "Finance Director",
+          "entity2": "Invoice #INV-2024",
+          "user3": "Omar Zaid",
+          "role3": "Site Engineer",
+          "entity3": "Task: Foundation Pouring",
+          "notesOld": "Waiting for cement",
+          "notesNew": "Pouring started",
+          "user4": "System Administrator",
+          "role4": "Admin",
+          "entity4": "User Account: old_employee@saasone.com",
+          "desc1": "Create New Project",
+          "desc2": "Approve Supplier Invoice",
+          "desc3": "Update Site Progress",
+          "desc4": "Suspend Employee Account",
+          "statusPlanning": "Planning",
+          "statusPending": "Pending",
+          "statusApproved": "Approved",
+          "true": "Active",
+          "false": "Suspended"
+        }
+      },
+      "reports": {
+        "title": "Performance Reports",
+        "subtitle": "Analyze team performance and project SLA compliance",
+        "tabEngineers": "Engineers Performance",
+        "tabManagers": "Project Managers",
+        "tabSla": "SLA Compliance",
+        "engColName": "Engineer Name",
+        "engColProjects": "Active Projects",
+        "engColCommitment": "Time Commitment",
+        "engColAcceptance": "Acceptance Rate",
+        "engColResponse": "Avg Response Time",
+        "engColRating": "Rating",
+        "mgrColName": "Manager Name",
+        "mgrColProjects": "Total Projects",
+        "mgrColReviewTime": "Review Time",
+        "mgrColCompletion": "Completion Rate",
+        "slaColProject": "Project",
+        "slaColCompliance": "Compliance Rate",
+        "slaColBreaches": "SLA Breaches",
+        "statusCritical": "Critical",
+        "statusWarning": "Warning",
+        "statusExcellent": "Excellent"
+      },
+      "projects": {
+        "title": "Projects Hub",
+        "subtitle": "Manage and monitor all company projects at an enterprise level",
+        "newProject": "Create New Project",
+        "filterStatus": "Status",
+        "filterClient": "Client",
+        "filterManager": "Manager",
+        "colName": "Project",
+        "colClient": "Client",
+        "colManager": "Manager",
+        "colStatus": "Status",
+        "colProgress": "Progress",
+        "colBudget": "Total Budget",
+        "colSpent": "Total Spent",
+        "colVariance": "Variance",
+        "colStartDate": "Start Date",
+        "colEndDate": "Expected End",
+        "statusActive": "Active",
+        "statusDelayed": "Delayed",
+        "statusCompleted": "Completed",
+        "statusOnHold": "On Hold",
+        "miniDashboard": {
+          "financials": "Financials",
+          "timeline": "Timeline",
+          "stakeholders": "Stakeholders",
+          "activePhases": "Active Phases",
+          "contractValue": "Contract Value",
+          "remainingBudget": "Remaining Budget",
+          "profitMargin": "Exp. Profit Margin",
+          "actualStart": "Actual Start",
+          "contractualDelivery": "Contractual Delivery",
+          "remainingDays": "Remaining Days",
+          "delayDays": "Delay Days",
+          "owner": "Owner / Client",
+          "consultant": "Consultant",
+          "residentEngineer": "Resident Engineer",
+          "openProject": "Open Full Project Page"
+        },
+        "details": {
+          "lastUpdated": "Last updated: {time} by {user}",
+          "kpi": {
+            "overallProgress": "Overall Progress",
+            "contractValue": "Contract Value",
+            "approvedInvoices": "Approved Invoices",
+            "profitMargin": "Exp. Profit Margin",
+            "contractualDelivery": "Contractual Delivery",
+            "timeline": "Timeline",
+            "workforce": "Active Workforce"
+          },
+          "mock": {
+            "prj1Name": "Marina Tower 3",
+            "prj1Client": "Emaar Properties",
+            "prj1Manager": "Ahmed Ali",
+            "prj2Name": "The Palm Luxury Residential Complex",
+            "prj2Client": "National Development Company",
+            "prj2Manager": "Omar Zaid",
+            "activeProjectsSub": "projects in progress"
+          },
+          "contract": {
+            "title": "Contract & Administrative Info",
+            "contractData": "Contract Data",
+            "contractNo": "Contract No",
+            "signatureDate": "Signature Date",
+            "contractType": "Contract Type",
+            "downPayment": "Down Payment",
+            "retention": "Retention",
+            "warranty": "Warranty Period",
+            "stakeholders": "Stakeholders",
+            "owner": "Owner / Client",
+            "consultant": "Consultant",
+            "projectManager": "Project Manager",
+            "residentEngineer": "Resident Engineer",
+            "accountant": "Accountant",
+            "siteData": "Site Data",
+            "address": "Address",
+            "projectClass": "Classification",
+            "workSystem": "Work System",
+            "landArea": "Land Area",
+            "floors": "Number of Floors"
+          },
+          "timeline": {
+            "title": "Timeline & Schedule",
+            "plannedStart": "Planned Start",
+            "actualStart": "Actual Start",
+            "expectedEnd": "Expected End",
+            "contractualDelivery": "Contractual Delivery",
+            "timeConsumed": "Time Consumed: {percent}%",
+            "delay": "Delayed by {days} days",
+            "onTime": "On schedule"
+          },
+          "phases": {
+            "title": "Construction Phases",
+            "colPhase": "Phase",
+            "colStatus": "Status",
+            "colProgress": "Progress",
+            "colPlannedStart": "Planned Start",
+            "colActualStart": "Actual Start",
+            "colExpectedEnd": "Expected End",
+            "colManager": "Manager",
+            "colNotes": "Notes"
+          },
+          "financials": {
+            "title": "Financial Dashboard",
+            "contractValue": "Contract Value",
+            "totalSpent": "Total Spent",
+            "approvedInvoices": "Approved Invoices",
+            "remainingBudget": "Remaining Budget",
+            "invoicesTable": {
+              "title": "Invoices",
+              "colInvoice": "Invoice No.",
+              "colDate": "Date",
+              "colAmount": "Amount",
+              "colStatus": "Status",
+              "colApprovedBy": "Approved By"
+            },
+            "downPayment": "Down Payment",
+            "retention": "Accumulated Retention",
+            "variance": "Budget Variance"
+          },
+          "resources": {
+            "title": "Workforce & Equipment",
+            "workforceTable": {
+              "title": "Workforce Distribution",
+              "colCategory": "Category",
+              "colCount": "Count",
+              "colCost": "Monthly Cost",
+              "colSupervisor": "Supervisor"
+            },
+            "equipmentTable": {
+              "title": "Heavy Equipment",
+              "colEquipment": "Equipment",
+              "colCount": "Count",
+              "colStatus": "Status",
+              "colSupplier": "Supplier"
+            }
+          },
+          "subcontractors": {
+            "title": "Subcontractors",
+            "colName": "Subcontractor",
+            "colSpecialty": "Specialty",
+            "colValue": "Contract Value",
+            "colSpent": "Spent",
+            "colProgress": "Progress",
+            "colStatus": "Status"
+          },
+          "alerts": {
+            "title": "Project Alerts & Risks",
+            "critical": "Critical",
+            "warning": "Warning",
+            "info": "Info"
+          },
+          "activity": {
+            "title": "Activity Log",
+            "colDate": "Date",
+            "colAction": "Action",
+            "colDetails": "Details",
+            "colUser": "User",
+            "colType": "Type"
+          }
+        },
+        "new": {
+          "title": "Create New Construction Project",
+          "subtitle": "Follow the 5 steps to enter all enterprise project details",
+          "step1": "Project Charter",
+          "step2": "Location & Timeline",
+          "step3": "Stakeholders & Contracts",
+          "step4": "Budget & Finance",
+          "step5": "Workforce",
+          "nameLabel": "Official Project Name",
+          "namePlaceholder": "Enter project name as per contract",
+          "codeLabel": "Project Reference Code",
+          "codePlaceholder": "e.g., PRJ-2025-001",
+          "descLabel": "Description & Scope of Work",
+          "descPlaceholder": "Write a detailed description of the agreed scope",
+          "typeLabel": "Project Classification",
+          "typePlaceholder": "Select project classification",
+          "typeResidential": "Residential",
+          "typeCommercial": "Commercial",
+          "typeIndustrial": "Industrial",
+          "typeInfrastructure": "Infrastructure",
+          "contractTypeLabel": "Contract Type",
+          "contractTypePlaceholder": "Select contract type",
+          "contractLumpSum": "Lump Sum",
+          "contractCostPlus": "Cost Plus",
+          "contractUnitRate": "Unit Rate",
+          "priorityLabel": "Priority Level",
+          "priorityUrgent": "Urgent",
+          "priorityHigh": "High",
+          "priorityNormal": "Normal",
+          "locationLabel": "Project Location (Detailed Address)",
+          "locationPlaceholder": "City, District, Street",
+          "coordinatesLabel": "Coordinates (Optional)",
+          "coordinatesPlaceholder": "Latitude, Longitude",
+          "startDateLabel": "Planned Start Date",
+          "deliveryDateLabel": "Contractual Delivery Date",
+          "workHoursLabel": "Working Hours System",
+          "workHoursDay": "Daytime Only",
+          "workHoursTwo": "Two Shifts (16h)",
+          "workHoursFull": "24 Hours",
+          "constraintsLabel": "Work Constraints or Notes",
+          "constraintsPlaceholder": "e.g., Noise constraints at night",
+          "consultantLabel": "Consultant",
+          "consultantPlaceholder": "Engineering consulting firm name",
+          "contractNoLabel": "Official Contract No",
+          "contractDateLabel": "Contract Signing Date",
+          "budgetLabel": "Total Contract Value",
+          "internalBudgetLabel": "Internal Estimated Budget",
+          "downPaymentLabel": "Down Payment (%)",
+          "retentionLabel": "Retention (%)",
+          "paymentMethodLabel": "Payment Method",
+          "currencyLabel": "Project Currency",
+          "warrantyLabel": "Warranty Period (Months)",
+          "managerLabel": "Responsible Project Manager",
+          "residentEngLabel": "Resident Site Engineer",
+          "accountantLabel": "Project Accountant",
+          "workforceTitle": "Workforce & Categorization",
+          "addWorker": "Add Worker / Employee to Project",
+          "workerName": "Worker Name",
+          "workerRole": "Professional Category",
+          "customRole": "Create New Category",
+          "customRolePlaceholder": "Enter new category name",
+          "roles": {
+            "siteEng": "Site Engineer",
+            "super": "Field Supervisor",
+            "electrician": "Electrician",
+            "plumber": "Plumber",
+            "painter": "Painter",
+            "carpenter": "Carpenter",
+            "smith": "Blacksmith",
+            "surveyor": "Surveyor",
+            "manager": "Manager",
+            "worker": "Worker",
+            "supervisor": "Supervisor",
+            "custom": "Custom",
+            "admin": "Admin",
+            "projectManager": "Project Manager",
+            "siteEngineer": "Site Engineer",
+            "finance": "Finance",
+            "hr": "Hr",
+            "safetyOfficer": "Safety Officer"
+          },
+          "btnNext": "Next Step",
+          "btnPrev": "Previous Step",
+          "btnCreate": "Confirm & Create Project",
+          "btnCancel": "Cancel Process",
+          "clientLabel": "Client Label",
+          "clientPlaceholder": "Client Placeholder"
+        },
+        "mock": {
+          "prj1Name": "Prj1 Name",
+          "prj1Client": "Prj1 Client",
+          "prj1Manager": "Prj1 Manager",
+          "prj2Name": "Prj2 Name",
+          "prj2Client": "Prj2 Client",
+          "prj2Manager": "Prj2 Manager",
+          "activeProjectsSub": "Active Projects Sub"
+        }
+      },
+      "finance": {
+        "overview": {
+          "title": "Finance Overview",
+          "subtitle": "Comprehensive view of the financial status of all company projects",
+          "kpi": {
+            "totalActiveContracts": "Total Active Contracts Value",
+            "totalActualSpent": "Total Actual Spent",
+            "totalApprovedInvoices": "Total Approved Invoices",
+            "expectedNetProfit": "Expected Net Profit",
+            "openPettyCash": "Open Petty Cash",
+            "pendingInvoices": "Pending Invoices"
+          },
+          "charts": {
+            "monthlyCashFlow": "Monthly Cash Flow",
+            "expensesByCategory": "Expenses by Category"
+          },
+          "table": {
+            "title": "Financial Status of Active Projects",
+            "colProject": "Project Name",
+            "colContractValue": "Contract Value",
+            "colActualSpent": "Actual Spent",
+            "colApprovedInvoices": "Approved Invoices",
+            "colRemainingBudget": "Remaining Budget",
+            "colConsumptionRate": "Consumption Rate",
+            "colProfitMargin": "Profit Margin",
+            "colStatus": "Financial Status",
+            "statusHealthy": "Healthy",
+            "statusWarning": "Warning",
+            "statusDanger": "Danger"
+          },
+          "alerts": {
+            "title": "Urgent Financial Alerts"
+          },
+          "activity": {
+            "title": "Recent Financial Activity"
+          }
+        }
+      },
+      "reviews": {
+        "title": "Review & Approval Center",
+        "subtitle": "Review and approve daily updates from construction sites",
+        "pendingCount": "{count} updates waiting for review",
+        "pendingSince": "Pending since {time}",
+        "overdueSla": "🔴 SLA Overdue!",
+        "sender": "Sender",
+        "phase": "Phase",
+        "progress": "Progress",
+        "description": "Update Description",
+        "media": "Attached Media & Docs",
+        "btnApprove": "Approve Update",
+        "btnReject": "Reject Update",
+        "btnRequestEdit": "Request Edits",
+        "rejectModalTitle": "Reason for Rejection",
+        "rejectReasonPlaceholder": "Please write the reason clearly so the engineer can edit..."
+      },
+      "sla": {
+        "title": "Daily Commitment Tracker (SLA)",
+        "subtitle": "Monitor engineers' commitment to submitting daily reports on time",
+        "complianceRate": "Overall Compliance Rate",
+        "todayReports": "Today's Reports",
+        "lateUsers": "Currently Late",
+        "employee": "Employee / Engineer",
+        "project": "Assigned Project",
+        "weekView": "Current Week View",
+        "statusSubmitted": "Submitted on Time",
+        "statusLate": "Submitted Late",
+        "statusMissing": "Not Submitted Yet",
+        "legend": {
+          "onTime": "On Time",
+          "late": "Late",
+          "missing": "Missing"
+        }
+      }
+    },
+    "finance": {
+      "overview": {
+        "title": "Finance Overview",
+        "subtitle": "Monitor financial performance and cash flows for all projects.",
+        "kpi": {
+          "totalActiveContracts": "Total Active Contracts",
+          "totalActualSpent": "Total Actual Spent",
+          "totalApprovedInvoices": "Total Approved Invoices",
+          "expectedNetProfit": "Expected Net Profit",
+          "openPettyCash": "Open Petty Cash",
+          "pendingInvoices": "Pending Invoices",
+          "collectionRate": "Collection Rate",
+          "vatDue": "VAT Due",
+          "increased": "Increased",
+          "vsLastMonth": "vs Last Month"
+        },
+        "charts": {
+          "monthlyCashFlow": "Monthly Cash Flow",
+          "expensesByCategory": "Expenses by Category",
+          "revenue": "Revenue",
+          "expenses": "Expenses",
+          "categories": {
+            "materials": "Materials",
+            "subcontractors": "Subcontractors",
+            "equipment": "Equipment",
+            "salaries": "Salaries",
+            "admin": "Admin",
+            "other": "Other"
+          }
+        },
+        "wipSummary": {
+          "title": "Work-in-Progress (WIP) Summary",
+          "colProject": "Project",
+          "colContractValue": "Contract Value (incl. COs)",
+          "colCompletion": "Completion %",
+          "colEarnedRevenue": "Earned Revenue",
+          "colBilledToDate": "Billed to Date",
+          "colOverUnderBilling": "Over/(Under) Billing"
+        },
+        "vatSummary": {
+          "title": "VAT Summary",
+          "outputVat": "Output VAT",
+          "inputVat": "Input VAT",
+          "netVatDue": "Net VAT Due",
+          "nextReturnDate": "Next Return Date"
+        },
+        "cashFlow": {
+          "title": "Cash Flow Forecast",
+          "expectedCollections": "Expected Collections",
+          "scheduledPayments": "Scheduled Payments",
+          "netCashFlow": "Net Cash Flow"
+        },
+        "table": {
+          "title": "Projects Financial Summary",
+          "colProject": "Project",
+          "colContractValue": "Contract Value",
+          "colActualSpent": "Actual Spent",
+          "colApprovedInvoices": "Approved Invoices",
+          "colRemainingBudget": "Remaining Budget",
+          "colConsumptionRate": "Consumption Rate",
+          "colProfitMargin": "Profit Margin",
+          "colEAC": "Estimate at Completion (EAC)",
+          "colRetainage": "Retainage",
+          "colStatus": "Status",
+          "statusHealthy": "Healthy",
+          "statusWarning": "Warning"
+        },
+        "alerts": {
+          "title": "Important Alerts"
+        },
+        "activity": {
+          "title": "Recent Activities"
+        }
+      },
+      "reconciliation": {
+        "title": "Financial Reconciliation",
+        "subtitle": "Matching accounts between actual spent, approved invoices, and collected amounts.",
+        "kpi": {
+          "dueFromClients": "Total Due from Clients",
+          "dueToSuppliers": "Total Due to Suppliers",
+          "netPosition": "Net Position",
+          "collectionRate": "Collection Rate",
+          "overdueInvoicesCount": "Overdue Invoices"
+        },
+        "table": {
+          "title": "Projects Reconciliation Details",
+          "colProject": "Project",
+          "colApproved": "Approved Invoices",
+          "colCollected": "Collected Amount",
+          "colRemainingClient": "Remaining from Client",
+          "colPaidSuppliers": "Paid to Suppliers",
+          "colDueSuppliers": "Due to Suppliers",
+          "colNetPosition": "Net Position",
+          "colStatus": "Status",
+          "statusMatched": "Matched",
+          "statusDifference": "Difference",
+          "total": "Total"
+        },
+        "arAging": {
+          "title": "Accounts Receivable Aging",
+          "colProjectClient": "Project / Client",
+          "col0to30": "0 - 30 Days",
+          "col31to60": "31 - 60 Days",
+          "col61to90": "61 - 90 Days",
+          "colOver90": "+90 Days",
+          "colTotal": "Total"
+        },
+        "apAging": {
+          "title": "Accounts Payable Aging",
+          "colSupplier": "Supplier / Subcontractor",
+          "colCurrent": "Current",
+          "col1to30": "1 - 30 Days",
+          "col31to60": "31 - 60 Days",
+          "col61to90": "61 - 90 Days",
+          "colOver90": "+90 Days",
+          "colTotal": "Total"
+        },
+        "retainage": {
+          "title": "Retainage Summary",
+          "colProject": "Project",
+          "colClientRetainage": "Retained by Client",
+          "colSubcontractorRetainage": "Retained from Subcontractors",
+          "colNetRetainage": "Net Retainage",
+          "colExpectedReleaseDate": "Expected Release Date"
+        }
+      },
+      "payments": {
+        "title": "Payments",
+        "subtitle": "Manage all outgoing and incoming payments for suppliers, contractors, and clients.",
+        "kpi": {
+          "totalThisMonth": "Total Paid This Month",
+          "pending": "Pending Payments",
+          "scheduled": "Scheduled Payments",
+          "overdue": "Overdue Payments"
+        },
+        "table": {
+          "title": "Payments Log",
+          "colId": "Payment ID",
+          "colDate": "Date",
+          "colBeneficiary": "Beneficiary",
+          "colProject": "Related Project",
+          "colAmount": "Amount",
+          "colMethod": "Payment Method",
+          "colReference": "Ref/Cheque No.",
+          "colStatus": "Status",
+          "colApprovedBy": "Approved By",
+          "statusCompleted": "Completed",
+          "statusPending": "Pending",
+          "statusCancelled": "Cancelled",
+          "methods": {
+            "bankTransfer": "Bank Transfer",
+            "cheque": "Cheque"
+          },
+          "beneficiaries": {
+            "alFahd": "Al-Fahd Suppliers",
+            "gulfBuild": "Gulf Build Cont."
+          }
+        },
+        "scheduled": {
+          "title": "Scheduled Payments",
+          "colBeneficiary": "Beneficiary",
+          "colProject": "Project",
+          "colAmount": "Amount",
+          "colDueDate": "Due Date",
+          "colPriority": "Priority",
+          "priorityHigh": "High",
+          "priorityNormal": "Normal"
+        },
+        "categoryAnalysis": {
+          "title": "Payments by Category",
+          "colCategory": "Category",
+          "colThisMonth": "This Month",
+          "colLastMonth": "Last Month",
+          "colCumulative": "Cumulative",
+          "colPercentage": "Percentage %",
+          "categories": {
+            "materials": "Material Suppliers",
+            "subcontractors": "Subcontractors",
+            "equipment": "Equipment & Rentals",
+            "siteSalaries": "Site Salaries",
+            "admin": "Admin Expenses",
+            "rent": "General Rent"
+          }
+        },
+        "guarantees": {
+          "title": "Active Letters of Guarantee",
+          "colType": "Guarantee Type",
+          "colProject": "Project",
+          "colBank": "Bank",
+          "colValue": "Value",
+          "colExpiryDate": "Expiry Date",
+          "colStatus": "Status",
+          "types": {
+            "bidBond": "Bid Bond",
+            "performanceBond": "Performance Bond",
+            "advancePayment": "Advance Payment"
+          },
+          "statusActive": "Active",
+          "statusExpired": "Expired"
+        }
+      },
+      "pettyCash": {
+        "title": "Petty Cash",
+        "subtitle": "Manage petty cash issued to site engineers and supervisors.",
+        "kpi": {
+          "openTotal": "Total Open Petty Cash",
+          "settledThisMonth": "Settled This Month",
+          "overdue": "Overdue (>30 days)",
+          "casesOver30Days": "Cases > 30 Days",
+          "activeHolders": "Active Holders",
+          "holdersCount": "Petty Cash Holders"
+        },
+        "table": {
+          "title": "Petty Cash Log",
+          "colId": "Petty Cash ID",
+          "colHolder": "Holder",
+          "colProject": "Project",
+          "colOriginalAmount": "Original Amount",
+          "colSpent": "Spent",
+          "colRemaining": "Remaining",
+          "colInvoicesCount": "Invoices Count",
+          "colIssueDate": "Issue Date",
+          "colAge": "Age (Days)",
+          "colStatus": "Status",
+          "statusOpen": "Open",
+          "statusSettling": "Settling",
+          "statusSettled": "Settled",
+          "statusOverdue": "Overdue",
+          "holders": {
+            "ahmed": "Eng. Ahmed Mahmoud",
+            "khalid": "Eng. Khalid Abdullah"
+          }
+        },
+        "breakdown": {
+          "title": "Petty Cash Expenses Breakdown",
+          "colCategory": "Category",
+          "colAmount": "Amount",
+          "colInvoicesCount": "Invoices Count",
+          "colPercentage": "Percentage %",
+          "categories": {
+            "materials": "Emergency Materials",
+            "transport": "Transport",
+            "food": "Labor Food",
+            "emergency": "Medical Emergency",
+            "tools": "Tools",
+            "misc": "Miscellaneous"
+          }
+        },
+        "holderPerformance": {
+          "title": "Petty Cash Holders Performance",
+          "colHolder": "Holder",
+          "colTotalPettyCash": "Total Petty Cash",
+          "colSettledOnTime": "Settled On Time",
+          "colOverdue": "Overdue",
+          "colAvgSettlementDays": "Avg Settlement Days",
+          "colRating": "Rating",
+          "ratingExcellent": "Excellent",
+          "ratingGood": "Good",
+          "ratingNeedsImprovement": "Needs Improvement"
+        },
+        "auditTrail": {
+          "title": "Audit & Review Trail",
+          "colDate": "Date",
+          "colAuditor": "Auditor",
+          "colResult": "Result",
+          "colNotes": "Notes",
+          "results": {
+            "passed": "Passed",
+            "minorIssues": "Minor Issues",
+            "majorIssues": "Major Issues"
+          }
+        }
+      },
+      "invoices": {
+        "title": "Invoices",
+        "subtitle": "Manage the complete lifecycle of invoices from creation to collection.",
+        "kpi": {
+          "totalIssued": "Total Issued Invoices",
+          "approved": "Approved Invoices",
+          "underReview": "Under Review",
+          "collected": "Collected Invoices",
+          "collectionRate": "Collection Rate",
+          "avgCollectionDays": "Avg Collection Days (DSO)"
+        },
+        "table": {
+          "title": "Invoices Log",
+          "colId": "Invoice No.",
+          "colProject": "Project",
+          "colPeriod": "Period",
+          "colTotal": "Gross Amount",
+          "colAdvanceDeduction": "Advance Deduction",
+          "colRetentionDeduction": "Retention Deduction",
+          "colVat": "VAT",
+          "colDeductions": "Deductions",
+          "colNetDue": "Net Due",
+          "colSubmissionDate": "Submission Date",
+          "colApprovalDate": "Approval Date",
+          "colStatus": "Status",
+          "colApprover": "Approver",
+          "statusDraft": "Draft",
+          "statusSubmitted": "Submitted",
+          "statusUnderReview": "Under Review",
+          "statusApproved": "Approved",
+          "statusRejected": "Rejected",
+          "statusCollected": "Collected"
+        },
+        "pipeline": {
+          "title": "Invoice Lifecycle Pipeline",
+          "stageDraft": "Draft",
+          "stageSubmitted": "Submitted",
+          "stageUnderReview": "Review",
+          "stageApproved": "Approved",
+          "stageCollected": "Collected"
+        },
+        "collectionAnalysis": {
+          "title": "Collection Analysis",
+          "colProject": "Project",
+          "colTotalApproved": "Total Approved",
+          "colCollected": "Collected",
+          "colOverdue": "Overdue",
+          "colOldestInvoiceAge": "Oldest Invoice Age",
+          "colDSO": "DSO"
+        },
+        "changeOrders": {
+          "title": "Change Orders Log",
+          "colId": "Order No.",
+          "colProject": "Project",
+          "colDescription": "Description",
+          "colOriginalValue": "Original Value",
+          "colChangeValue": "Change Value",
+          "colNewValue": "New Value",
+          "colStatus": "Status",
+          "statusApproved": "Approved",
+          "statusPending": "Pending",
+          "statusRejected": "Rejected"
+        },
+        "invoiceRetainage": {
+          "title": "Invoices Retainage Summary",
+          "colProject": "Project",
+          "colTotalRetained": "Total Retained",
+          "colRetentionPercentage": "Retention %",
+          "colExpectedReleaseDate": "Expected Release Date"
+        }
+      },
+      "profitability": {
+        "title": "Profitability & Costs",
+        "subtitle": "Actual profitability analysis and detailed job costing per project.",
+        "kpi": {
+          "totalRevenue": "Total Revenue",
+          "totalCost": "Total Actual Cost",
+          "netProfit": "Actual Net Profit",
+          "grossMargin": "Gross Profit Margin"
+        },
+        "table": {
+          "title": "Projects Profitability Analysis",
+          "colProject": "Project",
+          "colContract": "Contract Value",
+          "colEarnedRevenue": "Earned Revenue",
+          "colPlannedCost": "Planned Cost",
+          "colActualCost": "Actual Cost",
+          "colVariance": "Variance",
+          "colEAC": "Estimate at Completion",
+          "colExpectedProfit": "Expected Profit",
+          "colActualProfit": "Actual Profit",
+          "colMargin": "Profit Margin",
+          "colStatus": "Status",
+          "statusProfitable": "Profitable",
+          "statusBreakeven": "Breakeven",
+          "statusLoss": "Loss"
+        },
+        "jobCost": {
+          "title": "Detailed Job Costing",
+          "colCategory": "Cost Category",
+          "colPlanned": "Planned",
+          "colActual": "Actual",
+          "colVariance": "Variance",
+          "categories": {
+            "materials": "Materials",
+            "labor": "Labor",
+            "equipment": "Equipment",
+            "subcontractors": "Subcontractors",
+            "overhead": "Overhead"
+          }
+        },
+        "quarterly": {
+          "title": "Quarterly Profitability Comparison",
+          "colQuarter": "Quarter",
+          "colRevenue": "Revenue",
+          "colCosts": "Costs",
+          "colGrossProfit": "Gross Profit",
+          "colMargin": "Margin",
+          "colNetProfit": "Net Profit",
+          "current": "Current"
+        },
+        "alerts": {
+          "title": "Profitability Alerts",
+          "colType": "Alert Type",
+          "colImpact": "Impact",
+          "colAction": "Required Action",
+          "materialOverrun": "Material Cost Overrun",
+          "reviewContracts": "Review supplier contracts",
+          "collectionDelay": "Collection Delay",
+          "cashFlowRisk": "Cash flow risk",
+          "followUp": "Follow up with client"
+        }
+      }
+    },
+    "team": {
+      "overview": {
+        "title": "Employee Directory",
+        "subtitle": "Manage your enterprise workforce across all projects and departments.",
+        "stats": {
+          "totalWorkforce": "Total Workforce",
+          "engineers": "Engineers",
+          "skilledTrades": "Skilled Trades",
+          "administrative": "Administrative",
+          "attendanceRate": "Attendance Rate",
+          "probation": "Probation",
+          "expiringContracts": "Expiring Contracts",
+          "turnoverRate": "Turnover Rate"
+        },
+        "alerts": {
+          "contractsExpiring": "{count} contracts expiring within 30 days",
+          "probationEnding": "{count} employees ending probation soon",
+          "overtimeLimit": "{count} employees exceeded overtime limits",
+          "pendingTransfers": "{count} pending transfer requests"
+        },
+        "table": {
+          "employee": "Employee",
+          "role": "Role",
+          "category": "Category",
+          "department": "Department",
+          "currentProject": "Current Project",
+          "attendanceToday": "Attendance",
+          "contractType": "Contract",
+          "expiryDate": "Expiry Date",
+          "status": "Status"
+        },
+        "filters": {
+          "allCategories": "All Categories",
+          "allProjects": "All Projects",
+          "allStatuses": "All Statuses"
+        },
+        "charts": {
+          "workforceDistribution": "Workforce Distribution",
+          "byCategory": "By job category",
+          "hiringTrends": "Hiring Trends",
+          "hiredVsLeft": "Hired vs Left (Last 6 months)"
+        },
+        "actions": {
+          "addEmployee": "Add Employee",
+          "advancedFilter": "Advanced Filter",
+          "options": "Employee Options",
+          "sendEmail": "Send Email",
+          "call": "Call",
+          "transferProject": "Transfer Project",
+          "terminate": "Terminate",
+          "showingXofY": "Showing {count} of {total} employees",
+          "prev": "Previous",
+          "next": "Next"
+        },
+        "statuses": {
+          "active": "Active",
+          "expiringSoon": "Expiring Soon",
+          "probation": "Probation",
+          "onLeave": "On Leave",
+          "suspended": "Suspended",
+          "present": "Present",
+          "absent": "Absent",
+          "sickLeave": "Sick Leave",
+          "remote": "Remote"
+        },
+        "mock": {
+          "emp1Name": "Ahmed Mansour",
+          "emp1Role": "Project Manager",
+          "emp1Dept": "Operations",
+          "emp1Proj": "Marina Tower 3",
+          "emp1Contract": "Full-time"
+        }
+      },
+      "orgChart": {
+        "title": "Organizational Hierarchy",
+        "subtitle": "Visualize the reporting structure of the company.",
+        "stats": {
+          "departments": "Departments",
+          "leadership": "Leadership Roles",
+          "occupancy": "Role Occupancy",
+          "instruction": "Click on a department to view sub-departments and team members",
+          "interactiveTitle": "Interactive Org Chart",
+          "managementLevel": "Management Level",
+          "executiveLevel": "Executive Level"
+        },
+        "actions": {
+          "exportPdf": "Export PDF",
+          "addDept": "Add Department",
+          "deptOptions": "Department Options",
+          "viewEmployees": "View Employees",
+          "addSubDept": "Add Sub-dept",
+          "deactivateDept": "Deactivate Dept"
+        },
+        "departments": {
+          "executive": "Executive & Operations",
+          "civil": "Civil & Structural",
+          "electrical": "Electrical Engineering",
+          "mechanical": "Mechanical & HVAC",
+          "planning": "Planning & Surveying",
+          "quality": "Quality & QC",
+          "safety": "Safety (HSE)",
+          "admin": "Admin & Finance"
+        }
+      },
+      "attendance": {
+        "title": "Time & Attendance",
+        "subtitle": "Track employee working hours, shifts, and leaves across all project sites.",
+        "stats": {
+          "presentToday": "Present Today",
+          "lateArrivals": "Late Arrivals",
+          "overtimeHours": "Overtime Hours",
+          "absent": "Absent"
+        },
+        "table": {
+          "employee": "Employee",
+          "checkIn": "Check In",
+          "checkOut": "Check Out",
+          "workHours": "Work Hours",
+          "overtime": "Overtime",
+          "location": "Site Location",
+          "method": "Method",
+          "status": "Status"
+        }
+      },
+      "permissions": {
+        "title": "Access Control & Roles",
+        "subtitle": "Define granular access levels and permissions for enterprise staff.",
+        "stats": {
+          "totalRoles": "System Roles",
+          "customPermissions": "Custom Rules",
+          "activePolicies": "Active Policies"
+        },
+        "roles": {
+          "admin": "Super Admin",
+          "projectManager": "Project Manager",
+          "siteEngineer": "Site Engineer",
+          "finance": "Finance Manager",
+          "hr": "HR Specialist",
+          "safetyOfficer": "Safety Officer"
+        },
+        "modules": {
+          "finance": "Finance & Budget",
+          "team": "Team Management",
+          "inventory": "Inventory & Assets",
+          "projects": "Project Execution",
+          "reports": "Analytics & Reporting"
+        },
+        "actions": {
+          "view": "View",
+          "create": "Create",
+          "edit": "Edit",
+          "delete": "Delete",
+          "approve": "Approve"
+        }
+      },
+      "assignments": {
+        "title": "Resource Allocation",
+        "subtitle": "Manage workforce distribution and task assignments across projects.",
+        "stats": {
+          "activeProjects": "Active Projects",
+          "assignedWorkers": "Assigned Workforce",
+          "benchResources": "On-Bench Resources",
+          "allocatedResources": "Allocated Resources",
+          "idleResources": "Idle Resources",
+          "pendingTransfers": "Pending Transfers",
+          "utilizationRate": "Utilization Rate"
+        },
+        "timeline": {
+          "title": "Resource Timeline",
+          "view": "Timeline View",
+          "resource": "Resource",
+          "project": "Project",
+          "allocation": "Allocation",
+          "availability": "Availability Status"
+        },
+        "transfer": {
+          "request": "Transfer Request",
+          "newRequest": "New Transfer Request",
+          "from": "From Project",
+          "to": "To Project",
+          "fromProject": "From Project",
+          "toProject": "To Project",
+          "reason": "Reason for Transfer",
+          "priority": "Priority",
+          "effectiveDate": "Effective Date"
+        }
+      }
+    },
+    "stats": {
+      "totalWorkforce": "Total Workforce",
+      "engineers": "Engineers",
+      "skilledTrades": "Skilled Trades",
+      "administrative": "Administrative",
+      "attendanceRate": "Attendance Rate",
+      "probation": "Probation",
+      "expiringContracts": "Expiring Contracts",
+      "turnoverRate": "Turnover Rate"
+    },
+    "subtitle": "Subtitle",
+    "alerts": {
+      "contractsExpiring": "Contracts Expiring",
+      "probationEnding": "Probation Ending",
+      "overtimeLimit": "Overtime Limit",
+      "pendingTransfers": "Pending Transfers"
+    },
+    "charts": {
+      "workforceDistribution": "Workforce Distribution",
+      "byCategory": "By Category",
+      "hiringTrends": "Hiring Trends",
+      "hiredVsLeft": "Hired Vs Left"
+    },
+    "table": {
+      "employee": "Employee",
+      "role": "Role",
+      "category": "Category",
+      "department": "Department",
+      "currentProject": "Current Project",
+      "attendanceToday": "Attendance Today",
+      "status": "Status"
+    },
+    "permissions": {
+      "roles": {
+        "admin": "Admin",
+        "projectManager": "Project Manager",
+        "siteEngineer": "Site Engineer",
+        "finance": "Finance",
+        "hr": "Hr",
+        "safetyOfficer": "Safety Officer"
+      },
+      "modules": {
+        "projects": "Projects",
+        "finance": "Finance",
+        "team": "Team",
+        "inventory": "Inventory",
+        "reports": "Reports"
+      },
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "stats": {
+        "totalRoles": "Total Roles",
+        "customPermissions": "Custom Permissions",
+        "activePolicies": "Active Policies"
+      },
+      "actions": {
+        "read": "Read",
+        "write": "Write",
+        "delete": "Delete",
+        "create": "Create",
+        "update": "Update",
+        "approve": "Approve",
+        "manage": "Manage",
+        "view": "View",
+        "edit": "Edit",
+        "all": "All"
+      }
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "Sign In",
+      "subtitle": "Please enter your credentials to access the workspace.",
+      "email": "Email Address",
+      "password": "Password",
+      "forgotPassword": "Recover",
+      "submit": "Confirm Login",
+      "isPending": "Verifying...",
+      "noAccount": "New Organization?",
+      "createAccount": "Create Workspace",
+      "heroTitle": "Building the future, with absolute precision.",
+      "heroDesc": "The construction management platform designed for leadership. Where engineering meets technology to manage your projects with the highest standards.",
+      "copyright": "© 2026 SaaS One. All rights reserved."
+    },
+    "register": {
+      "title": "Create Manager Account",
+      "subtitle": "Enter your personal details to get started.",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "phone": "Phone Number",
+      "email": "Business Email",
+      "password": "Password (Min 8 characters)",
+      "submit": "Create Account",
+      "isPending": "Creating...",
+      "termsDesc": "By continuing, you agree to the ",
+      "termsLink": "Terms and Conditions",
+      "termsSuffix": " compliant with major project standards.",
+      "alreadyHave": "Already exist?",
+      "backToLogin": "Back to Login",
+      "heroTitle": "The cornerstone of your success.",
+      "heroDesc": "Start your organization's digital transformation journey. Professional tools, full control, and infinite vision for your construction projects."
+    },
+    "setupWorkspace": {
+      "title": "Establish Workspace",
+      "subtitle": "Enter your company details to build an integrated management environment.",
+      "companyName": "Official Company Name",
+      "commercialRegister": "Commercial Register Number",
+      "specialization": "Specialization (e.g. Construction, Finishings)",
+      "currency": "Primary Currency",
+      "address": "National Address or HQ",
+      "taxId": "Tax ID (if any)",
+      "employeeCount": "Expected Employee Count",
+      "submit": "Launch Workspace",
+      "isPending": "Establishing..."
+    },
+    "dashboard": {
+      "welcome": "Welcome, {name}",
+      "noWorkspaceTitle": "No workspace yet",
+      "noWorkspaceDesc": "Start by establishing a workspace for your company to access advanced management tools and start organizing your projects.",
+      "createBtn": "Create Corporate Workspace"
+    },
+    "errors": {
+      "heroTitle": "Hero Title",
+      "heroDesc": "Hero Desc",
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "phone": "Phone",
+      "email": "Email",
+      "password": "Password",
+      "isPending": "Is Pending",
+      "submit": "Submit",
+      "termsDesc": "Terms Desc",
+      "termsLink": "Terms Link",
+      "termsSuffix": "Terms Suffix",
+      "alreadyHave": "Already Have",
+      "backToLogin": "Back To Login",
+      "companyName": "Company Name",
+      "commercialRegister": "Commercial Register",
+      "currency": "Currency",
+      "specialization": "Specialization",
+      "address": "Address",
+      "taxId": "Tax Id",
+      "employeeCount": "Employee Count"
+    }
+  },
+  "Pricing": {
+    "title": "Investment that pays for itself from the first month.",
+    "subtitle": "Flexible plans designed specifically to suit your company size. What you pay here is a small fraction of what you will save from stopping financial waste.",
+    "toggleMonthly": "Monthly",
+    "toggleAnnual": "Annual",
+    "savePercent": "Save 20%",
+    "currency": "SAR / Month",
+    "customPrice": "Custom",
+    "startNow": "Start Now",
+    "tryFree": "Try for free for 14 days",
+    "contactSales": "Contact Sales",
+    "mostPopular": "Most Popular",
+    "plans": {
+      "starter": {
+        "name": "Starter Plan",
+        "desc": "For small contractors and limited projects.",
+        "features": [
+          "Manage 3 active projects",
+          "Up to 5 users",
+          "Manage advances and expenses",
+          "Basic reports",
+          "Contractor settlements",
+          "Advanced permissions system"
+        ]
+      },
+      "pro": {
+        "name": "Pro Plan",
+        "desc": "For medium companies looking for full control.",
+        "features": [
+          "Manage unlimited projects",
+          "Up to 20 users",
+          "Full management of advances and expenses",
+          "Advanced executive reports",
+          "Settlements and contract management",
+          "Advanced permissions system"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise Plan",
+        "desc": "For huge projects that need special requirements.",
+        "features": [
+          "All features of the Pro plan",
+          "Unlimited users",
+          "Dedicated account manager",
+          "24/7 technical support",
+          "API integration with other systems (ERP)",
+          "Onsite training for employees"
+        ]
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about subscriptions and payment.",
+      "questions": [
+        {
+          "q": "Is there a free trial?",
+          "a": "Yes, we offer a 14-day free trial of the Pro plan with all its features, so you can experience the platform with your real project data before making a decision."
+        },
+        {
+          "q": "Can I upgrade or cancel my subscription at any time?",
+          "a": "Certainly. You can upgrade to a higher plan at any time and only the relative difference will be calculated. You can also cancel auto-renewal whenever you want."
+        },
+        {
+          "q": "How are users counted?",
+          "a": "It is calculated based on the number of active accounts that can log in to the system (such as engineers, accountants, management). Workers added to the system are not counted as users."
+        },
+        {
+          "q": "Is my data safe?",
+          "a": "We use the latest encryption protocols and protected cloud servers hosted locally to ensure 100% confidentiality and security of your data."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Do you have special needs?",
+      "subtitle": "Our sales team is ready to design a package that fits your company's requirements exactly.",
+      "button": "Contact Us Now"
+    }
+  },
+  "Landing": {
+    "hero_new": {
+      "tagline": "The Next Generation of Construction Management",
+      "title_1": "Don't manage projects by intuition.",
+      "title_highlight": "Manage them with data.",
+      "desc": "Sojin turns every dollar in your project into a clear number. From petty cash to invoices. From attendance to profits. No paper, no guesswork.",
+      "demo_btn": "Book a Demo",
+      "explore_btn": "Explore Platform"
+    },
+    "trust_bar": {
+      "title": "TRUSTED BY LEADING INDUSTRY COMPANIES",
+      "companies": [
+        "Al Marasem",
+        "Gulf Build",
+        "Al Fahd",
+        "Construction Group",
+        "Projects Dev"
+      ]
+    },
+    "why": {
+      "tag": "The Problem",
+      "title_1": "Your project is bleeding financially",
+      "title_2": "And you are the last to know.",
+      "desc": "Every day without accurate financial control is a real loss that only appears in your books when it's too late.",
+      "cards": [
+        {
+          "t": "Silent Financial Leakage",
+          "d": "Petty cash uncleared for months. Invoices without documents. Money evaporates with no trace."
+        },
+        {
+          "t": "Management Blindness",
+          "d": "You don't know what was spent today. Relying on WhatsApp calls instead of data. Decisions by intuition."
+        },
+        {
+          "t": "Chaotic Invoicing",
+          "d": "Contractors demand amounts that don't match actual progress on the ground. No one verifies."
+        }
+      ]
+    },
+    "platform": {
+      "tag": "The Platform",
+      "title_1": "Everything you need to control.",
+      "title_highlight": "In one place.",
+      "cards": [
+        {
+          "t": "Smart Petty Cash",
+          "d": "Fast and smart clearance. Every amount spent is linked to its invoice. No open cash without a document."
+        },
+        {
+          "t": "Accurate Invoicing",
+          "d": "Automatic invoice generation based on actual progress. Instant management review before payment."
+        },
+        {
+          "t": "Labor Management",
+          "d": "Site attendance tracking. Calculate actual labor cost vs planned budget. Complete transparency."
+        },
+        {
+          "t": "Executive Reports",
+          "d": "Comprehensive visual dashboard. Know profit, loss, and cash flows for each project with one click."
+        },
+        {
+          "t": "Permissions & Security",
+          "d": "Advanced permissions. Each employee interacts only with what concerns them. Enterprise-grade security."
+        },
+        {
+          "t": "Proactive Alerts",
+          "d": "Instant notifications to management when budgets are exceeded or delivery schedules are delayed."
+        }
+      ]
+    },
+    "how": {
+      "title_1": "Four simple steps",
+      "title_2": "Towards",
+      "title_highlight": "Absolute Transparency",
+      "steps": [
+        {
+          "n": "01",
+          "t": "Request from Site",
+          "d": "Engineer submits daily needs directly from the app in seconds."
+        },
+        {
+          "n": "02",
+          "t": "Review & Approve",
+          "d": "System matches request with project budget automatically for easy approval."
+        },
+        {
+          "n": "03",
+          "t": "Instant Clearance",
+          "d": "Upload invoices and receipts from mobile. Cash clearance is done automatically."
+        },
+        {
+          "n": "04",
+          "t": "Live Reports",
+          "d": "Project P&L and all cost details are available instantly."
+        }
+      ]
+    },
+    "stats": {
+      "title": "Trust built on real results",
+      "cards": [
+        {
+          "l": "Construction Company"
+        },
+        {
+          "l": "Active Project"
+        },
+        {
+          "l": "Customer Satisfaction"
+        },
+        {
+          "l": "Cost Savings"
+        }
+      ]
+    },
+    "testimonial": {
+      "quote": "Before Sojin, we were losing 12% of profits per project due to manual calculations. Now every penny is accounted for, visible, and under control.",
+      "author": "Eng. Khalid Al-Otaibi",
+      "role": "CEO — Advanced Construction Group"
+    },
+    "cta": {
+      "title_1": "Ready to protect your",
+      "title_highlight": "projects' profits?",
+      "desc": "Book a free demo and see how Sojin can change the way you manage projects in just 15 minutes.",
+      "btn_1": "Book a Demo",
+      "btn_2": "Talk to Sales"
+    },
+    "Errors": {
+      "userAlreadyExists": "This email address is already registered in the system.",
+      "invalidEmail": "Invalid email format.",
+      "weakPassword": "Password is weak. Please use at least 8 characters.",
+      "rateLimit": "Too many attempts. Please try again later.",
+      "invalidCredentials": "Invalid login credentials.",
+      "default": "An unexpected error occurred. Please try again."
+    },
+    "Header": {
+      "home": "Home",
+      "pricing": "Pricing",
+      "solutions": "Solutions",
+      "about": "About Us",
+      "contact": "Contact",
+      "login": "Sign In",
+      "startFree": "Start for Free"
+    },
+    "Footer": {
+      "desc": "The leading technical platform for construction project management. We protect your money and provide your data with complete transparency and smart decisions.",
+      "platform": "Platform",
+      "company": "Company",
+      "solutions": "Solutions",
+      "pricing": "Pricing",
+      "updates": "Platform Updates",
+      "about": "About Sojin",
+      "contact": "Contact Us",
+      "terms": "Terms & Conditions",
+      "copyright": "© 2026 Sojin IT. All rights reserved."
+    },
+    "features": {
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "ai_intelligence": {
+        "title": "Ai intelligence",
+        "desc": "Description for Ai intelligence"
+      },
+      "blueprint_sync": {
+        "title": "Blueprint sync",
+        "desc": "Description for Blueprint sync"
+      },
+      "fleet_control": {
+        "title": "Fleet control",
+        "desc": "Description for Fleet control"
+      },
+      "smart_procurement": {
+        "title": "Smart procurement",
+        "desc": "Description for Smart procurement"
+      },
+      "safety_iot": {
+        "title": "Safety iot",
+        "desc": "Description for Safety iot"
+      },
+      "financial_clarity": {
+        "title": "Financial clarity",
+        "desc": "Description for Financial clarity"
+      },
+      "compliance_engine": {
+        "title": "Compliance engine",
+        "desc": "Description for Compliance engine"
+      },
+      "resource_dynamic": {
+        "title": "Resource dynamic",
+        "desc": "Description for Resource dynamic"
+      }
+    },
+    "final_cta": {
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "button": "Button"
+    },
+    "hero": {
+      "title": "Title",
+      "subtitle": "Subtitle",
+      "cta_primary": "Cta_primary",
+      "cta_secondary": "Cta_secondary"
+    },
+    "social_proof": {
+      "title": "Title"
+    }
+  },
+  "Contact": {
+    "badge": "Contact Us",
+    "title": "How can we help you build the future?",
+    "subtitle": "Our team of experts is ready to answer your inquiries, whether about sales, technical support, or building a partnership.",
+    "info": {
+      "title": "Contact Information",
+      "headquarters": {
+        "title": "Headquarters",
+        "address": "King Fahd Road, Al Olaya, Riyadh, Saudi Arabia"
+      },
+      "email": {
+        "title": "Email"
+      },
+      "phone": {
+        "title": "Unified Phone"
+      }
+    },
+    "form": {
+      "title": "Send us a message",
+      "name": "Full Name",
+      "namePlaceholder": "Mohamed Ahmed",
+      "phone": "Phone Number",
+      "email": "Email",
+      "inquiryType": "Inquiry Type",
+      "inquiryOptions": {
+        "sales": "Request a demo (Sales)",
+        "support": "Technical Support",
+        "partnership": "Strategic Partnership",
+        "other": "Other"
+      },
+      "message": "Message",
+      "messagePlaceholder": "How can we help you?",
+      "submit": "Send Message"
+    },
+    "subcontractors": {
+      "title": "Subcontractors",
+      "subtitle": "Manage subcontractors and their assigned project phases",
+      "count": "{count} subcontractors",
+      "actions": {
+        "addNew": "Add Subcontractor",
+        "comparePrices": "Compare Prices",
+        "viewProfile": "View Profile",
+        "contact": "Contact",
+        "rate": "Rate",
+        "edit": "Edit",
+        "suspend": "Suspend",
+        "exportReport": "Export Report",
+        "saveRating": "Save Rating",
+        "backToList": "Back to subcontractors"
+      },
+      "stats": {
+        "total": "Total Subcontractors",
+        "active": "Currently Active",
+        "avgRating": "Average Rating",
+        "totalContractValue": "Total Contracts Value"
+      },
+      "filters": {
+        "search": "Search by name",
+        "specialty": "Specialty",
+        "rating": "Rating",
+        "status": "Status",
+        "viewCards": "Cards",
+        "viewTable": "Table"
+      },
+      "specialty": {
+        "all": "All Specialties",
+        "electrical": "Electrical",
+        "plumbing": "Plumbing",
+        "painting": "Painting",
+        "ac": "HVAC",
+        "gypsum": "Gypsum",
+        "ceramic": "Ceramic",
+        "steel": "Steel"
+      },
+      "ratingFilter": {
+        "all": "All ratings",
+        "fourPlus": "4 stars and above",
+        "threePlus": "3 stars and above"
+      },
+      "status": {
+        "all": "All",
+        "active": "Active",
+        "inactive": "Inactive",
+        "completed": "Completed",
+        "terminated": "Terminated"
+      },
+      "card": {
+        "joinedAt": "Joined",
+        "currentProjects": "Current Projects",
+        "agreed": "Agreed",
+        "actual": "Actual",
+        "totalProjects": "Total Projects",
+        "totalContracts": "Total Contracts",
+        "noCurrentProjects": "No current projects"
+      },
+      "table": {
+        "name": "Name",
+        "specialty": "Specialty",
+        "rating": "Rating",
+        "currentProjects": "Current Projects",
+        "totalContracts": "Total Contracts",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "empty": {
+        "title": "No results",
+        "description": "No subcontractors match the selected filters"
+      },
+      "addDialog": {
+        "title": "Add New Subcontractor",
+        "description": "Enter subcontractor details to add to the database",
+        "name": "Subcontractor / Company Name",
+        "namePlaceholder": "e.g. Mohamed Abdullah",
+        "specialty": "Specialty",
+        "specialtyPlaceholder": "Select specialty",
+        "phone": "Phone",
+        "phonePlaceholder": "01xxxxxxxxx",
+        "email": "Email (optional)",
+        "emailPlaceholder": "example@domain.com",
+        "notes": "Notes (optional)",
+        "notesPlaceholder": "Any extra notes",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
+      "detail": {
+        "stats": {
+          "totalProjects": "Total Projects",
+          "currentProjects": "Current Projects",
+          "totalContracts": "Total Contracts Value",
+          "avgDeviation": "Avg. Cost Deviation"
+        },
+        "contactInfo": "Contact Info",
+        "phone": "Phone",
+        "email": "Email",
+        "joinedAt": "Joined Date",
+        "notes": "Notes",
+        "tabs": {
+          "current": "Current Projects",
+          "history": "Project History",
+          "ratings": "Ratings"
+        },
+        "projectTable": {
+          "project": "Project",
+          "phase": "Phase",
+          "agreed": "Agreed Cost",
+          "actual": "Actual Cost",
+          "deviation": "Deviation",
+          "status": "Status",
+          "assignedAt": "Assigned"
+        },
+        "ratingTable": {
+          "date": "Date",
+          "by": "Rater",
+          "rating": "Rating",
+          "note": "Note"
+        },
+        "ratingForm": {
+          "title": "Add New Rating",
+          "stars": "Stars",
+          "note": "Your note",
+          "notePlaceholder": "Write your note about the subcontractor performance…"
+        },
+        "noHistory": "No past projects",
+        "noCurrent": "No current projects",
+        "noRatings": "No ratings yet"
+      },
+      "compare": {
+        "title": "Compare Subcontractors",
+        "subtitle": "Pick 2 to 4 subcontractors to compare performance and cost",
+        "selectPlaceholder": "Pick a subcontractor",
+        "selectorLabel": "Subcontractor {n}",
+        "compareBtn": "Compare",
+        "reset": "Reset",
+        "needAtLeastTwo": "Pick at least two subcontractors to start comparing",
+        "criteria": {
+          "label": "Criterion",
+          "specialty": "Specialty",
+          "rating": "Rating",
+          "totalProjects": "Total Projects",
+          "avgDeviation": "Avg. Deviation",
+          "lastProject": "Last Project",
+          "avgDailyCost": "Avg. Daily Cost",
+          "onTimeRate": "On-time Delivery"
+        },
+        "chartTitle": "Visual Performance Comparison",
+        "ratingMetric": "Rating",
+        "deviationMetric": "Deviation (%)",
+        "recommendation": "Recommended",
+        "best": "Best"
+      }
+    },
+    "assignmentsMatrix": {
+      "title": "Team Project Assignments",
+      "subtitle": "Manage and distribute team members across projects",
+      "actions": {
+        "addAssignment": "Add Assignment",
+        "save": "Save",
+        "cancel": "Cancel",
+        "edit": "Edit",
+        "remove": "Remove"
+      },
+      "view": {
+        "matrix": "Matrix",
+        "list": "List"
+      },
+      "filters": {
+        "project": "Project",
+        "role": "Role",
+        "allProjects": "All Projects",
+        "allRoles": "All Roles",
+        "dailyOnly": "Daily update only"
+      },
+      "roles": {
+        "siteEngineer": "Site Engineer",
+        "supervisor": "Supervisor",
+        "accountant": "Accountant",
+        "worker": "Worker",
+        "foreman": "Foreman"
+      },
+      "projectStatus": {
+        "active": "Active",
+        "paused": "Paused",
+        "completed": "Completed"
+      },
+      "matrix": {
+        "employee": "Employee",
+        "noAssignment": "—",
+        "tooltipPrefix": "Assigned on",
+        "tooltipSuffix": "— click to view details",
+        "dailyUpdateRequired": "Daily update required"
+      },
+      "table": {
+        "employee": "Employee",
+        "generalRole": "General Role",
+        "project": "Project",
+        "projectRole": "Role in Project",
+        "dailyUpdate": "Daily update?",
+        "assignedAt": "Assigned At",
+        "actions": "Actions"
+      },
+      "addDialog": {
+        "title": "Add New Assignment",
+        "description": "Pick employee, project, and role",
+        "employee": "Employee",
+        "employeePlaceholder": "Select employee",
+        "project": "Project",
+        "projectPlaceholder": "Select project",
+        "role": "Role in Project",
+        "rolePlaceholder": "Select role",
+        "dailyUpdate": "Daily update required",
+        "save": "Add",
+        "cancel": "Cancel"
+      },
+      "yes": "Yes",
+      "no": "No",
+      "empty": {
+        "title": "No assignments",
+        "description": "No assignments have been added yet"
+      }
+    }
+  }
+}

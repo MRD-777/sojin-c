@@ -1,0 +1,1830 @@
+{
+  "Common": {
+    "title": "نظام إدارة مشاريع المقاولات",
+    "loading": "جاري التحميل...",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "actions": {
+      "_value": "إجراءات",
+      "advancedFilter": "تصفية متقدمة",
+      "addEmployee": "إضافة موظف",
+      "options": "خيارات",
+      "sendEmail": "إرسال بريد",
+      "call": "اتصال",
+      "transferProject": "نقل المشروع",
+      "terminate": "إنهاء خدمة",
+      "showingXofY": "عرض {x} من {y}",
+      "prev": "السابق",
+      "next": "التالي"
+    },
+    "searchPlaceholder": "ابحث في النظام (اضغط ⌘K)",
+    "nav": {
+      "dashboard": "لوحة القيادة",
+      "projects": "مركز المشاريع",
+      "finance": "الإدارة المالية",
+      "team": "إدارة الفريق",
+      "subcontractors": "مقاولين الباطن",
+      "chat": "المراسلات",
+      "settings": "الإعدادات",
+      "profile": "ملفي الشخصي",
+      "overview": "نظرة عامة",
+      "auditTrail": "سجل التدقيق",
+      "reports": "التقارير",
+      "allProjects": "جميع المشاريع",
+      "reviewInbox": "مركز المراجعة",
+      "projects_reviews": "اعتمادات المشاريع",
+      "slaTracker": "مؤشرات الإنجاز",
+      "finOverview": "الملخص المالي",
+      "reconciliation": "التسويات المالية",
+      "payments": "المدفوعات",
+      "pettyCash": "العهد المالية",
+      "invoices": "المستخلصات",
+      "profitability": "الربحية",
+      "allEmployees": "الموظفين",
+      "permissions": "الصلاحيات",
+      "assignments": "المهام",
+      "performance": "الأداء",
+      "orgChart": "الهيكل التنظيمي",
+      "attendance": "الحضور والانصراف",
+      "training": "التدريب والشهادات",
+      "leaves": "الإجازات",
+      "safety": "السلامة HSE",
+      "allSubcontractors": "جميع المقاولين",
+      "subPayments": "دفعات المقاولين",
+      "comparePrices": "مقارنة الأسعار",
+      "allChats": "المحادثات",
+      "companyInfo": "معلومات الشركة",
+      "subscription": "الاشتراك",
+      "workflow": "إعدادات سير العمل",
+      "details": "[AR] Details",
+      "noSubmenu": "[AR] No Submenu"
+    },
+    "navMock": {
+      "prj1": "برج مارينا 3",
+      "prj2": "مجمع مدارس العاصمة"
+    },
+    "months": {
+      "jan": "يناير",
+      "feb": "فبراير",
+      "mar": "مارس",
+      "apr": "أبريل",
+      "may": "مايو",
+      "jun": "يونيو",
+      "jul": "يوليو",
+      "aug": "أغسطس",
+      "sep": "سبتمبر",
+      "oct": "أكتوبر",
+      "nov": "نوفمبر",
+      "dec": "ديسمبر"
+    },
+    "phases": {
+      "design": "التصميم",
+      "permits": "التراخيص",
+      "excavation": "الحفر الأساسات",
+      "structure": "الهيكل الإنشائي",
+      "finishing": "التشطيبات",
+      "handover": "التسليم"
+    },
+    "toggleLanguage": "تغيير اللغة",
+    "toggleTheme": "تغيير المظهر",
+    "notifications": "الإشعارات",
+    "dashboardPage": {
+      "welcomeSub": "مرحباً بك في مركز التحكم الخاص بك. إليك ما يحدث اليوم.",
+      "activeProjects": "المشاريع النشطة",
+      "totalRevenue": "إجمالي الإيرادات",
+      "totalExpenses": "إجمالي المصروفات",
+      "pendingReviews": "المراجعات المعلقة",
+      "fromLastMonth": "عن الشهر الماضي",
+      "recentProjects": "المشاريع الحديثة",
+      "onTrack": "في المسار",
+      "delayed": "متأخر",
+      "needsAttention": "يحتاج انتباهك",
+      "attentionMsg1": "<bold>برج مارينا 3</bold> متأخر بنسبة 15% عن الجدول الزمني في المرحلة الإنشائية.",
+      "attentionMsg2": "<bold>أحمد علي</bold> لم يقم برفع التقرير اليومي منذ يومين.",
+      "cashFlow": "نظرة عامة على التدفق المالي",
+      "projectsByPhase": "المشاريع حسب المرحلة",
+      "recentTasks": "اعتمادات معلقة",
+      "approveBtn": "اعتماد",
+      "task1": "فاتورة رقم #INV-2024 لبرج مارينا",
+      "task2": "تغييرات التصميم لفيلا النخلة",
+      "task3": "طلب مواد: 50 طن حديد تسليح",
+      "workforce": "القوى العاملة النشطة",
+      "table": {
+        "projectName": "اسم المشروع",
+        "phase": "المرحلة الحالية",
+        "progress": "التقدم",
+        "budgetUsed": "الميزانية المستهلكة",
+        "status": "الحالة",
+        "p1": "برج مارينا 3",
+        "p2": "مجمع النخلة السكني",
+        "p3": "مستشفى الشفاء الجديد",
+        "p4": "[AR] P4",
+        "p5": "[AR] P5",
+        "p6": "[AR] P6",
+        "p7": "[AR] P7"
+      },
+      "audit": {
+        "title": "سجل التدقيق (Audit Trail)",
+        "subtitle": "تتبع كافة التعديلات والعمليات الحساسة في النظام",
+        "filterDate": "تاريخ الحركة",
+        "filterUser": "المستخدم",
+        "filterAction": "نوع العملية",
+        "exportPdf": "تصدير PDF",
+        "exportExcel": "تصدير Excel",
+        "colDate": "التاريخ والوقت",
+        "colUser": "المستخدم والدور",
+        "colAction": "نوع العملية",
+        "colEntity": "الكيان المتأثر",
+        "colChanges": "تفاصيل الحركة",
+        "actionCreate": "إنشاء",
+        "actionUpdate": "تعديل",
+        "actionDelete": "حذف",
+        "actionApprove": "اعتماد",
+        "viewDiff": "عرض التغييرات",
+        "oldValue": "القيمة السابقة",
+        "newValue": "القيمة الجديدة",
+        "emptyValue": "غير محدد",
+        "fields": {
+          "status": "الحالة",
+          "budget": "الميزانية",
+          "approvedBy": "المُعتمد",
+          "progress": "نسبة الإنجاز",
+          "notes": "الملاحظات",
+          "isActive": "حالة الحساب",
+          "deletedAt": "تاريخ الحذف",
+          "name": "[AR] Name",
+          "role": "[AR] Role",
+          "description": "[AR] Description",
+          "entity": "[AR] Entity"
+        },
+        "mock": {
+          "user1": "أحمد علي",
+          "role1": "مدير مشروع",
+          "entity1": "مشروع: برج مارينا 3",
+          "user2": "سارة حسن",
+          "role2": "مدير مالي",
+          "entity2": "فاتورة #INV-2024",
+          "user3": "عمر زيد",
+          "role3": "مهندس موقع",
+          "entity3": "مهمة: صب الأساسات",
+          "notesOld": "في انتظار الأسمنت",
+          "notesNew": "بدأ الصب",
+          "user4": "مدير النظام",
+          "role4": "مدير",
+          "entity4": "حساب مستخدم: old_employee@saasone.com",
+          "desc1": "إنشاء مشروع جديد",
+          "desc2": "اعتماد فاتورة مورد",
+          "desc3": "تحديث نسبة الإنجاز بالموقع",
+          "desc4": "إيقاف حساب موظف",
+          "statusPlanning": "قيد التخطيط",
+          "statusPending": "قيد المراجعة",
+          "statusApproved": "معتمد",
+          "true": "نشط",
+          "false": "موقوف"
+        }
+      },
+      "reports": {
+        "title": "تقارير الأداء",
+        "subtitle": "تحليل أداء الفريق ومؤشرات التزام المشاريع",
+        "tabEngineers": "أداء المهندسين",
+        "tabManagers": "مديري المشاريع",
+        "tabSla": "التزام SLA",
+        "engColName": "اسم المهندس",
+        "engColProjects": "المشاريع النشطة",
+        "engColCommitment": "الالتزام بالوقت",
+        "engColAcceptance": "معدل قبول التحديثات",
+        "engColResponse": "متوسط الاستجابة",
+        "engColRating": "التقييم",
+        "mgrColName": "مدير المشروع",
+        "mgrColProjects": "عدد المشاريع",
+        "mgrColReviewTime": "وقت المراجعة",
+        "mgrColCompletion": "معدل الإنجاز",
+        "slaColProject": "المشروع",
+        "slaColCompliance": "معدل الامتثال",
+        "slaColBreaches": "خرق الاتفاقية",
+        "statusCritical": "حرج",
+        "statusWarning": "تحذير",
+        "statusExcellent": "ممتاز"
+      },
+      "projects": {
+        "title": "سجل المشاريع",
+        "subtitle": "إدارة ومتابعة جميع مشاريع الشركة بالمستوى المؤسسي",
+        "newProject": "إنشاء مشروع جديد",
+        "filterStatus": "الحالة",
+        "filterClient": "العميل",
+        "filterManager": "مدير المشروع",
+        "colName": "المشروع",
+        "colClient": "العميل",
+        "colManager": "المدير",
+        "colStatus": "الحالة",
+        "colProgress": "الإنجاز",
+        "colBudget": "الميزانية الكلية",
+        "colSpent": "إجمالي المنصرف",
+        "colVariance": "الانحراف",
+        "colStartDate": "تاريخ البدء",
+        "colEndDate": "الانتهاء المتوقع",
+        "statusActive": "جاري التنفيذ",
+        "statusDelayed": "متأخر",
+        "statusCompleted": "مكتمل",
+        "statusOnHold": "متوقف",
+        "miniDashboard": {
+          "financials": "البيانات المالية",
+          "timeline": "الجدول الزمني",
+          "stakeholders": "الأطراف المعنية",
+          "activePhases": "المراحل النشطة",
+          "contractValue": "قيمة العقد",
+          "remainingBudget": "الميزانية المتبقية",
+          "profitMargin": "هامش الربح المتوقع",
+          "actualStart": "البدء الفعلي",
+          "contractualDelivery": "التسليم التعاقدي",
+          "remainingDays": "الأيام المتبقية",
+          "delayDays": "أيام التأخير",
+          "owner": "المالك / العميل",
+          "consultant": "الاستشاري المشرف",
+          "residentEngineer": "المهندس المقيم",
+          "openProject": "فتح صفحة المشروع الكاملة"
+        },
+        "details": {
+          "lastUpdated": "آخر تحديث: {time} بواسطة {user}",
+          "kpi": {
+            "overallProgress": "الإنجاز الكلي",
+            "contractValue": "قيمة العقد الإجمالية",
+            "approvedInvoices": "المستخلصات المعتمدة",
+            "profitMargin": "هامش الربح المتوقع",
+            "contractualDelivery": "التسليم التعاقدي",
+            "timeline": "الجدول الزمني",
+            "workforce": "القوة العاملة النشطة"
+          },
+          "mock": {
+            "prj1Name": "برج مارينا الماسي 3 (Marina Tower 3)",
+            "prj1Client": "إعمار العقارية (Emaar Properties)",
+            "prj1Manager": "أحمد علي",
+            "prj2Name": "مجمع النخلة السكني الفاخر",
+            "prj2Client": "شركة التطوير الوطنية",
+            "prj2Manager": "عمر زيد",
+            "activeProjectsSub": "مشروع قيد التنفيذ"
+          },
+          "contract": {
+            "title": "البيانات التعاقدية والإدارية",
+            "contractData": "بيانات العقد",
+            "contractNo": "رقم العقد",
+            "signatureDate": "تاريخ التوقيع",
+            "contractType": "نوع العقد",
+            "downPayment": "الدفعة المقدمة",
+            "retention": "نسبة الاحتجاز",
+            "warranty": "فترة الضمان",
+            "stakeholders": "الأطراف المعنية",
+            "owner": "المالك / العميل",
+            "consultant": "الاستشاري المشرف",
+            "projectManager": "مدير المشروع",
+            "residentEngineer": "المهندس المقيم",
+            "accountant": "محاسب المشروع",
+            "siteData": "بيانات الموقع",
+            "address": "العنوان التفصيلي",
+            "projectClass": "تصنيف المشروع",
+            "workSystem": "نظام العمل",
+            "landArea": "مساحة الأرض",
+            "floors": "عدد الأدوار"
+          },
+          "timeline": {
+            "title": "الجدول الزمني التفصيلي",
+            "plannedStart": "البدء المخطط",
+            "actualStart": "البدء الفعلي",
+            "expectedEnd": "الانتهاء المتوقع",
+            "contractualDelivery": "التسليم التعاقدي",
+            "timeConsumed": "تم استهلاك {percent}% من مدة المشروع",
+            "delay": "متأخر {days} يوماً عن المخطط",
+            "onTime": "في الموعد المحدد"
+          },
+          "phases": {
+            "title": "المراحل الإنشائية التفصيلية",
+            "colPhase": "اسم المرحلة",
+            "colStatus": "الحالة",
+            "colProgress": "الإنجاز",
+            "colPlannedStart": "البدء المخطط",
+            "colActualStart": "البدء الفعلي",
+            "colExpectedEnd": "الانتهاء المتوقع",
+            "colManager": "المسؤول",
+            "colNotes": "ملاحظات"
+          },
+          "financials": {
+            "title": "الموقف المالي المفصل",
+            "contractValue": "قيمة العقد",
+            "totalSpent": "إجمالي المنصرف",
+            "approvedInvoices": "المستخلصات المعتمدة",
+            "remainingBudget": "الميزانية المتبقية",
+            "invoicesTable": {
+              "title": "جدول المستخلصات",
+              "colInvoice": "رقم المستخلص",
+              "colDate": "التاريخ",
+              "colAmount": "القيمة",
+              "colStatus": "الحالة",
+              "colApprovedBy": "المعتمد بواسطة"
+            },
+            "downPayment": "الدفعة المقدمة",
+            "retention": "الاحتجاز المتراكم",
+            "variance": "الانحراف عن الميزانية"
+          },
+          "resources": {
+            "title": "القوة العاملة والمعدات",
+            "workforceTable": {
+              "title": "توزيع العمالة بالموقع",
+              "colCategory": "التصنيف المهني",
+              "colCount": "العدد",
+              "colCost": "التكلفة الشهرية",
+              "colSupervisor": "المشرف الميداني"
+            },
+            "equipmentTable": {
+              "title": "المعدات الثقيلة",
+              "colEquipment": "المعدة",
+              "colCount": "العدد",
+              "colStatus": "الحالة",
+              "colSupplier": "المورد / نوع الملكية"
+            }
+          },
+          "subcontractors": {
+            "title": "مقاولين الباطن",
+            "colName": "اسم المقاول",
+            "colSpecialty": "التخصص",
+            "colValue": "قيمة العقد",
+            "colSpent": "المنصرف",
+            "colProgress": "الإنجاز",
+            "colStatus": "الحالة"
+          },
+          "alerts": {
+            "title": "تنبيهات ومخاطر المشروع",
+            "critical": "حرج",
+            "warning": "متوسط",
+            "info": "عادي"
+          },
+          "activity": {
+            "title": "سجل النشاطات",
+            "colDate": "التاريخ والوقت",
+            "colAction": "العملية",
+            "colDetails": "التفاصيل",
+            "colUser": "المسؤول",
+            "colType": "النوع"
+          }
+        },
+        "new": {
+          "title": "إنشاء مشروع إنشائي جديد",
+          "subtitle": "يرجى اتباع الخطوات الخمس لإدخال كافة تفاصيل المشروع المؤسسية",
+          "step1": "ميثاق المشروع",
+          "step2": "الموقع والزمن",
+          "step3": "الأطراف والتعاقدات",
+          "step4": "الميزانية والتمويل",
+          "step5": "فريق العمل",
+          "nameLabel": "اسم المشروع الرسمي",
+          "namePlaceholder": "أدخل اسم المشروع كما هو في التعاقد",
+          "codeLabel": "الكود المرجعي للمشروع",
+          "codePlaceholder": "مثال: PRJ-2025-001",
+          "descLabel": "وصف المشروع ونطاق العمل",
+          "descPlaceholder": "اكتب وصفاً تفصيلياً لنطاق العمل المتفق عليه",
+          "typeLabel": "تصنيف المشروع",
+          "typePlaceholder": "اختر تصنيف المشروع",
+          "typeResidential": "سكني",
+          "typeCommercial": "تجاري",
+          "typeIndustrial": "صناعي",
+          "typeInfrastructure": "بنية تحتية",
+          "contractTypeLabel": "نوع العقد",
+          "contractTypePlaceholder": "اختر نوع العقد",
+          "contractLumpSum": "مقطوعية (سعر ثابت)",
+          "contractCostPlus": "تكلفة + أرباح",
+          "contractUnitRate": "وحدات قياس",
+          "priorityLabel": "مستوى الأولوية",
+          "priorityUrgent": "عاجل جداً",
+          "priorityHigh": "مرتفع",
+          "priorityNormal": "عادي",
+          "locationLabel": "موقع المشروع (العنوان التفصيلي)",
+          "locationPlaceholder": "المدينة، الحي، الشارع",
+          "coordinatesLabel": "الإحداثيات (اختياري)",
+          "coordinatesPlaceholder": "خط العرض، خط الطول",
+          "startDateLabel": "تاريخ البدء المخطط",
+          "deliveryDateLabel": "تاريخ التسليم التعاقدي",
+          "workHoursLabel": "نظام ساعات العمل",
+          "workHoursDay": "نهاري فقط",
+          "workHoursTwo": "ورديتين (١٦ ساعة)",
+          "workHoursFull": "٢٤ ساعة",
+          "constraintsLabel": "قيود أو ملاحظات العمل",
+          "constraintsPlaceholder": "مثال: قيود على الضوضاء ليلاً",
+          "consultantLabel": "الاستشاري المشرف",
+          "consultantPlaceholder": "اسم شركة الاستشارات الهندسية",
+          "contractNoLabel": "رقم العقد الرسمي",
+          "contractDateLabel": "تاريخ توقيع العقد",
+          "budgetLabel": "قيمة العقد الإجمالية",
+          "internalBudgetLabel": "الميزانية التقديرية (الداخلية)",
+          "downPaymentLabel": "نسبة الدفعة المقدمة (%)",
+          "retentionLabel": "نسبة الاحتجاز (%)",
+          "paymentMethodLabel": "طريقة الدفع",
+          "currencyLabel": "عملة المشروع",
+          "warrantyLabel": "فترة الضمان (بالأشهر)",
+          "managerLabel": "مدير المشروع المسؤول",
+          "residentEngLabel": "المهندس المقيم بالموقع",
+          "accountantLabel": "محاسب المشروع",
+          "workforceTitle": "إدارة العمال والتصنيفات",
+          "addWorker": "إضافة عامل / موظف للمشروع",
+          "workerName": "اسم العامل",
+          "workerRole": "التصنيف المهني",
+          "customRole": "إنشاء تصنيف جديد",
+          "customRolePlaceholder": "أدخل اسم التصنيف الجديد",
+          "roles": {
+            "siteEng": "مهندس موقع",
+            "super": "مشرف ميداني",
+            "electrician": "فني كهرباء",
+            "plumber": "فني سباكة",
+            "painter": "فني دهانات",
+            "carpenter": "نجار مسلح",
+            "smith": "حداد مسلح",
+            "surveyor": "مساح",
+            "manager": "[AR] Manager",
+            "worker": "[AR] Worker",
+            "supervisor": "[AR] Supervisor",
+            "custom": "[AR] Custom",
+            "admin": "[AR] Admin",
+            "projectManager": "[AR] Project Manager",
+            "siteEngineer": "[AR] Site Engineer",
+            "finance": "[AR] Finance",
+            "hr": "[AR] Hr",
+            "safetyOfficer": "[AR] Safety Officer"
+          },
+          "btnNext": "الخطوة التالية",
+          "btnPrev": "الخطوة السابقة",
+          "btnCreate": "تأكيد وإنشاء المشروع",
+          "btnCancel": "إلغاء العملية",
+          "clientLabel": "[AR] Client Label",
+          "clientPlaceholder": "[AR] Client Placeholder"
+        },
+        "mock": {
+          "prj1Name": "[AR] Prj1 Name",
+          "prj1Client": "[AR] Prj1 Client",
+          "prj1Manager": "[AR] Prj1 Manager",
+          "prj2Name": "[AR] Prj2 Name",
+          "prj2Client": "[AR] Prj2 Client",
+          "prj2Manager": "[AR] Prj2 Manager",
+          "activeProjectsSub": "[AR] Active Projects Sub"
+        }
+      },
+      "finance": {
+        "overview": {
+          "title": "الملخص المالي",
+          "subtitle": "نظرة شاملة على الوضع المالي لجميع مشاريع الشركة",
+          "kpi": {
+            "totalActiveContracts": "إجمالي قيمة العقود النشطة",
+            "totalActualSpent": "إجمالي المنصرف الفعلي",
+            "totalApprovedInvoices": "إجمالي المستخلصات المعتمدة",
+            "expectedNetProfit": "صافي الأرباح المتوقعة",
+            "openPettyCash": "العهد المالية المفتوحة",
+            "pendingInvoices": "فواتير تحت المراجعة"
+          },
+          "charts": {
+            "monthlyCashFlow": "التدفق النقدي الشهري",
+            "expensesByCategory": "توزيع المصروفات حسب الفئة"
+          },
+          "table": {
+            "title": "الموقف المالي للمشاريع النشطة",
+            "colProject": "اسم المشروع",
+            "colContractValue": "قيمة العقد",
+            "colActualSpent": "المنصرف الفعلي",
+            "colApprovedInvoices": "المستخلصات المعتمدة",
+            "colRemainingBudget": "الميزانية المتبقية",
+            "colConsumptionRate": "نسبة الاستهلاك",
+            "colProfitMargin": "هامش الربح",
+            "colStatus": "الحالة المالية",
+            "statusHealthy": "سليم",
+            "statusWarning": "تحذير",
+            "statusDanger": "خطر"
+          },
+          "alerts": {
+            "title": "تنبيهات مالية عاجلة"
+          },
+          "activity": {
+            "title": "آخر الحركات المالية"
+          }
+        }
+      },
+      "reviews": {
+        "title": "مركز المراجعة والاعتمادات",
+        "subtitle": "مراجعة واعتماد التحديثات اليومية المرفوعة من المواقع الإنشائية",
+        "pendingCount": "{count} تحديثات تنتظر المراجعة",
+        "pendingSince": "معلق منذ {time}",
+        "overdueSla": "🔴 تجاوز مهلة الـ SLA!",
+        "sender": "المرسل",
+        "phase": "المرحلة",
+        "progress": "نسبة الإنجاز",
+        "description": "وصف التحديث",
+        "media": "الصور والمستندات المرفقة",
+        "btnApprove": "اعتماد التحديث",
+        "btnReject": "رفض التحديث",
+        "btnRequestEdit": "طلب تعديلات",
+        "rejectModalTitle": "سبب رفض التحديث",
+        "rejectReasonPlaceholder": "يرجى كتابة سبب الرفض بوضوح ليتمكن المهندس من التعديل..."
+      },
+      "sla": {
+        "title": "متتبع الالتزام اليومي (SLA)",
+        "subtitle": "مراقبة مدى التزام المهندسين برفع التقارير اليومية في المواعيد المحددة",
+        "complianceRate": "نسبة الالتزام الإجمالية",
+        "todayReports": "تقارير اليوم",
+        "lateUsers": "المتأخرون حالياً",
+        "employee": "الموظف / المهندس",
+        "project": "المشروع المعين عليه",
+        "weekView": "عرض الأسبوع الحالي",
+        "statusSubmitted": "تم التسليم في الموعد",
+        "statusLate": "تم التسليم متأخراً",
+        "statusMissing": "لم يتم التسليم بعد",
+        "legend": {
+          "onTime": "في الموعد",
+          "late": "متأخر",
+          "missing": "غائب"
+        }
+      }
+    },
+    "finance": {
+      "overview": {
+        "title": "نظرة عامة على المالية",
+        "subtitle": "مراقبة الأداء المالي والتدفقات النقدية لجميع المشاريع.",
+        "kpi": {
+          "totalActiveContracts": "إجمالي العقود النشطة",
+          "totalActualSpent": "إجمالي المنصرف الفعلي",
+          "totalApprovedInvoices": "إجمالي المستخلصات المعتمدة",
+          "expectedNetProfit": "صافي الربح المتوقع",
+          "openPettyCash": "عُهد مالية مفتوحة",
+          "pendingInvoices": "فواتير موردين معلقة",
+          "collectionRate": "نسبة التحصيل",
+          "vatDue": "القيمة المضافة المستحقة",
+          "increased": "زيادة",
+          "vsLastMonth": "عن الشهر الماضي"
+        },
+        "charts": {
+          "monthlyCashFlow": "التدفق المالي الشهري",
+          "expensesByCategory": "المصروفات حسب التصنيف",
+          "revenue": "الإيرادات",
+          "expenses": "المصروفات",
+          "categories": {
+            "materials": "مواد بناء",
+            "subcontractors": "مقاولين باطن",
+            "equipment": "معدات",
+            "salaries": "رواتب",
+            "admin": "إدارية",
+            "other": "أخرى"
+          }
+        },
+        "wipSummary": {
+          "title": "ملخص الأعمال تحت التنفيذ (WIP)",
+          "colProject": "المشروع",
+          "colContractValue": "قيمة العقد (شامل الأوامر)",
+          "colCompletion": "نسبة الإنجاز",
+          "colEarnedRevenue": "الإيراد المكتسب",
+          "colBilledToDate": "الفوترة حتى تاريخه",
+          "colOverUnderBilling": "الفوترة الزائدة/(الناقصة)"
+        },
+        "vatSummary": {
+          "title": "ملخص ضريبة القيمة المضافة",
+          "outputVat": "ضريبة المخرجات",
+          "inputVat": "ضريبة المدخلات",
+          "netVatDue": "الصافي المستحق",
+          "nextReturnDate": "تاريخ الإقرار القادم"
+        },
+        "cashFlow": {
+          "title": "توقعات التدفق النقدي",
+          "expectedCollections": "تحصيلات متوقعة",
+          "scheduledPayments": "مدفوعات مجدولة",
+          "netCashFlow": "صافي التدفق المتوقع"
+        },
+        "table": {
+          "title": "ملخص المشاريع مالياً",
+          "colProject": "المشروع",
+          "colContractValue": "قيمة العقد",
+          "colActualSpent": "المنصرف الفعلي",
+          "colApprovedInvoices": "المستخلصات المعتمدة",
+          "colRemainingBudget": "المتبقي من الميزانية",
+          "colConsumptionRate": "معدل الاستهلاك",
+          "colProfitMargin": "هامش الربح",
+          "colEAC": "التكلفة المقدرة (EAC)",
+          "colRetainage": "المحتجزات",
+          "colStatus": "الحالة",
+          "statusHealthy": "ممتاز",
+          "statusWarning": "تحذير"
+        },
+        "alerts": {
+          "title": "تنبيهات عاجلة"
+        },
+        "activity": {
+          "title": "أحدث العمليات"
+        }
+      },
+      "reconciliation": {
+        "title": "التسويات المالية",
+        "subtitle": "مطابقة الحسابات بين المنصرف الفعلي والمستخلصات المعتمدة والمحصلة.",
+        "kpi": {
+          "dueFromClients": "إجمالي المستحق من العملاء",
+          "dueToSuppliers": "إجمالي المستحق للموردين",
+          "netPosition": "صافي الموقف",
+          "collectionRate": "نسبة التحصيل",
+          "overdueInvoicesCount": "فواتير متأخرة"
+        },
+        "table": {
+          "title": "تفاصيل التسويات للمشاريع",
+          "colProject": "المشروع",
+          "colApproved": "المستخلصات المعتمدة",
+          "colCollected": "المحصل فعلياً",
+          "colRemainingClient": "المتبقي من العميل",
+          "colPaidSuppliers": "المدفوع للموردين",
+          "colDueSuppliers": "المستحق للموردين",
+          "colNetPosition": "صافي الموقف",
+          "colStatus": "حالة التسوية",
+          "statusMatched": "مطابق",
+          "statusDifference": "يوجد فرق",
+          "total": "الإجمالي"
+        },
+        "arAging": {
+          "title": "تقادم الذمم المدينة (العملاء)",
+          "colProjectClient": "المشروع / العميل",
+          "col0to30": "0 - 30 يوم",
+          "col31to60": "31 - 60 يوم",
+          "col61to90": "61 - 90 يوم",
+          "colOver90": "+90 يوم",
+          "colTotal": "الإجمالي"
+        },
+        "apAging": {
+          "title": "تقادم الذمم الدائنة (الموردين)",
+          "colSupplier": "المورد / المقاول",
+          "colCurrent": "حالي",
+          "col1to30": "1 - 30 يوم",
+          "col31to60": "31 - 60 يوم",
+          "col61to90": "61 - 90 يوم",
+          "colOver90": "+90 يوم",
+          "colTotal": "الإجمالي"
+        },
+        "retainage": {
+          "title": "ملخص المحتجزات (Retainage)",
+          "colProject": "المشروع",
+          "colClientRetainage": "محتجز من العميل",
+          "colSubcontractorRetainage": "محتجز لمقاولين الباطن",
+          "colNetRetainage": "صافي المحتجزات",
+          "colExpectedReleaseDate": "تاريخ الإفراج المتوقع"
+        }
+      },
+      "payments": {
+        "title": "المدفوعات",
+        "subtitle": "إدارة كاملة لكل المدفوعات الصادرة والواردة للموردين، المقاولين، والعملاء.",
+        "kpi": {
+          "totalThisMonth": "إجمالي المدفوعات هذا الشهر",
+          "pending": "مدفوعات معلقة",
+          "scheduled": "مدفوعات مجدولة",
+          "overdue": "مدفوعات متأخرة"
+        },
+        "table": {
+          "title": "سجل المدفوعات",
+          "colId": "رقم العملية",
+          "colDate": "التاريخ",
+          "colBeneficiary": "المستفيد",
+          "colProject": "المشروع المرتبط",
+          "colAmount": "المبلغ",
+          "colMethod": "طريقة الدفع",
+          "colReference": "رقم الشيك/التحويل",
+          "colStatus": "الحالة",
+          "colApprovedBy": "المعتمد بواسطة",
+          "statusCompleted": "مكتمل",
+          "statusPending": "معلق",
+          "statusCancelled": "ملغي",
+          "methods": {
+            "bankTransfer": "تحويل بنكي",
+            "cheque": "شيك"
+          },
+          "beneficiaries": {
+            "alFahd": "شركة الفهد للتوريدات",
+            "gulfBuild": "مقاولات الخليج للبناء"
+          }
+        },
+        "scheduled": {
+          "title": "جدولة المدفوعات القادمة",
+          "colBeneficiary": "المستفيد",
+          "colProject": "المشروع",
+          "colAmount": "المبلغ",
+          "colDueDate": "تاريخ الاستحقاق",
+          "colPriority": "الأولوية",
+          "priorityHigh": "عالية",
+          "priorityNormal": "عادية"
+        },
+        "categoryAnalysis": {
+          "title": "تحليل المدفوعات حسب التصنيف",
+          "colCategory": "التصنيف",
+          "colThisMonth": "هذا الشهر",
+          "colLastMonth": "الشهر السابق",
+          "colCumulative": "تراكمي",
+          "colPercentage": "النسبة %",
+          "categories": {
+            "materials": "موردين مواد",
+            "subcontractors": "مقاولين باطن",
+            "equipment": "معدات وإيجارات",
+            "siteSalaries": "رواتب وأجور موقع",
+            "admin": "مصاريف إدارية",
+            "rent": "إيجارات عامة"
+          }
+        },
+        "guarantees": {
+          "title": "خطابات الضمان النشطة",
+          "colType": "نوع الضمان",
+          "colProject": "المشروع",
+          "colBank": "البنك",
+          "colValue": "القيمة",
+          "colExpiryDate": "تاريخ الانتهاء",
+          "colStatus": "الحالة",
+          "types": {
+            "bidBond": "ضمان ابتدائي",
+            "performanceBond": "ضمان نهائي",
+            "advancePayment": "دفعة مقدمة"
+          },
+          "statusActive": "ساري",
+          "statusExpired": "منتهي"
+        }
+      },
+      "pettyCash": {
+        "title": "العهد المالية",
+        "subtitle": "إدارة العهد المالية المصروفة لمهندسي المواقع والمشرفين وتتبع مستنداتها.",
+        "kpi": {
+          "openTotal": "إجمالي العهد المفتوحة",
+          "settledThisMonth": "عهد مصفاة هذا الشهر",
+          "overdue": "عهد متأخرة (> 30 يوم)",
+          "casesOver30Days": "عهد تجاوزت 30 يوم",
+          "activeHolders": "حاملي العهد النشطين",
+          "holdersCount": "عدد حاملي العهد"
+        },
+        "table": {
+          "title": "سجل العهد المالية",
+          "colId": "رقم العهدة",
+          "colHolder": "حامل العهدة",
+          "colProject": "المشروع",
+          "colOriginalAmount": "المبلغ الأصلي",
+          "colSpent": "المنصرف",
+          "colRemaining": "المتبقي",
+          "colInvoicesCount": "عدد الفواتير",
+          "colIssueDate": "تاريخ الصرف",
+          "colAge": "عمر العهدة (أيام)",
+          "colStatus": "الحالة",
+          "statusOpen": "مفتوحة",
+          "statusSettling": "قيد التصفية",
+          "statusSettled": "مصفاة",
+          "statusOverdue": "متأخرة",
+          "holders": {
+            "ahmed": "م. أحمد محمود",
+            "khalid": "م. خالد عبدالله"
+          }
+        },
+        "breakdown": {
+          "title": "تفصيل مصروفات العهد",
+          "colCategory": "التصنيف",
+          "colAmount": "المبلغ",
+          "colInvoicesCount": "عدد الفواتير",
+          "colPercentage": "النسبة %",
+          "categories": {
+            "materials": "مواد بناء طارئة",
+            "transport": "نقل ومواصلات",
+            "food": "إعاشة عمال",
+            "emergency": "طوارئ طبية",
+            "tools": "عدد وأدوات",
+            "misc": "متفرقات"
+          }
+        },
+        "holderPerformance": {
+          "title": "أداء حاملي العهد",
+          "colHolder": "الحامل",
+          "colTotalPettyCash": "عدد العهد الكلي",
+          "colSettledOnTime": "مسواة في الوقت",
+          "colOverdue": "متأخرة",
+          "colAvgSettlementDays": "متوسط أيام التسوية",
+          "colRating": "التقييم",
+          "ratingExcellent": "ممتاز",
+          "ratingGood": "جيد",
+          "ratingNeedsImprovement": "يحتاج تحسين"
+        },
+        "auditTrail": {
+          "title": "سجل التدقيق والمراجعة",
+          "colDate": "التاريخ",
+          "colAuditor": "المدقق",
+          "colResult": "النتيجة",
+          "colNotes": "ملاحظات",
+          "results": {
+            "passed": "مجاز",
+            "minorIssues": "ملاحظات طفيفة",
+            "majorIssues": "مخالفات"
+          }
+        }
+      },
+      "invoices": {
+        "title": "المستخلصات",
+        "subtitle": "إدارة دورة حياة المستخلصات الكاملة من الإعداد إلى الاعتماد والتحصيل.",
+        "kpi": {
+          "totalIssued": "إجمالي المستخلصات المصدرة",
+          "approved": "مستخلصات معتمدة",
+          "underReview": "مستخلصات قيد المراجعة",
+          "collected": "مستخلصات محصلة",
+          "collectionRate": "نسبة التحصيل",
+          "avgCollectionDays": "متوسط أيام التحصيل (DSO)"
+        },
+        "table": {
+          "title": "سجل المستخلصات",
+          "colId": "رقم المستخلص",
+          "colProject": "المشروع",
+          "colPeriod": "الفترة",
+          "colTotal": "المبلغ الإجمالي",
+          "colAdvanceDeduction": "خصم الدفعة المقدمة",
+          "colRetentionDeduction": "خصم ضمان الأعمال",
+          "colVat": "القيمة المضافة",
+          "colDeductions": "الخصومات",
+          "colNetDue": "صافي المستحق",
+          "colSubmissionDate": "تاريخ التقديم",
+          "colApprovalDate": "تاريخ الاعتماد",
+          "colStatus": "الحالة",
+          "colApprover": "المعتمد",
+          "statusDraft": "مسودة",
+          "statusSubmitted": "مقدم",
+          "statusUnderReview": "قيد المراجعة",
+          "statusApproved": "معتمد",
+          "statusRejected": "مرفوض",
+          "statusCollected": "محصل"
+        },
+        "pipeline": {
+          "title": "مراحل دورة المستخلص",
+          "stageDraft": "مسودة",
+          "stageSubmitted": "مقدم",
+          "stageUnderReview": "مراجعة",
+          "stageApproved": "معتمد",
+          "stageCollected": "محصل"
+        },
+        "collectionAnalysis": {
+          "title": "تحليل التحصيل",
+          "colProject": "المشروع",
+          "colTotalApproved": "إجمالي المعتمد",
+          "colCollected": "المحصل",
+          "colOverdue": "المتأخر",
+          "colOldestInvoiceAge": "عمر أقدم مستخلص",
+          "colDSO": "DSO"
+        },
+        "changeOrders": {
+          "title": "سجل أوامر التغيير",
+          "colId": "رقم الأمر",
+          "colProject": "المشروع",
+          "colDescription": "الوصف",
+          "colOriginalValue": "القيمة الأصلية",
+          "colChangeValue": "قيمة التغيير",
+          "colNewValue": "القيمة الجديدة",
+          "colStatus": "الحالة",
+          "statusApproved": "معتمد",
+          "statusPending": "معلق",
+          "statusRejected": "مرفوض"
+        },
+        "invoiceRetainage": {
+          "title": "ملخص المحتجزات على المستخلصات",
+          "colProject": "المشروع",
+          "colTotalRetained": "إجمالي المحتجز",
+          "colRetentionPercentage": "نسبة الاحتجاز",
+          "colExpectedReleaseDate": "تاريخ الإفراج المتوقع"
+        }
+      },
+      "profitability": {
+        "title": "الربحية والتكاليف",
+        "subtitle": "تحليل الربحية الفعلية والتكاليف التفصيلية لكل مشروع ولكل الشركة.",
+        "kpi": {
+          "totalRevenue": "إجمالي الإيرادات",
+          "totalCost": "إجمالي التكاليف الفعلية",
+          "netProfit": "صافي الربح الفعلي",
+          "grossMargin": "هامش الربح الإجمالي"
+        },
+        "table": {
+          "title": "تحليل ربحية المشاريع",
+          "colProject": "المشروع",
+          "colContract": "قيمة العقد",
+          "colEarnedRevenue": "الإيراد المكتسب",
+          "colPlannedCost": "التكلفة المخططة",
+          "colActualCost": "التكلفة الفعلية",
+          "colVariance": "الانحراف",
+          "colEAC": "التكلفة عند الإنهاء",
+          "colExpectedProfit": "الربح المتوقع",
+          "colActualProfit": "الربح الفعلي",
+          "colMargin": "هامش الربح",
+          "colStatus": "الحالة",
+          "statusProfitable": "مربح",
+          "statusBreakeven": "متعادل",
+          "statusLoss": "خاسر"
+        },
+        "jobCost": {
+          "title": "تحليل التكلفة التفصيلية (Job Costing)",
+          "colCategory": "عنصر التكلفة",
+          "colPlanned": "المخطط",
+          "colActual": "الفعلي",
+          "colVariance": "الانحراف",
+          "categories": {
+            "materials": "مواد",
+            "labor": "عمالة وأجور",
+            "equipment": "معدات وآليات",
+            "subcontractors": "مقاولين باطن",
+            "overhead": "مصاريف عامة"
+          }
+        },
+        "quarterly": {
+          "title": "مقارنة الربحية الفصلية",
+          "colQuarter": "الربع",
+          "colRevenue": "الإيرادات",
+          "colCosts": "التكاليف",
+          "colGrossProfit": "الربح الإجمالي",
+          "colMargin": "الهامش",
+          "colNetProfit": "صافي الربح",
+          "current": "الحالي"
+        },
+        "alerts": {
+          "title": "تنبيهات الربحية",
+          "colType": "نوع التنبيه",
+          "colImpact": "التأثير",
+          "colAction": "الإجراء المطلوب",
+          "materialOverrun": "تجاوز تكلفة المواد",
+          "reviewContracts": "مراجعة عقود الموردين",
+          "collectionDelay": "تأخير في التحصيل",
+          "cashFlowRisk": "خطر تدفق نقدي",
+          "followUp": "متابعة مع العميل"
+        }
+      }
+    },
+    "team": {
+      "overview": {
+        "title": "دليل الموظفين",
+        "subtitle": "إدارة القوى العاملة للمؤسسة عبر جميع المشاريع والأقسام.",
+        "stats": {
+          "totalWorkforce": "إجمالي القوى العاملة",
+          "engineers": "المهندسون",
+          "skilledTrades": "العمالة الفنية",
+          "administrative": "الإداريون",
+          "attendanceRate": "نسبة الحضور",
+          "probation": "تحت التجربة",
+          "expiringContracts": "عقود منتهية قريباً",
+          "turnoverRate": "معدل الدوران"
+        },
+        "alerts": {
+          "contractsExpiring": "{count} عقد ينتهي خلال 30 يوم",
+          "probationEnding": "{count} موظف تنتهي فترة تجربتهم قريباً",
+          "overtimeLimit": "{count} موظف تجاوزوا حد العمل الإضافي",
+          "pendingTransfers": "{count} طلب نقل معلق"
+        },
+        "table": {
+          "employee": "الموظف",
+          "role": "المسمى الوظيفي",
+          "category": "الفئة",
+          "department": "القسم",
+          "currentProject": "المشروع الحالي",
+          "attendanceToday": "الحضور اليوم",
+          "contractType": "نوع العقد",
+          "expiryDate": "تاريخ الانتهاء",
+          "status": "الحالة"
+        },
+        "filters": {
+          "allCategories": "جميع الفئات",
+          "allProjects": "جميع المشاريع",
+          "allStatuses": "جميع الحالات"
+        },
+        "charts": {
+          "workforceDistribution": "توزيع القوى العاملة",
+          "byCategory": "حسب الفئة الوظيفية",
+          "hiringTrends": "اتجاهات التوظيف",
+          "hiredVsLeft": "تم توظيفهم مقابل المغادرين (آخر 6 أشهر)"
+        },
+        "actions": {
+          "addEmployee": "إضافة موظف",
+          "advancedFilter": "تصفية متقدمة",
+          "options": "خيارات الموظف",
+          "sendEmail": "إرسال بريد إلكتروني",
+          "call": "اتصال",
+          "transferProject": "نقل لمشروع",
+          "terminate": "إنهاء الخدمة",
+          "showingXofY": "عرض {count} من أصل {total} موظف",
+          "prev": "السابق",
+          "next": "التالي"
+        },
+        "statuses": {
+          "active": "نشط",
+          "expiringSoon": "تنتهي صلاحيته قريباً",
+          "probation": "فترة تجربة",
+          "onLeave": "في إجازة",
+          "suspended": "موقوف",
+          "present": "حاضر",
+          "absent": "غائب",
+          "sickLeave": "إجازة مرضية",
+          "remote": "عن بعد"
+        },
+        "mock": {
+          "emp1Name": "أحمد منصور",
+          "emp1Role": "مدير مشروع",
+          "emp1Dept": "العمليات",
+          "emp1Proj": "برج مارينا 3",
+          "emp1Contract": "دوام كامل"
+        }
+      },
+      "orgChart": {
+        "title": "الهيكل التنظيمي",
+        "subtitle": "عرض التسلسل الهرمي للمؤسسة وهيكل التقارير.",
+        "stats": {
+          "departments": "الأقسام",
+          "leadership": "أدوار القيادة",
+          "occupancy": "إشغال الأدوار",
+          "instruction": "انقر على قسم لعرض الأقسام الفرعية وأعضاء الفريق",
+          "interactiveTitle": "الهيكل التنظيمي التفاعلي",
+          "managementLevel": "مستوى الإدارة",
+          "executiveLevel": "المستوى التنفيذي"
+        },
+        "actions": {
+          "exportPdf": "تصدير بصيغة PDF",
+          "addDept": "إضافة قسم",
+          "deptOptions": "خيارات القسم",
+          "viewEmployees": "عرض الموظفين",
+          "addSubDept": "إضافة قسم فرعي",
+          "deactivateDept": "تعطيل القسم"
+        },
+        "departments": {
+          "executive": "الإدارة العليا والتشغيل",
+          "civil": "الهندسة المدنية والإنشائية",
+          "electrical": "الهندسة الكهربائية",
+          "mechanical": "الهندسة الميكانيكية والتكييف",
+          "planning": "المساحة والتخطيط",
+          "quality": "الجودة ومراقبة التنفيذ",
+          "safety": "الأمن والسلامة المهنية (HSE)",
+          "admin": "الشؤون الإدارية والمالية"
+        }
+      },
+      "attendance": {
+        "title": "الحضور والانصراف",
+        "subtitle": "تتبع ساعات العمل، الورديات، والإجازات لجميع الموظفين في مواقع المشاريع.",
+        "stats": {
+          "presentToday": "الحاضرون اليوم",
+          "lateArrivals": "المتأخرون",
+          "overtimeHours": "ساعات الإضافي",
+          "absent": "الغائبون"
+        },
+        "table": {
+          "employee": "الموظف",
+          "checkIn": "تسجيل دخول",
+          "checkOut": "تسجيل خروج",
+          "workHours": "ساعات العمل",
+          "overtime": "الإضافي",
+          "location": "الموقع",
+          "method": "طريقة التحضير",
+          "status": "الحالة"
+        }
+      },
+      "permissions": {
+        "title": "الصلاحيات والأدوار",
+        "subtitle": "تحديد مستويات الوصول الدقيقة والصلاحيات لموظفي المؤسسة.",
+        "stats": {
+          "totalRoles": "أدوار النظام",
+          "customPermissions": "قواعد مخصصة",
+          "activePolicies": "سياسات نشطة"
+        },
+        "roles": {
+          "admin": "مدير النظام",
+          "projectManager": "مدير مشروع",
+          "siteEngineer": "مهندس موقع",
+          "finance": "مدير مالي",
+          "hr": "أخصائي موارد بشرية",
+          "safetyOfficer": "مسؤول سلامة"
+        },
+        "modules": {
+          "finance": "المالية والميزانية",
+          "team": "إدارة الفريق",
+          "inventory": "المخازن والأصول",
+          "projects": "تنفيذ المشاريع",
+          "reports": "التحليلات والتقارير"
+        },
+        "actions": {
+          "view": "عرض",
+          "create": "إنشاء",
+          "edit": "تعديل",
+          "delete": "حذف",
+          "approve": "اعتماد"
+        }
+      },
+      "assignments": {
+        "title": "توزيع المهام والموارد",
+        "subtitle": "إدارة توزيع القوى العاملة عبر المشاريع وطلبات النقل بين المواقع.",
+        "stats": {
+          "activeProjects": "المشاريع النشطة",
+          "assignedWorkers": "القوى العاملة الموزعة",
+          "benchResources": "الموارد المتاحة (Bench)",
+          "allocatedResources": "الموارد الموزعة",
+          "idleResources": "الموارد المتاحة",
+          "pendingTransfers": "طلبات نقل معلقة",
+          "utilizationRate": "معدل الاستغلال"
+        },
+        "timeline": {
+          "title": "الجدول الزمني للموارد",
+          "view": "عرض الجدول الزمني",
+          "resource": "المورد",
+          "project": "المشروع",
+          "allocation": "التوزيع",
+          "availability": "حالة التوفر"
+        },
+        "transfer": {
+          "request": "طلب نقل",
+          "newRequest": "طلب نقل جديد",
+          "from": "من مشروع",
+          "to": "إلى مشروع",
+          "fromProject": "من مشروع",
+          "toProject": "إلى مشروع",
+          "reason": "سبب النقل",
+          "priority": "الأولوية",
+          "effectiveDate": "تاريخ النقل"
+        }
+      }
+    },
+    "stats": {
+      "totalWorkforce": "[AR] Total Workforce",
+      "engineers": "[AR] Engineers",
+      "skilledTrades": "[AR] Skilled Trades",
+      "administrative": "[AR] Administrative",
+      "attendanceRate": "[AR] Attendance Rate",
+      "probation": "[AR] Probation",
+      "expiringContracts": "[AR] Expiring Contracts",
+      "turnoverRate": "[AR] Turnover Rate"
+    },
+    "subtitle": "[AR] Subtitle",
+    "alerts": {
+      "contractsExpiring": "[AR] Contracts Expiring",
+      "probationEnding": "[AR] Probation Ending",
+      "overtimeLimit": "[AR] Overtime Limit",
+      "pendingTransfers": "[AR] Pending Transfers"
+    },
+    "charts": {
+      "workforceDistribution": "[AR] Workforce Distribution",
+      "byCategory": "[AR] By Category",
+      "hiringTrends": "[AR] Hiring Trends",
+      "hiredVsLeft": "[AR] Hired Vs Left"
+    },
+    "table": {
+      "employee": "[AR] Employee",
+      "role": "[AR] Role",
+      "category": "[AR] Category",
+      "department": "[AR] Department",
+      "currentProject": "[AR] Current Project",
+      "attendanceToday": "[AR] Attendance Today",
+      "status": "[AR] Status"
+    },
+    "permissions": {
+      "roles": {
+        "admin": "[AR] Admin",
+        "projectManager": "[AR] Project Manager",
+        "siteEngineer": "[AR] Site Engineer",
+        "finance": "[AR] Finance",
+        "hr": "[AR] Hr",
+        "safetyOfficer": "[AR] Safety Officer"
+      },
+      "modules": {
+        "projects": "[AR] Projects",
+        "finance": "[AR] Finance",
+        "team": "[AR] Team",
+        "inventory": "[AR] Inventory",
+        "reports": "[AR] Reports"
+      },
+      "title": "[AR] Title",
+      "subtitle": "[AR] Subtitle",
+      "stats": {
+        "totalRoles": "[AR] Total Roles",
+        "customPermissions": "[AR] Custom Permissions",
+        "activePolicies": "[AR] Active Policies"
+      },
+      "actions": {
+        "read": "[AR] Read",
+        "write": "[AR] Write",
+        "delete": "[AR] Delete",
+        "create": "[AR] Create",
+        "update": "[AR] Update",
+        "approve": "[AR] Approve",
+        "manage": "[AR] Manage",
+        "view": "[AR] View",
+        "edit": "[AR] Edit",
+        "all": "[AR] All"
+      }
+    }
+  },
+  "Auth": {
+    "login": {
+      "title": "تسجيل الدخول",
+      "subtitle": "يرجى إدخال بيانات الاعتماد الخاصة بك للوصول إلى مساحة العمل.",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "forgotPassword": "استعادة كلمة المرور",
+      "submit": "تأكيد الدخول",
+      "isPending": "جاري التحقق...",
+      "noAccount": "منظمة جديدة؟",
+      "createAccount": "إنشاء مساحة عمل",
+      "heroTitle": "نبني المستقبل، بدقة مطلقة.",
+      "heroDesc": "منصة إدارة الإنشاءات المصممة للقيادة. حيث تلتقي الهندسة بالتقنية لإدارة مشاريعك بأعلى المعايير.",
+      "copyright": "© 2026 سوجين. جميع الحقوق محفوظة."
+    },
+    "register": {
+      "title": "إنشاء حساب مدير",
+      "subtitle": "أدخل بياناتك الشخصية للبدء.",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "phone": "رقم الهاتف",
+      "email": "البريد الإلكتروني للعمل",
+      "password": "كلمة المرور (8 أحرف على الأقل)",
+      "submit": "إنشاء الحساب",
+      "isPending": "جاري الإنشاء...",
+      "termsDesc": "بالمتابعة، أنت توافق على ",
+      "termsLink": "الشروط والأحكام",
+      "termsSuffix": " المتوافقة مع معايير المشاريع الكبرى.",
+      "alreadyHave": "لديك حساب بالفعل؟",
+      "backToLogin": "العودة لتسجيل الدخول",
+      "heroTitle": "حجر الأساس لنجاحك.",
+      "heroDesc": "ابدأ رحلة التحول الرقمي لمؤسستك. أدوات احترافية، تحكم كامل، ورؤية لا نهائية لمشاريعك الإنشائية."
+    },
+    "setupWorkspace": {
+      "title": "تأسيس مساحة العمل",
+      "subtitle": "أدخل تفاصيل شركتك لبناء بيئة إدارية متكاملة.",
+      "companyName": "اسم الشركة الرسمي",
+      "commercialRegister": "رقم السجل التجاري",
+      "specialization": "التخصص (مثلاً: مقاولات، تشطيبات)",
+      "currency": "العملة الأساسية",
+      "address": "العنوان الوطني أو المقر الرئيسي",
+      "taxId": "الرقم الضريبي (إن وجد)",
+      "employeeCount": "عدد الموظفين المتوقع",
+      "submit": "إطلاق مساحة العمل",
+      "isPending": "جاري التأسيس..."
+    },
+    "dashboard": {
+      "welcome": "مرحباً، {name}",
+      "noWorkspaceTitle": "لا توجد مساحة عمل بعد",
+      "noWorkspaceDesc": "ابدأ بتأسيس مساحة عمل لشركتك للوصول إلى أدوات الإدارة المتقدمة والبدء في تنظيم مشاريعك.",
+      "createBtn": "إنشاء مساحة عمل للشركة"
+    },
+    "errors": {
+      "heroTitle": "[AR] Hero Title",
+      "heroDesc": "[AR] Hero Desc",
+      "title": "[AR] Title",
+      "subtitle": "[AR] Subtitle",
+      "firstName": "[AR] First Name",
+      "lastName": "[AR] Last Name",
+      "phone": "[AR] Phone",
+      "email": "[AR] Email",
+      "password": "[AR] Password",
+      "isPending": "[AR] Is Pending",
+      "submit": "[AR] Submit",
+      "termsDesc": "[AR] Terms Desc",
+      "termsLink": "[AR] Terms Link",
+      "termsSuffix": "[AR] Terms Suffix",
+      "alreadyHave": "[AR] Already Have",
+      "backToLogin": "[AR] Back To Login",
+      "companyName": "[AR] Company Name",
+      "commercialRegister": "[AR] Commercial Register",
+      "currency": "[AR] Currency",
+      "specialization": "[AR] Specialization",
+      "address": "[AR] Address",
+      "taxId": "[AR] Tax Id",
+      "employeeCount": "[AR] Employee Count"
+    }
+  },
+  "Pricing": {
+    "title": "استثمار يغطي تكلفته من أول شهر.",
+    "subtitle": "باقات مرنة ومصممة خصيصاً لتناسب حجم شركتك. ما ستدفعه هنا هو جزء بسيط جداً مما ستوفره من إيقاف الهدر المالي.",
+    "toggleMonthly": "شهري",
+    "toggleAnnual": "سنوي",
+    "savePercent": "وفر 20%",
+    "currency": "ريال / شهرياً",
+    "customPrice": "مخصص",
+    "startNow": "ابدأ الآن",
+    "tryFree": "جرب مجاناً لمدة 14 يوم",
+    "contactSales": "تواصل مع المبيعات",
+    "mostPopular": "الأكثر طلباً",
+    "plans": {
+      "starter": {
+        "name": "باقة الانطلاق",
+        "desc": "للمقاولين الصغار والمشاريع المحدودة.",
+        "features": [
+          "إدارة 3 مشاريع نشطة",
+          "حتى 5 مستخدمين",
+          "إدارة العهد والمصروفات",
+          "تقارير أساسية",
+          "مستخلصات المقاولين",
+          "نظام صلاحيات متقدم"
+        ]
+      },
+      "pro": {
+        "name": "الباقة الاحترافية",
+        "desc": "للشركات المتوسطة التي تبحث عن تحكم كامل.",
+        "features": [
+          "إدارة مشاريع غير محدودة",
+          "حتى 20 مستخدماً",
+          "إدارة العهد والمصروفات كاملة",
+          "تقارير تنفيذية متقدمة",
+          "مستخلصات وإدارة عقود",
+          "نظام صلاحيات متقدم"
+        ]
+      },
+      "enterprise": {
+        "name": "باقة الشركات",
+        "desc": "للمشاريع الضخمة التي تحتاج متطلبات خاصة.",
+        "features": [
+          "كل مميزات الباقة الاحترافية",
+          "عدد مستخدمين غير محدود",
+          "مدير حساب مخصص",
+          "دعم فني على مدار الساعة",
+          "ربط API مع أنظمة أخرى (ERP)",
+          "تدريب أونسايت للموظفين"
+        ]
+      }
+    },
+    "faq": {
+      "title": "الأسئلة الشائعة",
+      "subtitle": "كل ما تحتاج معرفته عن الاشتراكات والدفع.",
+      "questions": [
+        {
+          "q": "هل يوجد فترة تجريبية مجانية؟",
+          "a": "نعم، نقدم فترة تجريبية مجانية لمدة 14 يوماً للباقة الاحترافية بكامل مميزاتها، لتتمكن من تجربة المنصة ببيانات مشاريعك الحقيقية قبل اتخاذ القرار."
+        },
+        {
+          "q": "هل يمكنني ترقية أو إلغاء اشتراكي في أي وقت؟",
+          "a": "بالتأكيد. يمكنك الترقية إلى باقة أعلى في أي وقت وسيتم حساب الفارق النسبي فقط. كما يمكنك إلغاء التجديد التلقائي متى شئت."
+        },
+        {
+          "q": "كيف يتم حساب عدد المستخدمين؟",
+          "a": "يُحسب بناءً على عدد الحسابات النشطة التي يمكنها تسجيل الدخول إلى النظام (مثل المهندسين، المحاسبين، الإدارة). العمال المضافون في النظام لا يُحسبون كمستخدمين."
+        },
+        {
+          "q": "هل بياناتي آمنة؟",
+          "a": "نحن نستخدم أحدث بروتوكولات التشفير وخوادم سحابية محمية ومستضافة محلياً لضمان سرية وأمان بياناتك بنسبة 100%."
+        }
+      ]
+    },
+    "cta": {
+      "title": "هل لديك احتياجات خاصة؟",
+      "subtitle": "فريق المبيعات لدينا مستعد لتصميم باقة تناسب متطلبات شركتك بالضبط.",
+      "button": "تواصل معنا الآن"
+    }
+  },
+  "Landing": {
+    "hero_new": {
+      "tagline": "الجيل القادم من إدارة الإنشاءات",
+      "title_1": "لا تدر مشاريعك بالحدس.",
+      "title_highlight": "أدرها بالبيانات.",
+      "desc": "سوجين يحول كل ريال في مشروعك إلى رقم واضح. من العُهد إلى الفواتير. من الحضور إلى الأرباح. لا أوراق، لا تخمين.",
+      "demo_btn": "احجز عرضاً توضيحياً",
+      "explore_btn": "اكتشف المنصة"
+    },
+    "trust_bar": {
+      "title": "موثوق من شركات رائدة في القطاع",
+      "companies": [
+        "المراسم",
+        "بناء الخليج",
+        "الفهد",
+        "مجموعة البناء",
+        "تطوير المشاريع"
+      ]
+    },
+    "why": {
+      "tag": "المشكلة",
+      "title_1": "مشروعك ينزف مالياً",
+      "title_2": "وأنت آخر من يعلم.",
+      "desc": "كل يوم بدون رقابة مالية دقيقة هو خسارة حقيقية لا تظهر في دفاترك إلا بعد فوات الأوان.",
+      "cards": [
+        {
+          "t": "تسرّب مالي صامت",
+          "d": "عُهد لا تُصفَّى لأشهر. فواتير بدون مستندات. أموال تتبخر بلا أثر أو إثبات."
+        },
+        {
+          "t": "عمى إداري",
+          "d": "لا تعرف كم صُرف اليوم. تعتمد على مكالمات ورسائل واتساب بدل البيانات. قرارات بالحدس."
+        },
+        {
+          "t": "مستخلصات عشوائية",
+          "d": "المقاول يطالب بمبالغ لا تطابق الإنجاز الفعلي على أرض الواقع. لا أحد يتحقق."
+        }
+      ]
+    },
+    "platform": {
+      "tag": "المنصة",
+      "title_1": "كل ما تحتاجه للتحكم.",
+      "title_highlight": "في مكان واحد.",
+      "cards": [
+        {
+          "t": "إدارة العُهد بذكاء",
+          "d": "تصفية ذكية وسريعة. كل مبلغ مصروف مرتبط بفاتورته مباشرة. لا توجد عهدة مفتوحة بدون مستند واضح."
+        },
+        {
+          "t": "مستخلصات دقيقة",
+          "d": "إصدار تلقائي للمستخلصات بناءً على نسبة الإنجاز الفعلي. مراجعة واعتماد لحظي من الإدارة قبل الصرف."
+        },
+        {
+          "t": "إدارة العمالة",
+          "d": "تسجيل حضور وانصراف من الموقع. حساب التكلفة الفعلية للعامل مقابل الميزانية المخططة. شفافية تامة."
+        },
+        {
+          "t": "تقارير تنفيذية",
+          "d": "لوحة تحكم بصرية شاملة. اعرف الربح والخسارة وتدفقات النقدية لكل مشروع بنقرة زر واحدة."
+        },
+        {
+          "t": "صلاحيات وحماية",
+          "d": "نظام صلاحيات متقدم. كل موظف يرى ويتفاعل مع ما يخصه فقط. حماية بيانات على مستوى المؤسسات الكبرى."
+        },
+        {
+          "t": "تنبيهات استباقية",
+          "d": "إشعارات فورية للإدارة عند تجاوز نسب الميزانية المحددة أو عند تأخر جداول التسليم المعتمدة."
+        }
+      ]
+    },
+    "how": {
+      "title_1": "أربع خطوات بسيطة",
+      "title_2": "نحو",
+      "title_highlight": "الشفافية المطلقة",
+      "steps": [
+        {
+          "n": "01",
+          "t": "طلب من الموقع",
+          "d": "المهندس يرفع احتياجاته اليومية من التطبيق مباشرة وفي ثوانٍ."
+        },
+        {
+          "n": "02",
+          "t": "مراجعة واعتماد",
+          "d": "النظام يطابق الطلب مع ميزانية المشروع تلقائياً لتسهيل الاعتماد."
+        },
+        {
+          "n": "03",
+          "t": "تصفية فورية",
+          "d": "رفع الفواتير والإيصالات من الهاتف. تصفية العهدة تتم آلياً."
+        },
+        {
+          "n": "04",
+          "t": "تقارير حية",
+          "d": "تقرير ربح وخسارة المشروع وكل تفاصيل التكاليف متاحة لحظياً."
+        }
+      ]
+    },
+    "stats": {
+      "title": "ثقة مبنية على نتائج حقيقية",
+      "cards": [
+        {
+          "l": "شركة مقاولات"
+        },
+        {
+          "l": "مشروع نشط"
+        },
+        {
+          "l": "رضا العملاء"
+        },
+        {
+          "l": "توفير في التكاليف"
+        }
+      ]
+    },
+    "testimonial": {
+      "quote": "قبل سوجين كنا نخسر ١٢٪ من أرباح كل مشروع بسبب الحسابات اليدوية. الآن كل قرش محسوب، مرئي، وتحت السيطرة التامة.",
+      "author": "م. خالد العتيبي",
+      "role": "المدير التنفيذي — مجموعة البناء المتقدم"
+    },
+    "cta": {
+      "title_1": "جاهز لحماية أرباح",
+      "title_highlight": "مشاريعك؟",
+      "desc": "احجز عرضاً توضيحياً مجانياً وشاهد كيف يمكن لسوجين تغيير طريقة إدارتك للمشاريع خلال ١٥ دقيقة فقط.",
+      "btn_1": "احجز عرضاً توضيحياً",
+      "btn_2": "تحدث مع المبيعات"
+    },
+    "Header": {
+      "home": "الرئيسية",
+      "pricing": "الأسعار",
+      "solutions": "الحلول",
+      "about": "من نحن",
+      "contact": "تواصل معنا",
+      "login": "تسجيل الدخول",
+      "startFree": "ابدأ مجاناً"
+    },
+    "Footer": {
+      "desc": "المنصة التقنية الأولى لإدارة مشاريع المقاولات. نحمي أموالك ونوفر بياناتك بشفافية كاملة وقرارات ذكية.",
+      "platform": "المنصة",
+      "company": "الشركة",
+      "solutions": "الحلول",
+      "pricing": "الأسعار",
+      "updates": "تحديثات المنصة",
+      "about": "عن سوجين",
+      "contact": "تواصل معنا",
+      "terms": "الشروط والأحكام",
+      "copyright": "© 2026 سوجين لتقنية المعلومات. جميع الحقوق محفوظة."
+    },
+    "Errors": {
+      "userAlreadyExists": "هذا البريد الإلكتروني مسجل بالفعل في النظام.",
+      "invalidEmail": "تنسيق البريد الإلكتروني غير صحيح.",
+      "weakPassword": "كلمة المرور ضعيفة. يرجى استخدام 8 أحرف على الأقل.",
+      "rateLimit": "محاولات كثيرة جداً. يرجى المحاولة مرة أخرى لاحقاً.",
+      "invalidCredentials": "بيانات الدخول غير صحيحة.",
+      "default": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى."
+    },
+    "features": {
+      "title": "[AR] Title",
+      "subtitle": "[AR] Subtitle",
+      "ai_intelligence": {
+        "title": "[AR] Ai intelligence",
+        "desc": "[AR] Description for Ai intelligence"
+      },
+      "blueprint_sync": {
+        "title": "[AR] Blueprint sync",
+        "desc": "[AR] Description for Blueprint sync"
+      },
+      "fleet_control": {
+        "title": "[AR] Fleet control",
+        "desc": "[AR] Description for Fleet control"
+      },
+      "smart_procurement": {
+        "title": "[AR] Smart procurement",
+        "desc": "[AR] Description for Smart procurement"
+      },
+      "safety_iot": {
+        "title": "[AR] Safety iot",
+        "desc": "[AR] Description for Safety iot"
+      },
+      "financial_clarity": {
+        "title": "[AR] Financial clarity",
+        "desc": "[AR] Description for Financial clarity"
+      },
+      "compliance_engine": {
+        "title": "[AR] Compliance engine",
+        "desc": "[AR] Description for Compliance engine"
+      },
+      "resource_dynamic": {
+        "title": "[AR] Resource dynamic",
+        "desc": "[AR] Description for Resource dynamic"
+      }
+    },
+    "final_cta": {
+      "title": "[AR] Title",
+      "subtitle": "[AR] Subtitle",
+      "button": "[AR] Button"
+    },
+    "hero": {
+      "title": "[AR] Title",
+      "subtitle": "[AR] Subtitle",
+      "cta_primary": "[AR] Cta_primary",
+      "cta_secondary": "[AR] Cta_secondary"
+    },
+    "social_proof": {
+      "title": "[AR] Title"
+    }
+  },
+  "Contact": {
+    "badge": "تواصل معنا",
+    "title": "كيف يمكننا مساعدتك في بناء المستقبل؟",
+    "subtitle": "فريقنا من الخبراء جاهز للإجابة على استفساراتك، سواء كانت عن المبيعات، أو الدعم الفني، أو بناء شراكة.",
+    "info": {
+      "title": "معلومات التواصل",
+      "headquarters": {
+        "title": "المقر الرئيسي",
+        "address": "طريق الملك فهد، العليا، الرياض، المملكة العربية السعودية"
+      },
+      "email": {
+        "title": "البريد الإلكتروني"
+      },
+      "phone": {
+        "title": "الهاتف الموحد"
+      }
+    },
+    "form": {
+      "title": "أرسل لنا رسالة",
+      "name": "الاسم الكامل",
+      "namePlaceholder": "محمد أحمد",
+      "phone": "رقم الهاتف",
+      "email": "البريد الإلكتروني",
+      "inquiryType": "نوع الاستفسار",
+      "inquiryOptions": {
+        "sales": "طلب عرض توضيحي (مبيعات)",
+        "support": "دعم فني",
+        "partnership": "شراكة استراتيجية",
+        "other": "أخرى"
+      },
+      "message": "الرسالة",
+      "messagePlaceholder": "كيف يمكننا مساعدتك؟",
+      "submit": "إرسال الرسالة"
+    },
+    "subcontractors": {
+      "title": "مقاولو الباطن",
+      "subtitle": "إدارة مقاولي الباطن والمشاريع المسندة إليهم",
+      "count": "{count} مقاول",
+      "actions": {
+        "addNew": "إضافة مقاول جديد",
+        "comparePrices": "مقارنة الأسعار",
+        "viewProfile": "عرض الملف الكامل",
+        "contact": "تواصل",
+        "rate": "تقييم",
+        "edit": "تعديل",
+        "suspend": "إيقاف التعامل",
+        "exportReport": "تصدير التقرير",
+        "saveRating": "حفظ التقييم",
+        "backToList": "رجوع لقائمة المقاولين"
+      },
+      "stats": {
+        "total": "إجمالي المقاولين",
+        "active": "نشطون حالياً",
+        "avgRating": "متوسط التقييم",
+        "totalContractValue": "إجمالي قيمة العقود"
+      },
+      "filters": {
+        "search": "بحث بالاسم",
+        "specialty": "التخصص",
+        "rating": "التقييم",
+        "status": "الحالة",
+        "viewCards": "كروت",
+        "viewTable": "جدول"
+      },
+      "specialty": {
+        "all": "كل التخصصات",
+        "electrical": "كهرباء",
+        "plumbing": "سباكة",
+        "painting": "نقاشة",
+        "ac": "تكييف",
+        "gypsum": "جبس",
+        "ceramic": "سيراميك",
+        "steel": "حديد"
+      },
+      "ratingFilter": {
+        "all": "كل التقييمات",
+        "fourPlus": "4 نجوم فأكثر",
+        "threePlus": "3 نجوم فأكثر"
+      },
+      "status": {
+        "all": "الكل",
+        "active": "نشط",
+        "inactive": "غير نشط",
+        "completed": "مكتمل",
+        "terminated": "منهي"
+      },
+      "card": {
+        "joinedAt": "انضم في",
+        "currentProjects": "المشاريع الحالية",
+        "agreed": "متفق عليه",
+        "actual": "فعلي",
+        "totalProjects": "إجمالي المشاريع",
+        "totalContracts": "إجمالي العقود",
+        "noCurrentProjects": "لا توجد مشاريع حالية"
+      },
+      "table": {
+        "name": "الاسم",
+        "specialty": "التخصص",
+        "rating": "التقييم",
+        "currentProjects": "المشاريع الحالية",
+        "totalContracts": "إجمالي العقود",
+        "status": "الحالة",
+        "actions": "إجراءات"
+      },
+      "empty": {
+        "title": "لا توجد نتائج",
+        "description": "لا يوجد مقاولون يطابقون الفلاتر المحددة"
+      },
+      "addDialog": {
+        "title": "إضافة مقاول جديد",
+        "description": "أدخل بيانات المقاول لإضافته إلى قاعدة البيانات",
+        "name": "اسم المقاول / الشركة",
+        "namePlaceholder": "مثال: محمد عبدالله السيد",
+        "specialty": "التخصص",
+        "specialtyPlaceholder": "اختر التخصص",
+        "phone": "رقم الهاتف",
+        "phonePlaceholder": "01xxxxxxxxx",
+        "email": "البريد الإلكتروني (اختياري)",
+        "emailPlaceholder": "example@domain.com",
+        "notes": "ملاحظات (اختياري)",
+        "notesPlaceholder": "أي ملاحظات إضافية",
+        "cancel": "إلغاء",
+        "save": "حفظ"
+      },
+      "detail": {
+        "stats": {
+          "totalProjects": "إجمالي المشاريع",
+          "currentProjects": "المشاريع الحالية",
+          "totalContracts": "إجمالي قيمة العقود",
+          "avgDeviation": "متوسط الانحراف"
+        },
+        "contactInfo": "بيانات التواصل",
+        "phone": "الهاتف",
+        "email": "البريد الإلكتروني",
+        "joinedAt": "تاريخ الانضمام",
+        "notes": "ملاحظات",
+        "tabs": {
+          "current": "المشاريع الحالية",
+          "history": "سجل المشاريع",
+          "ratings": "التقييمات"
+        },
+        "projectTable": {
+          "project": "المشروع",
+          "phase": "المرحلة",
+          "agreed": "التكلفة المتفق عليها",
+          "actual": "الفعلية",
+          "deviation": "الانحراف",
+          "status": "الحالة",
+          "assignedAt": "تاريخ التعيين"
+        },
+        "ratingTable": {
+          "date": "التاريخ",
+          "by": "من قيّم",
+          "rating": "التقييم",
+          "note": "الملاحظة"
+        },
+        "ratingForm": {
+          "title": "إضافة تقييم جديد",
+          "stars": "عدد النجوم",
+          "note": "ملاحظتك",
+          "notePlaceholder": "اكتب ملاحظتك عن أداء المقاول…"
+        },
+        "noHistory": "لا يوجد مشاريع سابقة",
+        "noCurrent": "لا توجد مشاريع حالية",
+        "noRatings": "لا توجد تقييمات بعد"
+      },
+      "compare": {
+        "title": "مقارنة مقاولي الباطن",
+        "subtitle": "اختر من 2 إلى 4 مقاولين لمقارنة الأداء والتكلفة",
+        "selectPlaceholder": "اختر مقاولاً",
+        "selectorLabel": "المقاول {n}",
+        "compareBtn": "قارن",
+        "reset": "إعادة تعيين",
+        "needAtLeastTwo": "اختر مقاولين على الأقل لبدء المقارنة",
+        "criteria": {
+          "label": "المعيار",
+          "specialty": "التخصص",
+          "rating": "التقييم",
+          "totalProjects": "إجمالي المشاريع",
+          "avgDeviation": "متوسط الانحراف",
+          "lastProject": "آخر مشروع",
+          "avgDailyCost": "التكلفة اليومية المتوسطة",
+          "onTimeRate": "نسبة الإنجاز في الوقت"
+        },
+        "chartTitle": "مقارنة بصرية للأداء",
+        "ratingMetric": "التقييم",
+        "deviationMetric": "الانحراف (%)",
+        "recommendation": "موصى به",
+        "best": "الأفضل"
+      }
+    },
+    "assignmentsMatrix": {
+      "title": "تعيينات الفريق على المشاريع",
+      "subtitle": "إدارة وتوزيع أعضاء الفريق على المشاريع المختلفة",
+      "actions": {
+        "addAssignment": "إضافة تعيين",
+        "save": "حفظ",
+        "cancel": "إلغاء",
+        "edit": "تعديل",
+        "remove": "إزالة"
+      },
+      "view": {
+        "matrix": "مصفوفة",
+        "list": "قائمة"
+      },
+      "filters": {
+        "project": "المشروع",
+        "role": "الدور",
+        "allProjects": "كل المشاريع",
+        "allRoles": "كل الأدوار",
+        "dailyOnly": "تحديث يومي فقط"
+      },
+      "roles": {
+        "siteEngineer": "مهندس موقع",
+        "supervisor": "مشرف",
+        "accountant": "محاسب",
+        "worker": "عامل",
+        "foreman": "مقدم"
+      },
+      "projectStatus": {
+        "active": "نشط",
+        "paused": "متوقف",
+        "completed": "مكتمل"
+      },
+      "matrix": {
+        "employee": "الموظف",
+        "noAssignment": "—",
+        "tooltipPrefix": "تم التعيين في",
+        "tooltipSuffix": "— انقر لعرض التفاصيل",
+        "dailyUpdateRequired": "مطلوب تحديث يومي"
+      },
+      "table": {
+        "employee": "الموظف",
+        "generalRole": "الدور العام",
+        "project": "المشروع",
+        "projectRole": "دوره في المشروع",
+        "dailyUpdate": "تحديث يومي؟",
+        "assignedAt": "تاريخ التعيين",
+        "actions": "إجراءات"
+      },
+      "addDialog": {
+        "title": "إضافة تعيين جديد",
+        "description": "اختر الموظف، المشروع، والدور",
+        "employee": "الموظف",
+        "employeePlaceholder": "اختر الموظف",
+        "project": "المشروع",
+        "projectPlaceholder": "اختر المشروع",
+        "role": "الدور في المشروع",
+        "rolePlaceholder": "اختر الدور",
+        "dailyUpdate": "مطلوب تحديث يومي",
+        "save": "إضافة",
+        "cancel": "إلغاء"
+      },
+      "yes": "نعم",
+      "no": "لا",
+      "empty": {
+        "title": "لا توجد تعيينات",
+        "description": "لم تتم إضافة أي تعيينات بعد"
+      }
+    }
+  }
+}
