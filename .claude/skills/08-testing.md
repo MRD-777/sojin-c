@@ -547,6 +547,53 @@ afterEach(async () => {
 
 ---
 
+## 8b. التأكيد على «إيه اللي اتبعت» — **snapshot بالقيمة، لا قراءة من مرجع**
+
+> **القاعدة:** أي تأكيد على **ما أُرسل فعلاً** (headers، body، config، args) لازم يُلتقَط
+> **لحظة الاستدعاء كقيمة**. **ممنوع** الاحتفاظ بمرجع للكائن وقراءته بعد انتهاء التدفق.
+
+**السبب:** الكائن اللي بيوصل الطبقة السفلية (`config` في axios، الـ options object في أي
+client، حتى الـ DTO في service) **غالباً هو نفس الكائن** اللي طبقة أعلى بتحوّره بعدين.
+فقراءته بعد التدفق بتوصف **لحظة تانية غير لحظة الإرسال**.
+
+❌ غلط — مرجع باقٍ:
+```typescript
+const configs: AxiosRequestConfig[] = [];
+const adapter = (config) => { configs.push(config); /* … */ };
+// بعد انتهاء التدفق:
+expect(configs[0]._retry).toBeFalsy();   // ❌ الكائن اتحوّر بعد الإرسال
+```
+
+✅ صح — snapshot بالقيمة لحظة الاستدعاء:
+```typescript
+const retryFlags: unknown[] = [];
+const authHeaders: (string | undefined)[] = [];
+const adapter = (config) => {
+  retryFlags.push(config._retry);                 // ✅ قيمة، لحظة الإرسال
+  authHeaders.push(authHeaderOf(config));         // ✅ نفس الانضباط
+  /* … */
+};
+expect(retryFlags[0]).toBeFalsy();
+expect(authHeaders[1]).toBe('Bearer NEW_TOKEN');  // byte-for-byte على الوسيطة
+```
+
+🔴 **ليه دي مش تفصيلة تجميلية — الاتجاه هو الخطر:**
+الاتجاه اللي بيظهر أول مرة عادةً **حميد** (false-negative: الـ spec يسقط وهو المفروض ينجح،
+فتلاقيه فوراً). **الاتجاه المعاكس هو القاتل:** تأكيد **مرجعي** على كائن بيتحوّر لاحقاً يقدر
+**ينجح لسبب غلط** — الـ spec أخضر وهو مابيحرسش حاجة. ده بالظبط نفس عائلة الخلل اللي
+تحرسه القاعدة #4 في `CLAUDE.md` (paired assertion على **أعمق** primary action لا أقربها).
+
+**التطبيق يمتد لأبعد من الـ HTTP:**
+- `expect(mock).toHaveBeenCalledWith(obj)` بيقارن الكائن **بحالته وقت الـ assert** مش وقت
+  النداء ⇒ لو الكود بيحوّر الـ argument بعد النداء، استعمل snapshot صريح
+  (أو `mockImplementation` بيـ clone) بدل الاعتماد على `mock.calls`.
+- نفس القاعدة على أي buffer/stream/`FormData` بيتعاد استعماله.
+
+**المصدر:** Session R-1 (`2026-08-07-r1-refresh-success/`) — انحراف #1 عند المبرمج، مكتشَف
+**بفشل حقيقي** أثناء التنفيذ لا بمراجعة نظرية.
+
+---
+
 ## 9. ممنوع في الـ Tests
 
 - ❌ `test.skip()` بدون issue link
@@ -559,6 +606,7 @@ afterEach(async () => {
 - ❌ Tests بتلوّث الـ shared state (DB / Redis / FS)
 - ❌ Console.log في test files
 - ❌ `any` type في mocks (use proper types)
+- ❌ **تأكيد على «إيه اللي اتبعت» من مرجع باقٍ بدل snapshot لحظة الإرسال** (§8b)
 
 ---
 
