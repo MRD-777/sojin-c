@@ -2,6 +2,13 @@
   "Common": {
     "title": "Construction Management System",
     "loading": "Loading...",
+    "sessionUnavailable": {
+      "title": "Can't reach the server",
+      "description": "We couldn't verify your session because the server didn't respond. You are still signed in — this is a connection problem, not a sign-out.",
+      "retry": "Try again",
+      "retrying": "Trying…",
+      "signIn": "Sign in again"
+    },
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",

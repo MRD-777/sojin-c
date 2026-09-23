@@ -6,9 +6,18 @@
 //   1. request  — attach `Authorization: Bearer <accessToken>` read from the
 //                 in-memory auth store at send time (vanilla getState, so it
 //                 is safe to call from outside React).
-//   2. response — on a fresh 401, attempt ONE silent refresh + retry; on a
-//                 terminal 401 (retry also failed, or the refresh failed)
-//                 wipe the session (store.clear + clearAuthHint) and reject.
+//   2. response — classify the failure (refresh-policy) and act on it:
+//                 "refresh"       → ONE silent refresh + retry
+//                 "terminal"      → wipe the session (store.clear + clearAuthHint)
+//                 "indeterminate" → reject and CHANGE NOTHING
+//
+// The third case is load-bearing: an unreachable API (or a 5xx/429/403) tells
+// us nothing about whether the session is still valid. Treating it as terminal
+// signs users out on every dev-server restart; treating it as terminal *only
+// in the guard* (redirect) while leaving `auth_hint` intact produced the
+// /dashboard ⇄ /login redirect loop. Both halves now agree: unknown means
+// unknown, and every rejection is stamped with `sessionDisposition` so the
+// RouteGuard reads the same verdict instead of guessing from `isError`.
 //
 // Refresh ownership (DP1): the interceptor owns terminal-session teardown
 // because it sits on the deepest event (final refresh failure — rule #4). The
@@ -30,8 +39,8 @@ import axios, {
 import { useAuthStore } from "@/store/use-auth-store";
 import { clearAuthHint } from "@/lib/auth/auth-hint";
 import { authClient } from "./auth-client";
-import { mapAuthError } from "./map-auth-error";
-import { shouldRefresh } from "./refresh-policy";
+import { mapAuthError, type AuthError } from "./map-auth-error";
+import { classifyFailure, type FailureDisposition } from "./refresh-policy";
 import { API_ROOT } from "./http-shared";
 
 /** Per-request flag marking the single post-refresh retry. */
@@ -79,38 +88,91 @@ function terminateSession(): void {
   clearAuthHint();
 }
 
-// ── 2. Response: refresh-on-401 single retry, else terminal ──
+/**
+ * Normalize a failure AND stamp what it means for the session, so consumers
+ * (RouteGuard) never have to re-derive it from status codes they can't see.
+ */
+function rejectWith(error: unknown, disposition: FailureDisposition): Promise<never> {
+  const mapped: AuthError = { ...mapAuthError(error), sessionDisposition: disposition };
+  return Promise.reject(mapped);
+}
+
+/**
+ * Same, for an error that is ALREADY normalized (everything thrown by
+ * authClient — auth-client.ts:78).
+ *
+ * Why this exists instead of reusing `rejectWith`: mapAuthError over an
+ * AuthError finds neither `.response` nor `.request` and falls through to
+ * `{ code: "UNKNOWN" }` — silently erasing the real code and message. Mapping
+ * is not idempotent, so the caller (which knows whether its input was mapped)
+ * has to pick. Guessing the shape here instead would put a heuristic inside an
+ * auth-critical path; the type is the contract.
+ */
+function rejectMapped(mapped: AuthError, disposition: FailureDisposition): Promise<never> {
+  return Promise.reject({ ...mapped, sessionDisposition: disposition });
+}
+
+// ── 2. Response: refresh / terminal / indeterminate ──
 client.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const config = error.config as RetriableConfig | undefined;
-    const status = error.response?.status;
 
-    const willRefresh = shouldRefresh({
-      status,
+    const disposition = classifyFailure({
+      status: error.response?.status,
       alreadyRetried: config?._retry ?? false,
       // Refresh runs on the bare auth-client instance; a request reaching THIS
       // interceptor is never the refresh call itself.
       isRefreshCall: false,
     });
 
-    if (willRefresh && config) {
+    if (disposition === "refresh") {
+      // No config ⇒ nothing to replay. We never got to test the session, so
+      // this is unknown — NOT a reason to sign anyone out.
+      if (!config) return rejectWith(error, "indeterminate");
+
       try {
         const token = await refreshAccessToken();
         config._retry = true;
         config.headers.Authorization = `Bearer ${token}`;
         return client(config); // single retry
       } catch (refreshError) {
-        // The refresh itself failed → terminal.
-        terminateSession();
-        return Promise.reject(mapAuthError(refreshError));
+        // The refresh failed — WHY decides the session's fate, and it is the
+        // SAME question `classifyFailure` already answers. `isRefreshCall: true`
+        // is the flag that exists for exactly this moment:
+        //   401                    → terminal      (the refresh cookie is dead)
+        //   429 / 5xx / no response→ indeterminate (we learned nothing)
+        //
+        // This used to be a local `code === "NETWORK"` boolean — two states for
+        // the three-state domain the rest of this file exists to represent, so
+        // a rate-limited refresh (auth.controller.ts throttles it at 30/min)
+        // signed the user out. Reusing the pure rule keeps ONE verdict in the
+        // codebase instead of a second, weaker copy of it.
+        //
+        // The status survives the trip because mapAuthError now carries it
+        // (map-auth-error.ts) — auth-client itself is untouched.
+        const mapped: AuthError =
+          (refreshError as AuthError | null) ?? mapAuthError(refreshError);
+
+        const disposition = classifyFailure({
+          status: mapped.status,
+          alreadyRetried: false,
+          isRefreshCall: true,
+        });
+
+        if (disposition === "terminal") terminateSession();
+
+        return rejectMapped(mapped, disposition);
       }
     }
 
-    // Terminal 401 (retry already consumed) → wipe the session.
-    if (status === 401) {
+    // Proven-dead 401 (the single retry is already spent) → wipe the session.
+    if (disposition === "terminal") {
       terminateSession();
     }
-    return Promise.reject(mapAuthError(error));
+
+    // "indeterminate" falls through with NO teardown: the session survives an
+    // unreachable or erroring API.
+    return rejectWith(error, disposition);
   },
 );
