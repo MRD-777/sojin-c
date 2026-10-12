@@ -349,7 +349,7 @@
 - **الجذر:** GoTrue في المشروع ده بيوقّع الـ access_token بمفتاح **غير متماثل ES256 (EC P-256)**. الـ `kid = 65696675-11d6-48b7-bb00-d4c01a54676a` (ده **key-id**، مش سر — وكان محطوط غلط كـ JWT_SECRET). التوكن claims: `iss = https://tbezbzlsuerjlohaoawy.supabase.co/auth/v1`، `aud = authenticated`، `alg = ES256`.
 - **الـ "JWT Secret" الـ legacy** (القيمة الحقيقية في `apps/api/.env` تحت `JWT_SECRET` — مشطوبة من هنا لأن الملف ده مرفوع على GitHub) حقيقي بس **غير مستخدَم للتوقيع** → لا يتحقق من ES256 أبداً.
 - **الحل (في الكود):** `apps/api/src/modules/auth/jwt.strategy.ts` بقى يتحقق عبر **JWKS** (`jwks-rsa` → `passportJwtSecret`) على `${SUPABASE_URL}/auth/v1/.well-known/jwks.json`، مع تثبيت `algorithms:['ES256']` + `issuer` + `audience:'authenticated'` (دفاع ضد alg-confusion). `JWT_SECRET` بقى مستخدَم فقط لتسجيل JwtModule + env-validation (مش للتحقق). المكتبة المضافة: `jwks-rsa`. الـ spec `jwt.strategy.spec.ts` بيـ `jest.mock('jwks-rsa')` لأن `jose` (ESM) مابيـ transform-ش تحت jest.
-- **مُتحقَّق end-to-end:** login (`admin@demo.com/Admin123!`) → Bearer → `GET /api/v1/projects` = **200**؛ بدون توكن / توكن مزوّر = **401**.
+- **مُتحقَّق end-to-end:** login (`admin@demo.com / <في .env: DEMO_ADMIN_PASSWORD>`) → Bearer → `GET /api/v1/projects` = **200**؛ بدون توكن / توكن مزوّر = **401**.
 - **⚠️ لأي session جاي:** لو هتشتغل على auth — **متحاولش HS256/JWT_SECRET**. المشروع asymmetric. لو Supabase رجّع legacy HS256 signing يوماً → لازم عكس التغيير.
 
 ### PRISMA7-ADAPTER — إكمال هجرة Prisma 7 (driver adapter) — ✅ **محلول**
@@ -360,7 +360,7 @@
 ### الإعدادات/البيانات (reference)
 - `apps/api/.env`: `NEXT_PUBLIC_SUPABASE_URL` كان محطوط غلط (publishable key بدل الـ URL) — اتصلّح. `DATABASE_URL` = **session pooler port 5432** (الـ transaction pooler 6543 **غير واصل** من شبكة الـ dev). الباسورد فيه رموز خاصة → URL-encoded.
 - Seed idempotent في `prisma/seed.ts` (+ `prisma.config.ts` → `migrations.seed`). مستخدمو Auth اتعملوا عبر `scripts/create-demo-users.mjs`. smoke test في `scripts/smoke-auth.mjs`.
-- users الديمو: `admin@demo.com/Admin123!` (SUPER_ADMIN)، `client@demo.com/Client123!` (CLIENT). auth IDs: admin `10ac109f-…`, client `de747a5c-…`.
+- users الديمو: `admin@demo.com / <في .env: DEMO_ADMIN_PASSWORD>` (SUPER_ADMIN)، `client@demo.com / <في .env: DEMO_CLIENT_PASSWORD>` (CLIENT). auth IDs: admin `10ac109f-…`, client `de747a5c-…`.
 
 ---
 
@@ -893,6 +893,65 @@ endpoint مالي مفتوح لكل دور مصادَق عليه**) + صفر `@R
 - **قرار المراجع الأعلى: لا يُثبَّت الآن** — رقم تغطية **قبل** إصلاح `WEB-AUTH-404-001`
   هيقيس **شجرة نصف مشغّلة**. مربوط بـ `WEB-S1-004`.
 - **Source:** `04-tester-report.md` (إحصائيات) + `05-principal-report.md` قرار (ج).
+
+---
+
+## Session 2026-10-11 — تدوير المفتاح + تنظيف الأسرار — Tickets مضافة
+
+### 🔴 SEC-ROTATE-001 — دوّر الـ secret key قبل أول عميل حقيقي — **HIGH**
+- **المطلوب:** تدوير `SUPABASE_SERVICE_ROLE_KEY` (المفتاح `backend`) من
+  Supabase → Settings → API Keys → Secret keys.
+- **السبب:** المفتاح **ظهر في transcript** على **نفس السيرفر اللي فيه `.env`**
+  ⇒ يُعتبر مكشوفاً. **ده مش تسريب في الجيت** — تسريب الجيت (المفتاح الـ legacy)
+  اتقفل سلفاً؛ ده **المفتاح التالي**، وقناة تسريبه **سجل محادثة** لا commit.
+- **🔴 الإجراء — المالك وحده:** يحطّه في `.env` **بنفسه عبر SSH**، **بلا مروره
+  على أي transcript** ولا أي وكيل. لا يُطلَب من كلود، ولا يُلصَق في أي محادثة.
+- **البوابة:** **قبل أول عميل حقيقي.** الوضع الحالي (ديمو/تطوير) **مقبول بوعي**.
+- **ملاحظة مؤكَّدة:** **مفيش `default` key في Supabase** — `backend` هو الوحيد،
+  فمفيش مفتاح تانٍ نشط غير محسوب، ومفيش مسح مطلوب.
+- Source: session `2026-10-11-secret-rotation-cleanup` (قرار المالك).
+
+### INFRA-GIT-001 — حل دائم للـ push من الحاوية 🟡 MEDIUM
+> **تُسجَّل ولا تُنفَّذ** (قرار المالك).
+- **المشكلة:** الحاوية السحابية **مفيهاش credentials ولا `gh`**، والحل الحالي
+  **deploy key جديد كل session** — والمفتاح الخاص **بيموت مع الحاوية**، فكل مرة:
+  توليد → إضافة في GitHub → push → **مسح يدوي** (وإلا مفتاح write بلا حائز).
+- **الكلفة المتكرّرة:** خطوتان يدويتان من المالك كل session + خطر **نسيان المسح**
+  ⇒ تراكم مفاتيح write مهجورة على الريبو.
+- **خيارات للدراسة:** (أ) GitHub App / fine-grained PAT في secret manager بيتحمّل
+  وقت الإقلاع · (ب) deploy key **ثابت** محفوظ خارج الحاوية ويُحمَّل عند البدء ·
+  (ج) الـ push من جهاز المالك وحده والحاوية تنتج patches.
+- **قيد:** أي حل **ما يمرّش بالـ transcript** (نفس درس `SEC-ROTATE-001`).
+- Source: session `2026-10-11-secret-rotation-cleanup` (قرار المالك).
+
+### API-JWTSECRET-001 — `JWT_SECRET` شرط إقلاع إلزامي على متغيّر ميت 🟢 LOW
+- **الموقع:** `apps/api/src/common/config/env-validation.ts:79-107`
+- **المشكلة:** `JWT_SECRET` **مطلوب بمستوى ERROR** (غايب = ERROR، أقل من 32 حرف
+  = ERROR، وفحص placeholder) — **بالرغم إنه مش مستخدَم في أي تحقق**. التحقق كله
+  بقى **JWKS/ES256** و`jwt.strategy.ts` بيقرا `NEXT_PUBLIC_SUPABASE_URL` وحده.
+- **الأثر:** بيئة جديدة **مش هتقوم** بدون قيمة **بلا وظيفة**، ورسالة الخطأ
+  بتوجّه لشاشة Supabase legacy (`Settings → API → JWT Settings`) **ممكن تكون
+  اختفت** بعد تعطيل الـ legacy keys ⇒ **رسالة تساعد على طريق مسدود**.
+- **الـ Fix المقترح:** يا تخفيضه لـ WARN مع تعليق يقول إنه للتسجيل فقط، يا حذفه
+  من الـ validation بالكامل مع تحديث `env-validation.spec.ts`.
+  ⚠️ **مرتبط بـ `TEST-BASELINE-001`** — نفس الملف فيه 8 اختبارات حمراء.
+- Source: session `2026-10-11-secret-rotation-cleanup` (اكتشاف أثناء المرحلة 9).
+
+### 📌 دليل مؤكِّد لـ `WEB-CLEANUP-001` (قائمة، لا تُقفَل هنا)
+فحص كامل أثناء session 2026-10-11 ([تعديل 4] بطلب المالك) — **توثيق بلا إصلاح:**
+
+| الملف | السطر | المتغيّر |
+|---|---|---|
+| `apps/web/src/lib/supabase/client.ts` | 5 · **6** | `NEXT_PUBLIC_SUPABASE_URL` · **`NEXT_PUBLIC_SUPABASE_ANON_KEY`** |
+| `apps/web/src/lib/supabase/server.ts` | 8 · **9** | `NEXT_PUBLIC_SUPABASE_URL` · **`NEXT_PUBLIC_SUPABASE_ANON_KEY`** |
+| `apps/web/package.json` | 17 · 18 | `@supabase/ssr` · `@supabase/supabase-js` |
+
+- **الأثر = صفر.** الملفان **dead code بصفر مستهلك** (`grep` على كل `apps/web/src`
+  = لا أحد يستوردهما) ⇒ **تعطيل الـ legacy anon key مابيكسرش حاجة في الويب.**
+- 🔴 **لكن الكود بيوحي بالعكس:** قارئ جديد يشوف `NEXT_PUBLIC_SUPABASE_ANON_KEY!`
+  (بـ non-null assertion) فيفترض إن الويب بيحتاج مفتاحاً فعّالاً — **وهو لا.**
+  **ده يرفع إلحاح `WEB-CLEANUP-001`** من تنظيف تجميلي لإزالة **إشارة مضلِّلة**.
+- **لا إصلاح في الـ session دي** (قيد المالك الصريح).
 
 ---
 
