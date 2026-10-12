@@ -1,16 +1,43 @@
 import { createClient } from '@supabase/supabase-js';
 
-const URL = 'https://tbezbzlsuerjlohaoawy.supabase.co';
-const SERVICE_KEY =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRiZXpiemxzdWVyamxvaGFvYXd5Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3NjAyOTg0OSwiZXhwIjoyMDkxNjA1ODQ5fQ.Zc9Dkzc0Eb8kImHp05X-4TvejqWm8rPa3w2xHKCAZ_k';
+// ============================================================
+// Seeds / resets the demo auth users.
+//
+// Every credential comes from the environment — nothing is hardcoded.
+// A key committed here once leaked a live service_role key into a public
+// repo (see SEC-ROTATE-001), so this script fails loudly rather than
+// falling back to any baked-in default.
+//
+// Needs SUPABASE_SERVICE_ROLE_KEY (not a publishable key): it calls
+// auth.admin.* to create and update users, which requires service-role.
+// ============================================================
+
+const REQUIRED = [
+  'NEXT_PUBLIC_SUPABASE_URL',
+  'SUPABASE_SERVICE_ROLE_KEY',
+  'DEMO_ADMIN_PASSWORD',
+  'DEMO_CLIENT_PASSWORD',
+];
+
+const missing = REQUIRED.filter((k) => !process.env[k]);
+if (missing.length > 0) {
+  console.error(
+    `FATAL: missing required environment variable(s): ${missing.join(', ')}\n` +
+      `Set them in apps/api/.env (git-ignored) before running this script.`,
+  );
+  process.exit(1);
+}
+
+const URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 const supa = createClient(URL, SERVICE_KEY, {
   auth: { autoRefreshToken: false, persistSession: false },
 });
 
 const targets = [
-  { email: 'admin@demo.com', password: 'Admin123!', name: 'مدير النظام' },
-  { email: 'client@demo.com', password: 'Client123!', name: 'العميل' },
+  { email: 'admin@demo.com', password: process.env.DEMO_ADMIN_PASSWORD, name: 'مدير النظام' },
+  { email: 'client@demo.com', password: process.env.DEMO_CLIENT_PASSWORD, name: 'العميل' },
 ];
 
 async function findByEmail(email) {
