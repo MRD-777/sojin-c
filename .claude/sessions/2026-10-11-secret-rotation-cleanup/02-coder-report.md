@@ -88,26 +88,165 @@ git tracked? untracked ✅
 
 ---
 
-## ⏸️ موقوف — في انتظار المالك
+## المرحلة 2: الـ scan الأساسي (baseline) — ✅
+**الملفات المعدّلة:** لا شيء. استبعاد: `*.env*` · `package-lock.json` · `node_modules` · `.git`
 
-**المراحل المتبقية:** 2 (scan baseline) · 4 (السكربتان) · 5 (BACKLOG +
-`SEC-ROTATE-001` + `INFRA-GIT-001`) · 6 (CANCELLED) · 7 (finding الويب) ·
-8 (scan بعد) · 9 (env-validation) · 10ب-ج (commit 2 و3) · push.
+| الفئة | عدد | المواضع (ملف:سطر فقط) |
+|---|---|---|
+| [A] `sb_secret_`/`sb_publishable_` بطول كامل | **0** | — |
+| [B] `eyJ` (JWT) | **2** | `create-demo-users.mjs:5` · `smoke-auth.mjs:3` |
+| [C] باسوردات ديمو | **5** | `BACKLOG.md:352` · `:363` · `create-demo-users.mjs:12` · `:13` · `smoke-auth.mjs:6` |
+| [D] connection strings | **2** | `env-validation.spec.ts:19` · `:47` |
 
-**الحاجب:** إضافة الـ deploy key في GitHub **مع «Allow write access»**.
-
-🔴 **تحذيران منقولان بلا تخفيف:**
-1. **«Allow write access» إلزامية** — بدونها الـ push هيرفض.
-2. **امسح الـ deploy key من GitHub بعد الـ PR** — المفتاح الخاص **بيموت مع
-   الحاوية**، فسيبانه = مفتاح write بلا حائز.
+**ملاحظات:** صفر قيمة مطبوعة. [D] **stubs اختبار** (`user:pass@localhost`) — **مُبرَّران**.
 
 ---
 
-## ملخص مؤقت
-- المراحل المكتملة: **3 / 11** (1 · 10أ · 3)
-- الملفات المعدّلة في الريبو: **10** (كلها توثيق — commit `30908ca`)
-- ملفات إنتاجية اتلمست: **صفر**
-- انحرافات عن الـ Plan: **1** — إعادة ترتيب commit الأول، **بطلب المالك، مُبلَّغ**
-- أسرار مطبوعة: **صفر**
+## المرحلة 4: تنظيف السكربتين — ✅
+**الملفات المعدّلة:**
+- `create-demo-users.mjs`: URL + service key + **الباسوردان** ⇒ `process.env`
+  (`DEMO_ADMIN_PASSWORD` / `DEMO_CLIENT_PASSWORD`) + بوابة فشل تسمّي كل متغير ناقص
+- `smoke-auth.mjs`: URL + **`SUPABASE_SMOKE_KEY`** (بلا default) + الباسورد ⇒ `process.env`
+  + **الكومنت الإلزامي** إن المفتاح لازم يكون **publishable لا secret**، ومبرره
+  (`signInWithPassword` مسار مستخدم عادي، مايحتاجش service-role)
+- `API_URL` كمان بقى بيقرا من env مع fallback للـ localhost
 
-✋ تم المبرمج (المراحل 1 · 10أ · 3) — مستني **«اتضاف»** للـ push ثم أكمّل الباقي؟
+**Verification (literal — قاعدة #8):**
+```
+create-demo-users.mjs → exit=1 | FATAL: missing required environment variable(s): NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, DEMO_ADMIN_PASSWORD, DEMO_CLIENT_PASSWORD
+smoke-auth.mjs        → exit=1 | FATAL: missing required environment variable(s): NEXT_PUBLIC_SUPABASE_URL, SUPABASE_SMOKE_KEY, DEMO_ADMIN_PASSWORD
+```
+`node --check` ✅ للاتنين. **البوابتان مُثبَتتان بتشغيل فعلي بـ `env -i`، لا بالقراءة.**
+
+**انحرافات عن الـ Plan:** **واحد صغير مُبلَّغ** — `API_URL` اتحوّل لـ env كمان؛
+مكانش في الخطة. مش سرّ، بس **زيادة** ⇒ مُعلَنة.
+
+---
+
+## المرحلة 5: `BACKLOG.md` — ✅
+- **سطر 352 و 363:** الباسوردات ⇒ `<في .env: DEMO_ADMIN_PASSWORD>` /
+  `DEMO_CLIENT_PASSWORD`. **الإيميلات باقية** (مش أسرار، ومرجع تشغيلي).
+  تحقق: `grep -c` = **0**.
+- **3 تذاكر مضافة:** `SEC-ROTATE-001` (🔴 HIGH) · `INFRA-GIT-001` (🟡، **تُسجَّل
+  لا تُنفَّذ** بقرارك) · `API-JWTSECRET-001` (🟢).
+- **+ دليل مؤكِّد لـ `WEB-CLEANUP-001`** (المرحلة 7).
+
+🔴 **انحراف إجرائي مُبلَّغ — لازم تعرفه:** البند المُستلَم #8 (`JWT_SECRET`) كان
+موسوماً **«أُحيل إلى 👁️ المراجع»** — **والـ Standard mode مفيهوش مراجع أعلى.**
+سيبانه كان هيخليه **يموت بالصمت** (خرق القاعدة #10). فكتبته كتذكرة بنفسي
+**وأعلنه هنا** بدل ما أتركه. **الدور الصح مش موجود، فالإغلاق صار بشهادتك.**
+
+---
+
+## المرحلة 6: إقفال `autonomous-harness` — ✅
+- سطر `CANCELLED 2026-10-12 …` أُضيف **في آخر** `00-scope.md` بنصّه الحرفي.
+- الملف **525 سطر، كامل** — **صفر حذف** (`git status` بلا أي `D`).
+- **`CronList` = «No scheduled jobs»** ⇒ «مفيش routines اتجدولت» **مُثبَتة لا مُدَّعاة**.
+- `auto:eligible` = **صفر تطابق** ⇒ **لا عمل**، ولا وسم مُختلَق.
+
+---
+
+## المرحلة 7: finding `apps/web` — ✅ **توثيق بلا إصلاح**
+`NEXT_PUBLIC_SUPABASE_ANON_KEY` في موضعين بالظبط: `lib/supabase/client.ts:6` ·
+`server.ts:9` (+ URL في `:5`/`:8`، + دِبندنسيتان في `package.json:17,18`).
+**الأثر = صفر** — dead code بصفر مستهلك ⇒ قفل الـ anon **مابيكسرش الويب**.
+🔴 **لكن `ANON_KEY!` بـ non-null assertion بيوحي بالعكس** ⇒ **يرفع إلحاح
+`WEB-CLEANUP-001`** من تنظيف تجميلي لإزالة **إشارة مضلِّلة**. مكتوب في الـ BACKLOG.
+**صفر تعديل كود** (قيدك).
+
+---
+
+## المرحلة 8: الـ scan بعد التنظيف + المقارنة — ✅
+
+| الفئة | قبل | بعد |
+|---|---|---|
+| [A] مفاتيح بطول كامل | 0 | **0** ✅ |
+| [B] JWT | 2 | **0** ✅ |
+| [C] باسوردات | 5 | **0** ✅ |
+| [D] connection strings | 2 | **2** — stubs مُبرَّرة |
+
+**الـ 7 بنود الحقيقية كلها اتشالت.** الباقي سطران في `env-validation.spec.ts`
+(`user:pass@localhost`) — **fixtures اختبار، مُعلَنة كاستثناء مُبرَّر لا مُخفاة.**
+
+**استثناء مُبرَّر تانٍ (قرارك):** JWTs قديمة في **تقارير sessions تاريخية** —
+**مستبعَدة من نطاق التنظيف عمداً** (سجل تدقيق؛ تحريره بأثر رجعي بيزيّفه،
+والمفاتيح معطَّلة). **مُعلَنة لا مُخفاة.**
+
+---
+
+## المرحلة 9: تحقق `env-validation` — ✅ (بصياغة مقيَّدة)
+جُمِّعت الوحدة standalone وشُغِّلت معزولة بالـ `.env` الحقيقي.
+
+**Verification (literal — قاعدة #8):**
+```
+(1) بالبيئة الحالية:
+  ERROR [DATABASE_URL] DATABASE_URL is required
+  ERROR [JWT_SECRET] Required. Get from Supabase: Settings → API → JWT Settings → JWT Secret
+  WARN  [COOKIE_SECRET] Recommended even in dev.
+  MSG: Environment validation failed: 2 critical issue(s).
+
+(2) مع DATABASE_URL + JWT_SECRET + COOKIE_SECRET وهميين:
+  LOG Environment validation passed — 0 warning(s), 0 errors
+```
+
+🔴 **التأكيد المقرون (قاعدة #4):** الخطآن هما `DATABASE_URL` و`JWT_SECRET`
+**وصفر ذكر لـ `SUPABASE_SERVICE_ROLE_KEY`** ⇒ **الدالة شغّالة فعلاً وفحصت
+المفتاح وقبلته**، مش بترجع فاضي. والتشغيل (2) أثبت إن المفتاح `sb_secret_`
+**يعدّي نضيف** لما الناقص الوحيد يتسدّ.
+
+🔴 **الصياغة المقيَّدة (البند المُستلَم #6) — بنصّها:**
+**«فحص المفتاح عدّى؛ الإقلاع الكامل غير مُتحقَّق.»**
+`DATABASE_URL` و`JWT_SECRET` **ناقصان في الحاوية دي**، و`PrismaService` مايقدرش
+يـ construct بدونهما. **ممنوع قراءة النتيجة دي كـ «الباك إند بيقوم»** — ولو فشل
+الإقلاع على سيرفرك، **السبب المتغيران لا المفتاح.**
+
+---
+
+## المرحلة 10: الفرع والـ commits — ✅ (3 commits + push)
+
+| # | SHA | الرسالة | الحجم |
+|---|---|---|---|
+| 1 | `30908ca` | `docs: close out sessions 2026-08-08 → 2026-10-11` | 10 ملف، +2733 |
+| 2 | `aa720ab` | `fix(security): read Supabase keys and demo passwords from env` | 2 ملف |
+| 3 | `56485ce` | `docs: drop demo passwords, cancel autonomous session, log 3 tickets` | 3 ملف |
+
+- **الفرع:** `security/secret-cleanup-2026-10-12` ⇒ **مدفوع ومتتبَّع على `origin`**
+- 🔴 **فحص أمني قبل كل push** — scan على **السطور المُضافة فقط** (لا الشجرة):
+  commit 1 = صفر · commits 2+3 (259 سطر) = **صفر في الأربع فئات**
+- **أطول ذكر لمفتاح في commit 1 = 4 حروف** (`2EZZ`) مقابل **31** للكامل ⇒ **مقطوع ومقبول**
+- **صفر لمس لـ `main`** · **صفر `--force`** · **صفر تعديل تاريخ** · **صفر لمس `modules/auth/`**
+
+**انحراف عن الـ Plan — مُبلَّغ:** الخطة حدّدت رسالة commit 3 كـ «cancel + SEC-ROTATE-001».
+التنفيذ **جمّع كل تعديلات `BACKLOG.md` + الإقفال في commit واحد** بدل تقسيم ملف
+واحد بين commit-ين — **تقسيم بالملف أنضف من تقسيم جزئي لملف**، والـ PR بيبان فيه
+التلاتة مرتبين.
+
+---
+
+## ملخص نهائي
+- المراحل المكتملة: **11 / 11** ✅
+- الملفات المعدّلة: **15** (2 إنتاجية — السكربتان · 13 توثيق)
+- ملفات إنتاجية في `src/`: **صفر** · ملفات محذوفة: **صفر**
+- **أسرار مطبوعة في أي output أو ملف أو commit: صفر**
+- `apps/api/.env`: **ما اتعدّلش** (`mtime` = 2026-09-30) · **untracked** ✅
+- انحرافات عن الـ Plan: **4 — كلها مُبلَّغة، صفر صامتة**
+  1. commit الأول نُقل للمقدمة (بطلبك)
+  2. `API_URL` اتحوّل لـ env (زيادة صغيرة)
+  3. تذكرة `JWT_SECRET` كتبها المبرمج (الدور المستهدَف غير موجود في Standard)
+  4. تجميع تعديلات `BACKLOG` في commit واحد
+- **MVT: 0 مكتوبة** — من اختصاص 🧪 المختبر (الميزانية **4** بإقرار المخطط)
+
+---
+
+## بنود مُسلَّمة — تحتاج إغلاقاً صريحاً (قاعدة #10)
+| # | البند | الدور المستهدَف |
+|---|---|---|
+| 1 | **افتح الـ PR** من الموقع — الفرع جاهز ومدفوع | 👤 المستخدم |
+| 2 | 🔴 **امسح الـ deploy key من GitHub بعد الـ PR** — المفتاح الخاص بيموت مع الحاوية ⇒ سيبانه = مفتاح write بلا حائز | 👤 المستخدم |
+| 3 | **`SUPABASE_SMOKE_KEY` محتاج `sb_publishable_`** — مش موجود عندك ⇒ `smoke-auth.mjs` **هيفشل فشلاً نظيفاً** لحد ما تعمله. **سلوك مقصود لا regression** | 👤 المستخدم |
+| 4 | **`DEMO_ADMIN_PASSWORD` + `DEMO_CLIENT_PASSWORD`** لازم يتحطّوا في `.env` على سيرفرك، وإلا السكربتان مايشتغلوش | 👤 المستخدم |
+| 5 | **المرحلة 9 صياغتها مقيَّدة** — «فحص المفتاح عدّى» لا «الباك إند بيقوم» | 🧪 المختبر (لا يُوسَّع الادعاء) |
+| 6 | **MVT = 4 + mutation 2/4 مُعلَنة** (MVT-1/MVT-3 تغطيتهما غير مُثبَتة) | 🧪 المختبر |
+| 7 | **الانحراف #3 أعلاه** — تذكرة كتبها دور غير مستهدَف؛ **إغلاق بشهادتك لا بدور** | 👤 المستخدم |
+
+✋ تم المبرمج (11/11 مرحلة) — للدور التالي (🧪 المختبر)؟
