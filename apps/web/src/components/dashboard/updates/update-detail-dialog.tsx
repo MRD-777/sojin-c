@@ -60,7 +60,10 @@ function formatMoney(value: string, locale: string): string {
   return locale === "ar" ? `${formatted} ر.س` : `${formatted} SAR`;
 }
 
-const STATUS_META: Record<
+/** Single source of truth for update-status colours + labels. Exported so the
+ *  authoring UI (report-form-dialog / phase-report-button, Session A) renders
+ *  the SAME badge as the review screen instead of forking a second palette. */
+export const STATUS_META: Record<
   UpdateStatus,
   { ar: string; en: string; cls: string }
 > = {

@@ -21,10 +21,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   approveUpdate,
+  createUpdate,
+  editUpdate,
   forceCancelUpdate,
   rejectUpdate,
+  submitUpdate,
   type UpdateActionResult,
 } from "@/lib/api/updates-client";
+import type { CreateUpdateBody, EditUpdateBody } from "@/types/update";
 import { projectQueryKey } from "./use-project";
 import { PHASE_UPDATES_QUERY_KEY } from "./use-phase-updates";
 import { updateQueryKey } from "./use-update";
@@ -84,6 +88,62 @@ export function useForceCancelUpdate() {
   return useMutation<UpdateActionResult, unknown, ForceCancelVars>({
     mutationFn: ({ id, reason, idempotencyKey }) =>
       forceCancelUpdate(id, { reason }, idempotencyKey),
+    retry: false,
+    onSuccess: (_data, vars) => invalidate(vars),
+  });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// Authoring mutations — create / edit / submit (Session A)
+//
+// `retry: false` here is not house style, it is a correctness requirement:
+// POST /phases/:id/updates takes NO Idempotency-Key, so a blind retry leans
+// entirely on the backend's 409 duplicate guard. The caller drives retries
+// deliberately and handles 409 by switching into continue-mode.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+interface CreateVars {
+  phaseId: string;
+  projectId: string;
+  body: CreateUpdateBody;
+}
+interface EditVars {
+  id: string;
+  phaseId: string;
+  projectId: string;
+  body: EditUpdateBody;
+}
+type SubmitVars = ReviewContext;
+
+/** POST /phases/:phaseId/updates — create a DRAFT. */
+export function useCreateUpdate() {
+  const invalidate = useInvalidateReview();
+  return useMutation<UpdateActionResult, unknown, CreateVars>({
+    mutationFn: ({ phaseId, body }) => createUpdate(phaseId, body),
+    retry: false,
+    // The created id comes from the response; invalidating a detail key that was
+    // never cached is a no-op, so the shared invalidator is reused as-is.
+    onSuccess: (data, vars) =>
+      invalidate({ id: data.id, phaseId: vars.phaseId, projectId: vars.projectId }),
+  });
+}
+
+/** PATCH /updates/:id — edit a DRAFT / REJECTED update. */
+export function useEditUpdate() {
+  const invalidate = useInvalidateReview();
+  return useMutation<UpdateActionResult, unknown, EditVars>({
+    mutationFn: ({ id, body }) => editUpdate(id, body),
+    retry: false,
+    onSuccess: (_data, { id, phaseId, projectId }) =>
+      invalidate({ id, phaseId, projectId }),
+  });
+}
+
+/** POST /updates/:id/submit — DRAFT → PENDING. */
+export function useSubmitUpdate() {
+  const invalidate = useInvalidateReview();
+  return useMutation<UpdateActionResult, unknown, SubmitVars>({
+    mutationFn: ({ id }) => submitUpdate(id),
     retry: false,
     onSuccess: (_data, vars) => invalidate(vars),
   });
