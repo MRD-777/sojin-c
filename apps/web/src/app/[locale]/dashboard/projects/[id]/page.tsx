@@ -19,8 +19,10 @@ import { useProject } from "@/lib/hooks/use-project";
 import { useMe } from "@/lib/hooks/use-me";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ReviewsPanel } from "@/components/dashboard/updates/reviews-panel";
+import { PhaseReportButton } from "@/components/dashboard/updates/phase-report-button";
 import { PhaseAdminControls } from "@/components/dashboard/projects/phase-admin-controls";
 import { createIdempotencyKeyHolder } from "@/lib/api/idempotency-key";
+import { canSubmitReport } from "@/lib/updates/can-submit-report";
 import type {
   PhaseStatus,
   ProjectAssignment,
@@ -150,6 +152,9 @@ export default function ProjectDetailsPage() {
   const role = me?.role;
   const canReview = role === "SUPER_ADMIN" || role === "PROJECT_MANAGER";
   const canForceCancel = role === "SUPER_ADMIN";
+  // Mirrors FIELD_ROLES on the backend — UX only, the API re-checks (and also
+  // requires an active ProjectAssignment for non-admins).
+  const canReport = canSubmitReport(role);
   // PATCH /phases/:id/{progress,reorder} both require SUPER_ADMIN|PROJECT_MANAGER.
   const canManagePhases = role === "SUPER_ADMIN" || role === "PROJECT_MANAGER";
 
@@ -400,6 +405,14 @@ export default function ProjectDetailsPage() {
                         </p>
                       </div>
                       <div className="w-full sm:w-1/3">{getProgressBar(phase.progress, isPhaseDone(phase.status))}</div>
+                      {canReport && (
+                        <PhaseReportButton
+                          phase={{ id: phase.id, name: phase.name }}
+                          projectId={project.id}
+                          userId={me?.id}
+                          active={detailTab === "phases"}
+                        />
+                      )}
                       {canManagePhases && (
                         <PhaseAdminControls
                           phase={{ id: phase.id, name: phase.name, order: phase.order, progress: phase.progress }}

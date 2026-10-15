@@ -194,6 +194,36 @@ export interface ForceCancelBody {
   reason: string;
 }
 
+// ─── POST /phases/:phaseId/updates + PATCH /updates/:id (write bodies) ───
+// Derived from CreateUpdateDto / EditUpdateDto (updates/dto/index.ts:38-150).
+//
+// Numeric fields are JSON NUMBERS, never strings: the API's global ValidationPipe
+// runs with `enableImplicitConversion: false` (main.ts:79-92) and the DTOs carry
+// no @Type(), so a string here fails @IsNumber/@IsInt with a 400 before the
+// service is reached. Same constraint the shipped project mapper documents
+// (lib/projects/map-form-to-create-input.ts:8-11).
+//
+// Optional fields must be ABSENT when unset — "" or NaN is a 400, not "no value".
+
+/** CreateUpdateDto — `title` required (5-200); everything else optional. */
+export interface CreateUpdateBody {
+  title: string;
+  description?: string;
+  workDone?: string;
+  workRemaining?: string;
+  /** Int 0-1000. */
+  workersCount?: number;
+  /** 0-24, up to 2 decimals (column is Decimal(5,2)). */
+  workHours?: number;
+  /** 0-999,999,999.99, up to 2 decimals (column is Decimal(15,2)). */
+  cost?: number;
+  /** Int 0-100. */
+  progressIncrement?: number;
+}
+
+/** EditUpdateDto — PATCH semantics: every field optional, same bounds when present. */
+export type EditUpdateBody = Partial<CreateUpdateBody>;
+
 // ─── Phase action bodies (phases/dto) ───
 /** OverrideProgressDto — progress 0–100, reason 20–2000 mandatory. */
 export interface OverrideProgressBody {

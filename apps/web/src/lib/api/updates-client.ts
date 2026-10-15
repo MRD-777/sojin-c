@@ -21,6 +21,8 @@ import { client } from "./client";
 import { unwrap } from "./http-shared";
 import type { Paginated } from "@/types/project";
 import type {
+  CreateUpdateBody,
+  EditUpdateBody,
   ForceCancelBody,
   PhaseUpdatesQuery,
   RejectUpdateBody,
@@ -49,6 +51,42 @@ export async function listPhaseUpdates(
 export async function getUpdate(id: string): Promise<UpdateDetail> {
   const res = await client.get(`/updates/${id}`);
   return unwrap<UpdateDetail>(res.data);
+}
+
+/**
+ * POST /phases/:phaseId/updates — create a DRAFT (Session A).
+ * NOT idempotent: this endpoint takes no `Idempotency-Key` (unlike approve /
+ * force-cancel). The duplicate defence is the backend's own guard — one active
+ * update per (user × phase × calendar day in the company timezone), enforced in
+ * a Serializable tx and surfaced as 409 (updates.service.ts:224-271). Callers
+ * must therefore never blind-retry; they handle the 409 instead.
+ */
+export async function createUpdate(
+  phaseId: string,
+  body: CreateUpdateBody,
+): Promise<UpdateActionResult> {
+  const res = await client.post(`/phases/${phaseId}/updates`, body);
+  return unwrap<UpdateActionResult>(res.data);
+}
+
+/**
+ * PATCH /updates/:id — edit a DRAFT or a REJECTED update.
+ * Editing a REJECTED row flips it back to DRAFT and clears the rejection
+ * metadata server-side (updates.service.ts:343-346) — the client must not try
+ * to clear those fields itself.
+ */
+export async function editUpdate(
+  id: string,
+  body: EditUpdateBody,
+): Promise<UpdateActionResult> {
+  const res = await client.patch(`/updates/${id}`, body);
+  return unwrap<UpdateActionResult>(res.data);
+}
+
+/** POST /updates/:id/submit — DRAFT → PENDING. No body, no idempotency key. */
+export async function submitUpdate(id: string): Promise<UpdateActionResult> {
+  const res = await client.post(`/updates/${id}/submit`, null);
+  return unwrap<UpdateActionResult>(res.data);
 }
 
 /**
