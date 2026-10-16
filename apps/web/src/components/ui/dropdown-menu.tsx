@@ -14,9 +14,14 @@ const DropdownMenuContent = React.forwardRef<
     align?: "start" | "center" | "end";
     side?: "top" | "bottom" | "left" | "right";
   }
+  // `align` stays destructured on purpose even though it is not forwarded: it
+  // keeps the prop out of `...props`, which is spread onto Menu.Popup and would
+  // otherwise land on the DOM. Wiring it to the positioner's real `align` prop
+  // is WEB-DROPDOWN-ALIGN-001 — it would MOVE every menu, so it waits for the
+  // UI hold to lift and for a visual check in both directions.
 >(({ className, align = "center", side = "bottom", ...props }, ref) => (
   <Menu.Portal>
-    <Menu.Positioner sideOffset={8} alignment={align} side={side}>
+    <Menu.Positioner sideOffset={8} side={side}>
       <Menu.Popup
         ref={ref}
         className={cn(
