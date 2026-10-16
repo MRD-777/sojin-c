@@ -172,4 +172,107 @@ Type error: Property 'setUser' is missing in type '{ accessToken: null; user: nu
 ### السجل في هذه المرحلة
 `WEB-DROPDOWN-ALIGN-001` **فُتحت** تحت `UI-HOLD` (بالقياس الذي يثبت أن `align` لا يصل) · `WEB-REPORT-UX-001` و`-002` **اتوصفا من المالك** ⇒ **صفر بند بالاسم بلا وصف** تحت الحظر (ثغرة القاعدة #10 مقفولة) · `WEB-TSC-001` **DONE** · `WEB-STORE-001` **مُرفَّعة لـ HIGH كحاجب حالي**.
 
-✋ تم — المرحلة 2 مقفولة، والـ session مقفولة.
+---
+
+## المرحلة 3: آخر 3 أخطاء — `next build` يعدّي لأول مرة ✅
+
+### 3أ — `use-auth-store.ts` (WEB-STORE-001 + R-4 جزء 1)
+**التغيير:** شطب `setUser: (user: AuthUser) => void;` من `interface AuthState` + تعليق يشرح أنه كان **فخاً** (نوع يَعِد بـ setter غير موجود ⇒ أول مستدعٍ يقع وقت التشغيل والـ type-check نضيف).
+
+**#7أ — الملف في طبقة الـ auth، فالحياد مطلوب إثباته لا ادّعاؤه:**
+
+| الفحص | قبل | بعد |
+|---|---|---|
+| `grep -rn "setUser" apps/web/src` | تطابق **1** = التعريف نفسه (`:51`) | تطابق **1** = **التعليق الشارح فقط** |
+| مستدعون فعليون | **0** | **0** |
+| الـ JS الناتج (`ts.transpileModule`) | **1539 بايت** | **1539 بايت** |
+| `diff` للـ JS الناتج | — | **فاضي تماماً** |
+
+```
+=== emit JS BEFORE ===  emitted bytes: 1539
+=== emit JS AFTER  ===  emitted bytes: 1539
+=== DIFF of emitted JS (before vs after) ===
+✅ IDENTICAL — the emitted JavaScript is byte-for-byte the same
+```
+⇒ **تغيير type-only خالص: صفر أثر runtime، صفر سطح جديد، صفر مستهلك متأثر** ⇒ **لا يرفع الـ mode** رغم كونه في مسار auth (المعيار 1: لا دلالة تتغيّر · المعيار 2: لا كود جديد يُعرَّض).
+
+### 3ب — `decide-redirect.spec.ts` (WEB-TSC-002)
+**التغيير:** `process.env.NODE_ENV = env` ⇒ **`vi.stubEnv("NODE_ENV", env)`**، و`afterEach` بقى **`vi.unstubAllEnvs()`**. ملف اختبار فقط.
+
+**صفر تأكيد اتغيّر — مُتحقَّق بالـ diff:** الأسطر الوحيدة اللي فيها كلمة `expect` في الـ diff هي **سطر الـ import** (اللي بيستورد `expect` كاسم) و**تعليق**. ولا `toBe` ولا `toBeNull` ولا أي مقياس اتلمس.
+
+**🔬 إثبات إن المُنبِّه بيعضّ (probe مؤقت، اتشال):**
+```
+# probe: expect(process.env.NODE_ENV).toBe(env) جوّه اللوب
+ ✓ decideAuthRedirect (4 tests)        ⇒ stubEnv وصلت فعلاً
+
+# ثم: vi.stubEnv("NODE_ENV", "WRONG_VALUE")
+ × decideAuthRedirect > no hint + dashboard -> /{locale}/login in every environment
+   → expected 'WRONG_VALUE' to be 'development' // Object.is equality
+      Tests  1 failed | 3 passed (4)
+
+# بعد الإرجاع
+      Tests  4 passed (4)
+```
+
+🔴 **تصحيح لازم يُسجَّل — الصياغة المطلوبة ماكانتش قابلة للتحقق كما هي:**
+التكليف قال «غيّر NODE_ENV لقيمة غلط ⇒ **لازم يقع**». **ده لا يحصل، ولا يصحّ أن يحصل.** الـ spec ده بيثبت إن `decideAuthRedirect` **لا تتفرّع على البيئة إطلاقاً** — اللوب على تلات بيئات بيتوقّع **نفس الناتج**. فلو قيمة بيئة غلط أسقطت التأكيد، يبقى **فيه فرع بيئي في الكود** وهو **بالظبط العيب اللي الاختبار اتكتب يحرسه**. ⇒ نفّذت نفس السؤال في صورته الصحيحة: إثبات إن **المُنبِّه نفسه يصل** (probe أعلاه)، لا إن **النتيجة تتغيّر**.
+
+### Verification (literal)
+
+**tsc — صفر أخطاء ✅ (لأول مرة):**
+```
+$ npx tsc --noEmit -p tsconfig.json
+=== tsc exit: 0 ===
+=== error count: 0 ===
+```
+
+**`next build` — عدّى كامل ✅ (لأول مرة — compile + type-check + توليد الصفحات):**
+```
+=== next build exit: 0 ===
+▲ Next.js 16.2.3 (Turbopack)
+
+⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+  Creating an optimized production build ...
+✓ Compiled successfully in 27.9s
+  Running TypeScript ...
+  Finished TypeScript in 17.1s ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/3) ...
+✓ Generating static pages using 1 worker (3/3) in 210ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /_not-found
+├ ƒ /[locale]
+…
+└ ƒ /[locale]/solutions
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+```
+
+**vitest — كله أخضر ✅:**
+```
+ Test Files  20 passed (20)
+      Tests  95 passed (95)
+```
+
+### السلسلة مقفولة — وما تبقّى
+| # | الخطأ | التذكرة | الحالة |
+|---|---|---|---|
+| 1 | `permissions/page.tsx:287` (`cn`) | `WEB-TSC-001` | ✅ |
+| 2 | `dropdown-menu.tsx:19` (`alignment`) | `WEB-TSC-001` | ✅ |
+| 3 | `use-auth-store.ts:57` (`setUser`) | `WEB-STORE-001` + `R-4` ج1 | ✅ |
+| 4 | `decide-redirect.spec.ts:9,18` (`NODE_ENV`) | `WEB-TSC-002` | ✅ |
+
+**صفر خطأ رابع غير متوقَّع ظهر** ⇒ لم تلزم وقفة. **حظر الشحن مرفوع: `next build` exit 0.**
+
+**تحذير واجب:** رفع الحظر يعني **الـ build يمرّ**، لا إن الواجهة جاهزة. **`UI-HOLD` ما زال سارياً**، و`CLIENT-GATE-001` 🔴 و`SEC-SOD-001` 🔴 **مفتوحتان** — فالقدرة على الشحن دلوقتي **بوابة تقنية اتفتحت، مش إذن منتج**.
+
+### السجل
+`WEB-TSC-001` ✅ · `WEB-TSC-002` ✅ · `WEB-STORE-001` ✅ · `R-4` **جزء 1 مقفول، جزء 2 (`setSession` side-effect) مفتوح بنصّه**.
+
+✋ تم — الـ session مقفولة.

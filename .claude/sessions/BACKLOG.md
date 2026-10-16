@@ -335,7 +335,21 @@
 
 ## Session S2 (generic API client + React Query) — Tickets مضافة
 
-### WEB-STORE-001 — `setUser` phantom في use-auth-store 🔴 HIGH (الحاجب الحالي للـ build)
+### ~~WEB-STORE-001 — `setUser` phantom في use-auth-store~~ ✅ **DONE** (2026-10-16)
+> **شُطب `setUser` من `AuthState`** — لم يُنفَّذ، لأن R-4 توصّفه **فخاً لا واجهة**:
+> النوع كان بيعد بـ setter **الستور ماعندوش**، فأول مستدعٍ كان هيقع **وقت
+> التشغيل** بينما الـ type-check نضيف.
+> **الدليل المقيس (قبل/بعد):**
+> - `grep -rn "setUser" apps/web/src` **قبل** = تطابق واحد (التعريف نفسه، سطر 51)
+>   · **بعد** = تطابق واحد (**التعليق الشارح فقط**) ⇒ **صفر مستدعٍ في الحالتين.**
+> - **الـ JS الناتج للملف متطابق بايت ببايت** (`ts.transpileModule` قبل/بعد =
+>   **1539 بايت**، و`diff` فاضي) ⇒ **تغيير type-only بصفر أثر runtime** —
+>   وهو الفحص المطلوب لـ #7أ على ملف في طبقة الـ auth.
+> - `tsc` 3 → 1، ثم 0 بعد `WEB-TSC-002`.
+> **R-4 يُقفَل جزؤه الأول (phantom) بهذا**؛ جزؤه الثاني (`setSession`
+> side-effect) منفصل — انظر `R-4` أدناه.
+
+### (الأصل) WEB-STORE-001 — `setUser` phantom 🔴 HIGH (كان الحاجب للـ build)
 > **🔺 مُرفَّعة من 🟡 MEDIUM في 2026-10-16:** بعد إقفال `WEB-TSC-001` بالكامل،
 > دي بقت **الخطأ الأول اللي `next build` بيسقط عليه** ⇒ **هي حظر الشحن الحالي**،
 > لا دَين نوع.
@@ -361,7 +375,24 @@
 - الـ Fix: إمّا تنفيذ `setUser: (user) => set({ user })` في الـ `create(...)`، أو حذف الإعلان من الـ interface لو مفيش مستهلك مقصود. (S2 استخدم `setSession` للـ hydration تجنّباً للـ trap — WEB-S1-001 مقفول من غير الاعتماد عليه.)
 - Source: Session S2 / 02-coder-report.md المرحلة 2 + 04-tester-report.md.
 
-### WEB-TSC-002 — NODE_ENV read-only assignment في decide-redirect.spec.ts 🟢 LOW (pre-existing tsc error)
+### ~~WEB-TSC-002 — NODE_ENV read-only assignment في decide-redirect.spec.ts~~ ✅ **DONE** (2026-10-16)
+> الإسناد المباشر اتبدل بـ **`vi.stubEnv("NODE_ENV", env)`** + **`vi.unstubAllEnvs()`**
+> في `afterEach` (الخيار الأول من الـ Fix المقترح — بلا cast وبلا `ts-expect-error`).
+> **صفر تأكيد اتغيّر:** `git diff` على الملف ما فيهوش أي سطر `expect`/`toBe`/`toBeNull`
+> معدَّل — التغيير كله في **المُنبِّه** لا في المقاييس.
+>
+> **🔬 إثبات إن المُنبِّه حقيقي (probe مؤقت، اتشال بعد القياس):** إضافة
+> `expect(process.env.NODE_ENV).toBe(env)` جوّه اللوب ⇒ **أخضر**؛ ثم تثبيت
+> `vi.stubEnv("NODE_ENV", "WRONG_VALUE")` ⇒ **سقط بالاسم**:
+> `AssertionError: expected 'WRONG_VALUE' to be 'development'`. ⇒ **`stubEnv`
+> بتكتب فعلاً في `process.env`، مش no-op صامت.**
+>
+> 🔴 **تصحيح لتوقّع شائع وجب تسجيله:** قيمة NODE_ENV "غلط" **لا تُسقِط تأكيدات
+> الـ spec الأصلية — ولا يصحّ أن تُسقطها.** الاختبار ده بالذات بيثبت إن
+> `decideAuthRedirect` **لا تتفرّع على البيئة إطلاقاً** (اللوب على تلات بيئات
+> يتوقّع **نفس الناتج**). فلو بيئة غلط خلّته يسقط، يبقى **فيه فرع بيئي** — وهو
+> بالظبط العيب اللي الاختبار اتكتب يحرسه. عشان كده الإثبات اتعمل على **وصول
+> المُنبِّه** لا على تغيّر النتيجة.
 - الموقع: `apps/web/src/lib/auth/decide-redirect.spec.ts:9` + `:18`.
 - المشكلة: الـ spec بيعمل `process.env.NODE_ENV = ...` لكن `NODE_ENV` بقى **read-only** في الـ types الحالية → خطآن `TS2540: Cannot assign to 'NODE_ENV' because it is a read-only property`. الـ spec بيـ pass في vitest (runtime) لكن يفشل tsc.
 - الـ Fix: استخدام `vi.stubEnv("NODE_ENV", ...)` بدل الإسناد المباشر، أو `Object.defineProperty`.
@@ -436,7 +467,12 @@
 - spec سالب مقترح: 500 على `/users/me` ⇒ **مفيش** redirect (كان هيكشف الحالة دي لو اتكتب).
 - Source: Session S2 / 05-principal-report.md (R-3) + 06-meta-review.md.
 
-### R-4 — WEB-STORE-001: setUser phantom + setSession side-effect 🟡 MEDIUM
+### R-4 — WEB-STORE-001: setUser phantom + setSession side-effect 🟡 MEDIUM — **الجزء الأول مقفول**
+> **✅ الجزء الأول (phantom) مقفول في 2026-10-16:** `setUser` **شُطب** من
+> `AuthState` (لم يُنفَّذ) — الدليل الكامل في `WEB-STORE-001` أعلاه:
+> صفر مستدعٍ قبل وبعد، والـ JS الناتج **متطابق بايت ببايت** (1539).
+> **⛔ الجزء الثاني (`setSession` side-effect) ما زال مفتوحاً** ولم تلمسه هذه
+> الجلسة — البند يبقى مفتوحاً بنصّه الأصلي أدناه حتى يُقفَل الجزءان.
 - **بند مركّب — الجزء الأول (phantom) مسجّل بالفعل كـ [WEB-STORE-001] فوق؛ هنا نضيف الجزء التاني (side-effect) ونربطهم كشرط S3.**
 - الموقع: `apps/web/src/store/use-auth-store.ts:51/57` (phantom) + `use-me.ts` (hydration بـ `setSession`).
 - المشكلة:

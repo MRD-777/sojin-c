@@ -1,12 +1,15 @@
-import { describe, it, expect, afterEach } from "vitest";
+import { describe, it, expect, afterEach, vi } from "vitest";
 import { decideAuthRedirect } from "./decide-redirect";
 
 const CFG = { locales: ["en", "ar"] as const, defaultLocale: "ar" };
 
 describe("decideAuthRedirect", () => {
-  const prevEnv = process.env.NODE_ENV;
+  // NODE_ENV is typed read-only, so assigning to it directly failed type-check
+  // and blocked `next build` (WEB-TSC-002). vi.stubEnv sets it through vitest's
+  // own env handling and unstubAllEnvs restores whatever was there before —
+  // same stimulus, same restoration, no cast and no ts-expect-error.
   afterEach(() => {
-    process.env.NODE_ENV = prevEnv;
+    vi.unstubAllEnvs();
   });
 
   // MVT #3 — unauthenticated dashboard hit redirects to login in EVERY env.
@@ -15,7 +18,7 @@ describe("decideAuthRedirect", () => {
   // string", but "returns the SAME string regardless of NODE_ENV".
   it("no hint + dashboard -> /{locale}/login in every environment", () => {
     for (const env of ["development", "production", "test"]) {
-      process.env.NODE_ENV = env;
+      vi.stubEnv("NODE_ENV", env);
       expect(
         decideAuthRedirect({
           pathname: "/ar/dashboard",

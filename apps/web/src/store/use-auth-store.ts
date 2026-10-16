@@ -48,7 +48,11 @@ interface AuthState {
 
   setSession: (session: { accessToken: string; user: AuthUser }) => void;
   setAccessToken: (accessToken: string) => void;
-  setUser: (user: AuthUser) => void;
+  // `setUser` used to be declared here with no implementation and no caller —
+  // a trap, not an API (R-4 / WEB-STORE-001): the type promised a setter the
+  // store never had, so the first caller would have failed at runtime while
+  // type-checking clean. Removed rather than implemented, because nothing in
+  // the app ever asked for it.
   setPendingRegistration: (pending: PendingRegistration) => void;
   clearPendingRegistration: () => void;
   clear: () => void;
